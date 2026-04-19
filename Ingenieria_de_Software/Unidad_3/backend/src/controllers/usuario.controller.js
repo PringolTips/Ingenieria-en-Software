@@ -2,6 +2,17 @@ const usuarioService = require('../services/usuario.service');
 
 const obtenerUsuarios = async (req, res, next) => {
   try {
+    const usuarios = await usuarioService.listarTodos();
+    res.json({
+      ok: true,
+      data: usuarios
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+const obtenerActivos = async (req, res, next) => {
+  try {
     const usuarios = await usuarioService.listarActivos();
     res.json({ ok: true, data: usuarios });
   } catch (error) {
@@ -63,8 +74,10 @@ const eliminarUsuario = async (req, res, next) => {
   }
 };
 
+
 module.exports = {
   obtenerUsuarios,
+  obtenerActivos,
   obtenerUsuarioPorNombre,
   crearUsuario,
   actualizarUsuario,

@@ -4,6 +4,7 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuario.controller');
 // const verificarToken = require('../middlewares/auth.middleware');
 
+router.get('/activos', usuarioController.obtenerActivos);
 router.get('/', usuarioController.obtenerUsuarios);
 router.get('/:nombre_usuario', usuarioController.obtenerUsuarioPorNombre);
 router.post('/', usuarioController.crearUsuario);

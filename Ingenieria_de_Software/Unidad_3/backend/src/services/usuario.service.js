@@ -145,7 +145,7 @@ const actualizarUsuario = async ({
 
 const eliminarUsuario = async (nombre_usuario) => {
   const existente = await db.query(
-    'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
+    'SELECT * FROM digiclin.vw_usuario_delete WHERE nombre_usuario = $1::varchar',
     [nombre_usuario]
   );
 

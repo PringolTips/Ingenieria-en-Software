@@ -18,6 +18,13 @@ app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/auth', authRoutes);
 app.use(errorHandler);
 
+app.use(cors({
+  origin: 'https://d3iroc0yc8yji7.cloudfront.net',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
+
 module.exports = app;
 
 /*const testRoutes = require('./routes/test.routes');

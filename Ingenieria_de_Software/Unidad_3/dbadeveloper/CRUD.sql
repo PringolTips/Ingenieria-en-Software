@@ -1,45 +1,62 @@
---- READ VIEW ACTIVOS ----
+---  VIEW usuarios_activos ----
 SET search_path TO digiclin;
-
-CREATE OR REPLACE VIEW vw_usuarios_activos AS
+CREATE OR REPLACE VIEW digiclin.vw_usuarios_activos AS
 SELECT
-    u.id_usuario,
     u.nombre_usuario,
     u.correo,
-    u.password_hash,
     u.debe_cambiar_password,
     u.fecha_creacion,
-    u.id_rol,
     r.nombre_rol,
-    u.id_estatus_usuario,
     eu.nombre_estatus
-FROM usuario u
-INNER JOIN rol r
+FROM digiclin.usuario u
+JOIN digiclin.rol r
     ON u.id_rol = r.id_rol
-INNER JOIN estatus_usuario eu
+JOIN digiclin.estatus_usuario eu
     ON u.id_estatus_usuario = eu.id_estatus_usuario
-WHERE eu.nombre_estatus = 'ACTIVO';
+WHERE eu.nombre_estatus = 'Activo';
 
-----READ VIEW UNO----
+----VIEW usuario----
 SET search_path TO digiclin;
-
-CREATE OR REPLACE VIEW vw_usuario AS
+CREATE OR REPLACE VIEW digiclin.vw_usuario AS
 SELECT
-    u.id_usuario,
+    u.nombre_usuario,
+    u.correo,
+    u.debe_cambiar_password,
+    u.fecha_creacion,
+    r.nombre_rol,
+    eu.nombre_estatus
+FROM digiclin.usuario u
+JOIN digiclin.rol r
+    ON u.id_rol = r.id_rol
+JOIN digiclin.estatus_usuario eu
+    ON u.id_estatus_usuario = eu.id_estatus_usuario;
+
+----VIEW vw_usuario_login----
+
+CREATE OR REPLACE VIEW digiclin.vw_usuario_login AS
+SELECT
     u.nombre_usuario,
     u.correo,
     u.password_hash,
     u.debe_cambiar_password,
-    u.fecha_creacion,
-    u.id_rol,
     r.nombre_rol,
-    u.id_estatus_usuario,
     eu.nombre_estatus
-FROM usuario u
-INNER JOIN rol r
+FROM digiclin.usuario u
+JOIN digiclin.rol r
     ON u.id_rol = r.id_rol
-INNER JOIN estatus_usuario eu
+JOIN digiclin.estatus_usuario eu
     ON u.id_estatus_usuario = eu.id_estatus_usuario;
+
+
+---VIEW usuario_delete--------
+CREATE VIEW digiclin.vw_usuario_delete AS
+SELECT
+    u.nombre_usuario,
+    u.correo,
+    r.nombre_rol
+FROM digiclin.usuario u
+JOIN digiclin.rol r
+    ON u.id_rol = r.id_rol;
 
 
 ----CREAR PROCEDURE----
@@ -89,14 +106,14 @@ $$;
 ----UPDATE PROCEDURE----
 SET search_path TO digiclin;
 
-CREATE OR REPLACE PROCEDURE sp_actualizar_usuario(
-    IN p_id_usuario INTEGER,
-    IN p_nombre_usuario VARCHAR(50),
-    IN p_correo VARCHAR(100),
-    IN p_password_hash VARCHAR(255),
-    IN p_nombre_rol VARCHAR(50),
-    IN p_nombre_estatus VARCHAR(30),
-    IN p_debe_cambiar_password BOOLEAN
+CREATE OR REPLACE PROCEDURE digiclin.sp_actualizar_usuario(
+    p_nombre_usuario_actual VARCHAR,
+    p_nuevo_nombre_usuario VARCHAR,
+    p_correo VARCHAR,
+    p_password_hash VARCHAR,
+    p_nombre_rol VARCHAR,
+    p_nombre_estatus VARCHAR,
+    p_debe_cambiar_password BOOLEAN
 )
 LANGUAGE plpgsql
 AS $$
@@ -104,27 +121,38 @@ DECLARE
     v_id_rol INTEGER;
     v_id_estatus INTEGER;
 BEGIN
-    SELECT id_rol INTO v_id_rol
-    FROM rol
-    WHERE nombre_rol = p_nombre_rol;
+    v_id_rol := NULL;
+    v_id_estatus := NULL;
 
-    SELECT id_estatus_usuario INTO v_id_estatus
-    FROM estatus_usuario
-    WHERE nombre_estatus = p_nombre_estatus;
+    IF p_nombre_rol IS NOT NULL THEN
+        SELECT id_rol INTO v_id_rol
+        FROM digiclin.rol
+        WHERE nombre_rol = p_nombre_rol;
 
-    UPDATE usuario
-    SET
-        id_rol = v_id_rol,
-        id_estatus_usuario = v_id_estatus,
-        nombre_usuario = p_nombre_usuario,
-        correo = p_correo,
-        password_hash = p_password_hash,
-        debe_cambiar_password = p_debe_cambiar_password
-    WHERE id_usuario = p_id_usuario;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Usuario no encontrado';
+        IF v_id_rol IS NULL THEN
+            RAISE EXCEPTION 'El rol no existe: %', p_nombre_rol;
+        END IF;
     END IF;
+
+    IF p_nombre_estatus IS NOT NULL THEN
+        SELECT id_estatus_usuario INTO v_id_estatus
+        FROM digiclin.estatus_usuario
+        WHERE nombre_estatus = p_nombre_estatus;
+
+        IF v_id_estatus IS NULL THEN
+            RAISE EXCEPTION 'El estatus no existe: %', p_nombre_estatus;
+        END IF;
+    END IF;
+
+    UPDATE digiclin.usuario
+    SET
+        nombre_usuario = COALESCE(p_nuevo_nombre_usuario, nombre_usuario),
+        correo = COALESCE(p_correo, correo),
+        password_hash = COALESCE(p_password_hash, password_hash),
+        id_rol = COALESCE(v_id_rol, id_rol),
+        id_estatus_usuario = COALESCE(v_id_estatus, id_estatus_usuario),
+        debe_cambiar_password = COALESCE(p_debe_cambiar_password, debe_cambiar_password)
+    WHERE nombre_usuario = p_nombre_usuario_actual;
 END;
 $$;
 ---- DELETE PROCEDURE---
@@ -136,11 +164,11 @@ CREATE OR REPLACE PROCEDURE sp_eliminar_usuario(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    DELETE FROM usuario
-    WHERE id_usuario = p_id_usuario;
+    DELETE FROM digiclin.usuario
+    WHERE nombre_usuario = p_nombre_usuario;
 
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'Usuario no encontrado';
+        RAISE EXCEPTION 'Usuario no encontrado: %', p_nombre_usuario;
     END IF;
 END;
-$$;
+

@@ -31,7 +31,27 @@ const perfil = async (req, res, next) => {
   }
 };
 
+const cambiarPassword = async (req, res, next) => {
+  try {
+    const nombre_usuario = req.usuario.nombre_usuario;
+
+    const resultado = await authService.cambiarPassword(
+      nombre_usuario,
+      req.body
+    );
+
+    res.json({
+      ok: true,
+      mensaje: 'Contraseña actualizada correctamente',
+      data: resultado
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   login,
-  perfil
+  perfil,
+  cambiarPassword
 };

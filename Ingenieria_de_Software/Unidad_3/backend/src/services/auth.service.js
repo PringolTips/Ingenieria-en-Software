@@ -90,18 +90,19 @@ const verificarPerfil = async (nombre_usuario) => {
 };
 
 const cambiarPassword = async (
-  nombre_usuario,
+  correo,
   { password_actual, password_nueva, confirmar_password_nueva }
 ) => {
-  if (!password_actual || !password_nueva || !confirmar_password_nueva) {
-    const camposFaltantes = [];
+  const camposFaltantes = [];
 
-    if (!password_actual) camposFaltantes.push('password_actual');
-    if (!password_nueva) camposFaltantes.push('password_nueva');
-    if (!confirmar_password_nueva) {
-      camposFaltantes.push('confirmar_password_nueva');
-    }
+  if (!correo) camposFaltantes.push('correo');
+  if (!password_actual) camposFaltantes.push('password_actual');
+  if (!password_nueva) camposFaltantes.push('password_nueva');
+  if (!confirmar_password_nueva) {
+    camposFaltantes.push('confirmar_password_nueva');
+  }
 
+  if (camposFaltantes.length > 0) {
     const error = new Error('Faltan campos obligatorios');
     error.statusCode = 400;
     error.campos = camposFaltantes;
@@ -125,8 +126,10 @@ const cambiarPassword = async (
   }
 
   const res = await db.query(
-    'SELECT * FROM digiclin.vw_usuario_login WHERE nombre_usuario = $1::varchar',
-    [nombre_usuario]
+    `SELECT * 
+     FROM digiclin.vw_usuario_login 
+     WHERE LOWER(correo) = LOWER($1::varchar)`,
+    [correo.trim()]
   );
 
   if (res.rows.length === 0) {
@@ -152,7 +155,7 @@ const cambiarPassword = async (
 
   await db.query(
     'CALL digiclin.sp_cambiar_password_usuario($1::varchar, $2::varchar)',
-    [nombre_usuario, nuevoHash]
+    [usuario.nombre_usuario, nuevoHash]
   );
 
   return {

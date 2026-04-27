@@ -162,11 +162,33 @@ const eliminarUsuario = async (nombre_usuario) => {
 
   return existente.rows[0];
 };
+
+const obtenerUsuarioPorCorreo = async (correo) => {
+  if (!correo) {
+    const error = new Error('El correo es obligatorio');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.vw_usuario WHERE LOWER(correo) = LOWER($1::varchar)',
+    [correo.trim()]
+  );
+
+  if (res.rows.length === 0) {
+    const error = new Error('Usuario no encontrado');
+    error.statusCode = 404;
+    throw error;
+  }
+
+  return res.rows[0];
+};
 module.exports = {
   listarActivos,
   listarTodos,
   obtenerUsuarioPorNombre,
   crearUsuario,
   actualizarUsuario,
-  eliminarUsuario
+  eliminarUsuario,
+  obtenerUsuarioPorCorreo
 };

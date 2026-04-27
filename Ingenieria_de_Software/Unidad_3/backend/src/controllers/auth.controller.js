@@ -33,10 +33,10 @@ const perfil = async (req, res, next) => {
 
 const cambiarPassword = async (req, res, next) => {
   try {
-    const nombre_usuario = req.usuario.nombre_usuario;
+    const { correo } = req.body;
 
     const resultado = await authService.cambiarPassword(
-      nombre_usuario,
+      correo,
       req.body
     );
 

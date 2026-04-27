@@ -14,12 +14,17 @@ app.get('/', (req, res) => {
   res.send('API DIGICLIN funcionando');
 });
 
+
+
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/auth', authRoutes);
 app.use(errorHandler);
 
 app.use(cors({
-  origin: 'https://d3iroc0yc8yji7.cloudfront.net',
+  origin: ['https://d3iroc0yc8yji7.cloudfront.net',
+           'https://digiclin.online',
+           'https://www.digiclin.online'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

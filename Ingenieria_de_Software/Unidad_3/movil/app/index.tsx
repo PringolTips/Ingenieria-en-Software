@@ -1,79 +1,152 @@
-import { Activity, Eye, EyeOff, Lock, Mail } from 'lucide-react-native'; // Versión para móvil
+// app/index.tsx
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
+// Ajusta la ruta a '../../' si moviste el archivo a (tabs)
 import handleLogin from '../logic/handleLogin';
+
+// 1. DEFINIMOS COLORS (Para que no marque error en COLORS.muted)
+const COLORS = {
+  primary: '#1976D2',
+  muted: '#A0AEC0',
+  text: '#0F172A',
+  border: '#E2E8F0'
+};
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [pass, setPass] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  // 2. DECLARAMOS EL ESTADO QUE FALTABA
+  const [showPass, setShowPass] = useState(false);
 
   return (
-    // KeyboardAvoidingView evita que el teclado tape los inputs al escribir
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-      <View style={styles.card}>
-        <View style={styles.logoContainer}>
-          <Activity size={40} color="#1565C0" />
-          <Text style={styles.title}>DIGICLIN</Text>
-        </View>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      style={styles.main}
+    >
+      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <View style={styles.card}>
 
-        <Text style={styles.subtitle}>Gestión de Expedientes Clínicos</Text>
+          {/* LOGO DE ONDA (ECG) */}
+          <View style={styles.logoBox}>
+            <MaterialCommunityIcons name="pulse" size={70} color={COLORS.primary} />
+            <Text style={styles.logoText}>DIGICLIN</Text>
+            <Text style={styles.subText}>Gestión de Expedientes Clínicos</Text>
+          </View>
 
-        <View style={styles.inputGroup}>
           <Text style={styles.label}>Correo electrónico</Text>
-          <View style={styles.inputWrapper}>
-            <Mail size={20} color="#666" style={styles.icon} />
-            <TextInput 
-              style={styles.input}
+          <View style={styles.inputRow}>
+            <Ionicons name="mail-outline" size={20} color={COLORS.muted} />
+            <TextInput
               placeholder="usuario@ejemplo.com"
-              value={email}
+              placeholderTextColor={COLORS.muted}
+              style={styles.input}
               onChangeText={setEmail}
-              keyboardType="email-address"
+              value={email}
               autoCapitalize="none"
+              keyboardType="email-address"
             />
           </View>
-        </View>
 
-        <View style={styles.inputGroup}>
           <Text style={styles.label}>Contraseña</Text>
-          <View style={styles.inputWrapper}>
-            <Lock size={20} color="#666" style={styles.icon} />
-            <TextInput 
-              style={styles.input}
+          <View style={styles.inputRow}>
+            <Ionicons name="lock-closed-outline" size={20} color={COLORS.muted} />
+            <TextInput
               placeholder="••••••••"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={!showPassword}
+              placeholderTextColor={COLORS.muted}
+              // Ahora sí detectará showPass
+              secureTextEntry={!showPass} 
+              style={styles.input}
+              onChangeText={setPass} 
+              value={pass}
+              autoCapitalize="none"
+              autoCorrect={false}
             />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              {showPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
+            
+            {/* 3. ENVOLVEMOS EL ICONO EN BOTÓN PARA QUE FUNCIONE */}
+            <TouchableOpacity onPress={() => setShowPass(!showPass)} style={{ padding: 5 }}>
+                <Ionicons 
+                  name={showPass ? "eye-outline" : "eye-off-outline"} 
+                  size={22} 
+                  color={COLORS.muted} 
+                />
             </TouchableOpacity>
           </View>
-        </View>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => handleLogin(email, password)}
-        >
-          <Text style={styles.buttonText}>Ingresar</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity 
+            style={styles.btn} 
+            onPress={() => handleLogin(email, pass, setLoading)}
+          >
+            <Text style={styles.btnText}>Ingresar</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      {/* MODAL DE CARGA */}
+      <Modal transparent visible={loading} animationType="fade">
+        <View style={styles.modal}>
+          <View style={styles.loader}>
+            <ActivityIndicator size="large" color={COLORS.primary} />
+            <Text style={{ marginTop: 10, fontWeight: 'bold' }}>Cargando...</Text>
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
 
-// En móvil usamos StyleSheet, que es como CSS pero en objetos de JS
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f5f5f5', justifyContent: 'center', padding: 20 },
-  card: { backgroundColor: 'white', padding: 30, borderRadius: 15, elevation: 5 }, // elevation es para sombras en Android
-  logoContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#1565C0', marginLeft: 10 },
-  subtitle: { textAlign: 'center', color: '#666', marginBottom: 30 },
-  inputGroup: { marginBottom: 20 },
-  label: { fontSize: 14, fontWeight: '500', marginBottom: 5 },
-  inputWrapper: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#ddd', borderRadius: 8, paddingHorizontal: 10 },
-  icon: { marginRight: 10 },
-  input: { flex: 1, height: 50 },
-  button: { backgroundColor: '#1565C0', height: 55, borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginTop: 10 },
-  buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' }
+  main: { flex: 1, backgroundColor: '#F8FAFC' },
+  container: { flexGrow: 1, justifyContent: 'center', padding: 25 },
+  card: { 
+    backgroundColor: '#fff', 
+    borderRadius: 25, 
+    padding: 30, 
+    elevation: 10, 
+    shadowColor: '#000', 
+    shadowOpacity: 0.1, 
+    shadowRadius: 20 
+  },
+  logoBox: { alignItems: 'center', marginBottom: 30 },
+  logoText: { fontSize: 34, fontWeight: 'bold', color: '#1976D2' },
+  subText: { color: '#64748B', fontSize: 16, textAlign: 'center' },
+  label: { fontWeight: 'bold', fontSize: 16, marginTop: 15, marginBottom: 8 },
+  inputRow: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    borderWidth: 1, 
+    borderColor: '#E2E8F0', 
+    borderRadius: 12, 
+    paddingHorizontal: 15, 
+    height: 55 
+  },
+  input: { flex: 1, marginLeft: 10, fontSize: 16, color: '#0F172A' },
+  btn: { 
+    backgroundColor: '#1976D2', 
+    padding: 18, 
+    borderRadius: 15, 
+    alignItems: 'center', 
+    marginTop: 30 
+  },
+  btnText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  modal: { 
+    flex: 1, 
+    backgroundColor: 'rgba(0,0,0,0.4)', 
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  },
+  loader: { backgroundColor: '#fff', padding: 30, borderRadius: 20, alignItems: 'center' }
 });

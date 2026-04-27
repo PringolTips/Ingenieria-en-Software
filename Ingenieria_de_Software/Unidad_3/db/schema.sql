@@ -1,4 +1,4 @@
----TABLAS CATÁLOGOS ---
+--TABLAS CATÁLOGOS 
 CREATE SCHEMA IF NOT EXISTS digiclin;
 SET search_path TO digiclin;
 
@@ -73,7 +73,7 @@ CREATE TABLE tipo_tratamiento (
 );
 
 
----TABLAS DE USUARIOS---
+--TABLAS DE USUARIOS
 SET search_path TO digiclin;
 
 CREATE TABLE usuario (
@@ -132,7 +132,7 @@ CREATE TABLE director (
 );
 
 
---- TABLA PACIENTE Y RELACIONADAS---
+-- TABLA PACIENTE Y RELACIONADAS
 SET search_path TO digiclin;
 
 CREATE TABLE paciente (
@@ -181,7 +181,7 @@ CREATE TABLE paciente_enfermedad (
         FOREIGN KEY (id_enfermedad) REFERENCES enfermedad_cronica(id_enfermedad)
 );
 
----TABLA DIAGNÓSTICO, EXPEDIENTE Y TRATAMIENTO ----
+--TABLA DIAGNÓSTICO, EXPEDIENTE Y TRATAMIENTO 
 SET search_path TO digiclin;
 
 CREATE TABLE diagnostico (
@@ -252,7 +252,7 @@ CREATE TABLE tratamiento (
         FOREIGN KEY (id_medicamento) REFERENCES medicamento(id_medicamento)
 );
 
---- TABLA HISTORIAL, AUDITORÍA E ÍNDICES ----
+-- TABLA HISTORIAL, AUDITORÍA E ÍNDICES 
 SET search_path TO digiclin;
 
 CREATE TABLE historial_expediente (
@@ -289,6 +289,7 @@ CREATE TABLE auditoria (
         CHECK (accion IN ('INSERT', 'UPDATE', 'DELETE', 'CONSULTA'))
 );
 
+-- Indices
 CREATE INDEX idx_paciente_nombre
     ON paciente (apellido_pat, apellido_mat, nombre_p);
 

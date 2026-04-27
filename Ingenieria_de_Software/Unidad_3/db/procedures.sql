@@ -1,65 +1,4 @@
----  VIEW usuarios_activos ----
-SET search_path TO digiclin;
-CREATE OR REPLACE VIEW digiclin.vw_usuarios_activos AS
-SELECT
-    u.nombre_usuario,
-    u.correo,
-    u.debe_cambiar_password,
-    u.fecha_creacion,
-    r.nombre_rol,
-    eu.nombre_estatus
-FROM digiclin.usuario u
-JOIN digiclin.rol r
-    ON u.id_rol = r.id_rol
-JOIN digiclin.estatus_usuario eu
-    ON u.id_estatus_usuario = eu.id_estatus_usuario
-WHERE eu.nombre_estatus = 'Activo';
-
-----VIEW usuario----
-SET search_path TO digiclin;
-CREATE OR REPLACE VIEW digiclin.vw_usuario AS
-SELECT
-    u.nombre_usuario,
-    u.correo,
-    u.debe_cambiar_password,
-    u.fecha_creacion,
-    r.nombre_rol,
-    eu.nombre_estatus
-FROM digiclin.usuario u
-JOIN digiclin.rol r
-    ON u.id_rol = r.id_rol
-JOIN digiclin.estatus_usuario eu
-    ON u.id_estatus_usuario = eu.id_estatus_usuario;
-
-----VIEW vw_usuario_login----
-
-CREATE OR REPLACE VIEW digiclin.vw_usuario_login AS
-SELECT
-    u.nombre_usuario,
-    u.correo,
-    u.password_hash,
-    u.debe_cambiar_password,
-    r.nombre_rol,
-    eu.nombre_estatus
-FROM digiclin.usuario u
-JOIN digiclin.rol r
-    ON u.id_rol = r.id_rol
-JOIN digiclin.estatus_usuario eu
-    ON u.id_estatus_usuario = eu.id_estatus_usuario;
-
-
----VIEW usuario_delete--------
-CREATE VIEW digiclin.vw_usuario_delete AS
-SELECT
-    u.nombre_usuario,
-    u.correo,
-    r.nombre_rol
-FROM digiclin.usuario u
-JOIN digiclin.rol r
-    ON u.id_rol = r.id_rol;
-
-
-----CREAR PROCEDURE----
+--PROCEDURE crear_usuario
 SET search_path TO digiclin;
 
 CREATE OR REPLACE PROCEDURE sp_crear_usuario(
@@ -103,7 +42,7 @@ BEGIN
 END;
 $$;
 
-----UPDATE PROCEDURE----
+--PROCEDURE actualizar_usuario
 SET search_path TO digiclin;
 
 CREATE OR REPLACE PROCEDURE digiclin.sp_actualizar_usuario(
@@ -155,7 +94,7 @@ BEGIN
     WHERE nombre_usuario = p_nombre_usuario_actual;
 END;
 $$;
----- DELETE PROCEDURE---
+-- PROCEDURE eliminar usuario
 SET search_path TO digiclin;
 
 CREATE OR REPLACE PROCEDURE sp_eliminar_usuario(
@@ -172,3 +111,21 @@ BEGIN
     END IF;
 END;
 
+-- PROCEDURE  cambiar_password_usuario      
+CREATE OR REPLACE PROCEDURE digiclin.sp_cambiar_password_usuario(
+    p_nombre_usuario VARCHAR,
+    p_password_hash_nuevo VARCHAR
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE digiclin.usuario
+    SET password_hash = p_password_hash_nuevo,
+        debe_cambiar_password = FALSE
+    WHERE nombre_usuario = p_nombre_usuario;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Usuario no encontrado: %', p_nombre_usuario;
+    END IF;
+END;
+$$;

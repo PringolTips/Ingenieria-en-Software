@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/dashboard.tsx","./src/passchange.tsx","./src/api.tsx","./src/main.tsx","./src/components/pagecontent.tsx","./src/components/sidebar.tsx","./src/components/topbar.tsx","./src/layouts/mainlayout.tsx","./src/types/navigation.tsx"],"version":"6.0.3"}

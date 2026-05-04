@@ -34,4 +34,5 @@ El archivo `queries.sql` contiene consultas utilizadas por el sistema:
 - Buscar pacientes por nombre o apellido
 - Consultar expedientes con paciente, médico y diagnóstico
 - Consultar tratamientos por expediente
+
 Estas consultas utilizan filtros (`WHERE`) y relaciones (`JOINs`).

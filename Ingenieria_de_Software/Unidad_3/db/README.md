@@ -26,7 +26,7 @@
 * `expediente_clinico`: consultas médicas
 * `tratamiento`: tratamientos asociados a expedientes
 
-## Consultas principales
+### Consultas principales
 
 El archivo `queries.sql` contiene consultas utilizadas por el sistema:
 - Listar usuarios con rol y estatus

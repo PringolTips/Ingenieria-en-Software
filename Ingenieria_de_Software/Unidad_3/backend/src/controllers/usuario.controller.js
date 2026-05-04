@@ -89,6 +89,57 @@ const obtenerUsuarioPorCorreo = async (req, res, next) => {
   }
 };
 
+const inhabilitarUsuario = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await usuarioService.inhabilitarUsuario(nombre_usuario);
+
+    res.json({
+      ok: true,
+      mensaje: 'Usuario inhabilitado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const habilitarUsuario = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await usuarioService.habilitarUsuario(nombre_usuario);
+
+    res.json({
+      ok: true,
+      mensaje: 'Usuario habilitado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const actualizarMiPerfil = async (req, res, next) => {
+  try {
+    const nombre_usuario_actual = req.usuario.nombre_usuario;
+
+    const data = await usuarioService.actualizarMiPerfil({
+      nombre_usuario_actual,
+      ...req.body
+    });
+
+    res.json({
+      ok: true,
+      mensaje: 'Perfil actualizado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   obtenerUsuarios,
   obtenerActivos,
@@ -96,5 +147,8 @@ module.exports = {
   crearUsuario,
   actualizarUsuario,
   eliminarUsuario,
-  obtenerUsuarioPorCorreo
+  obtenerUsuarioPorCorreo,
+  inhabilitarUsuario,
+  habilitarUsuario,
+  actualizarMiPerfil
 };

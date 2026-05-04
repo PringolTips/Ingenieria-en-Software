@@ -2,6 +2,7 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt');
 
 const SALT_ROUNDS = 10;
+const PASSWORD_TEMPORAL = '12345678';
 
 const listarTodos = async () => {
   const res = await db.query('SELECT * FROM digiclin.vw_usuario');
@@ -35,9 +36,7 @@ const camposFaltantes = [];
 
 if (!usuarioObj.nombre_usuario) camposFaltantes.push('nombre_usuario');
 if (!usuarioObj.correo) camposFaltantes.push('correo');
-if (!usuarioObj.password) camposFaltantes.push('password');
 if (!usuarioObj.nombre_rol) camposFaltantes.push('nombre_rol');
-if (!usuarioObj.nombre_estatus) camposFaltantes.push('nombre_estatus');
 
 if (camposFaltantes.length > 0) {
   const error = new Error('Faltan campos obligatorios');
@@ -46,32 +45,33 @@ if (camposFaltantes.length > 0) {
   throw error;
 }
 
-  const password_hash = await bcrypt.hash(usuarioObj.password, SALT_ROUNDS);
+const password_hash = await bcrypt.hash(PASSWORD_TEMPORAL, SALT_ROUNDS);
 
-  try {
-    await db.query('CALL sp_crear_usuario($1, $2, $3, $4, $5, $6)', [
+try {
+  await db.query(
+    'CALL digiclin.sp_crear_usuario($1, $2, $3, $4)',
+    [
       usuarioObj.nombre_usuario,
       usuarioObj.correo,
       password_hash,
-      usuarioObj.nombre_rol,
-      usuarioObj.nombre_estatus,
-      usuarioObj.debe_cambiar_password ?? true
-    ]);
-  } catch (err) {
-    if (err.code === '23505') {
-      const error = new Error('El nombre de usuario o correo ya existe');
-      error.statusCode = 409;
-      throw error;
-    }
-
-    if (err.code === '23503') {
-      const error = new Error('El rol o estatus no existe');
-      error.statusCode = 400;
-      throw error;
-    }
-
-    throw err;
+      usuarioObj.nombre_rol
+    ]
+  );
+} catch (err) {
+  if (err.code === '23505') {
+    const error = new Error('El nombre de usuario o correo ya existe');
+    error.statusCode = 409;
+    throw error;
   }
+
+  if (err.code === '23503') {
+    const error = new Error('El rol o estatus no existe');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  throw err;
+}
 
   const res = await db.query(
     'SELECT * FROM vw_usuario WHERE nombre_usuario = $1',
@@ -183,6 +183,105 @@ const obtenerUsuarioPorCorreo = async (correo) => {
 
   return res.rows[0];
 };
+
+const inhabilitarUsuario = async (nombre_usuario) => {
+  if (!nombre_usuario) {
+    const error = new Error('El nombre_usuario es obligatorio');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  try {
+    await db.query(
+      'CALL digiclin.sp_inhabilitar_usuario($1::varchar)',
+      [nombre_usuario]
+    );
+  } catch (err) {
+    const error = new Error(err.message || 'Error al inhabilitar usuario');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
+    [nombre_usuario]
+  );
+
+  return res.rows[0];
+};
+
+const habilitarUsuario = async (nombre_usuario) => {
+  if (!nombre_usuario) {
+    const error = new Error('El nombre_usuario es obligatorio');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  try {
+    await db.query(
+      'CALL digiclin.sp_habilitar_usuario($1::varchar)',
+      [nombre_usuario]
+    );
+  } catch (err) {
+    const error = new Error(err.message || 'Error al habilitar usuario');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
+    [nombre_usuario]
+  );
+
+  return res.rows[0];
+};
+
+const actualizarMiPerfil = async ({
+  nombre_usuario_actual,
+  nuevo_nombre_usuario,
+  correo
+}) => {
+  if (!nombre_usuario_actual) {
+    const error = new Error('No autenticado');
+    error.statusCode = 401;
+    throw error;
+  }
+
+  if (!nuevo_nombre_usuario && !correo) {
+    const error = new Error('Debes enviar al menos un campo para actualizar');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  try {
+    await db.query(
+      'CALL digiclin.sp_actualizar_mi_perfil($1::varchar, $2::varchar, $3::varchar)',
+      [
+        nombre_usuario_actual,
+        nuevo_nombre_usuario || null,
+        correo || null
+      ]
+    );
+  } catch (err) {
+    if (err.code === '23505') {
+      const error = new Error('El nombre de usuario o correo ya existe');
+      error.statusCode = 409;
+      throw error;
+    }
+
+    throw err;
+  }
+
+  const nombreFinal = nuevo_nombre_usuario || nombre_usuario_actual;
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
+    [nombreFinal]
+  );
+
+  return res.rows[0];
+};
+
 module.exports = {
   listarActivos,
   listarTodos,
@@ -190,5 +289,8 @@ module.exports = {
   crearUsuario,
   actualizarUsuario,
   eliminarUsuario,
-  obtenerUsuarioPorCorreo
+  obtenerUsuarioPorCorreo,
+  inhabilitarUsuario,
+  habilitarUsuario,
+  actualizarMiPerfil
 };

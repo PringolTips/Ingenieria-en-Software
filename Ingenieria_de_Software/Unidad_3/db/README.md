@@ -6,6 +6,7 @@
 * `seed.sql`: datos iniciales del sistema
 * `views.sql`: vistas para consultas
 * `procedures.sql`: procedimientos almacenados (CRUD)
+* `queries.sql`: consultas base del sistema (SELECT con filtros y JOINs)
 
 ### Cómo ejecutar
 
@@ -24,3 +25,13 @@
 * `paciente`: información de pacientes
 * `expediente_clinico`: consultas médicas
 * `tratamiento`: tratamientos asociados a expedientes
+
+## Consultas principales
+
+El archivo `queries.sql` contiene consultas utilizadas por el sistema:
+- Listar usuarios con rol y estatus
+- Buscar usuario por correo
+- Buscar pacientes por nombre o apellido
+- Consultar expedientes con paciente, médico y diagnóstico
+- Consultar tratamientos por expediente
+Estas consultas utilizan filtros (`WHERE`) y relaciones (`JOINs`).

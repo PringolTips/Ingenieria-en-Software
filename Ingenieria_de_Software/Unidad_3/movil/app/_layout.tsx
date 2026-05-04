@@ -2,19 +2,15 @@ import { Stack } from 'expo-router';
 
 export default function RootLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      {/* Pantallas principales */}
-      <Stack.Screen name="index" /> 
-      <Stack.Screen name="change-password" />
-
-      {/* Ajustamos los nombres para que coincidan con tus archivos físicos */}
-      <Stack.Screen name="(admin)/dashboard" />
-      <Stack.Screen name="(medico)/dashboard" />
-      <Stack.Screen name="(enfermero)/dashboard" />
-
-      {/* El resto se puede quedar igual */}
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="modal" />
-    </Stack>
+   <Stack screenOptions={{ 
+  headerShown: true, 
+  headerTitle: "", // Título vacío para que no estorbe
+  headerTransparent: true, // Para que el diseño del login suba hasta arriba
+  gestureEnabled: true, 
+  animation: 'slide_from_right' 
+}}>
+  <Stack.Screen name="index" options={{ headerShown: false }} />
+  <Stack.Screen name="change-password" options={{ headerLeft: () => null }} /> 
+</Stack>
   );
 }

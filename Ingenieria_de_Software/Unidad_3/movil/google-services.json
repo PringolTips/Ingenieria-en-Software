@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "250082296032",
+    "project_id": "digiclin-b06ea",
+    "storage_bucket": "digiclin-b06ea.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250082296032:android:5d54be67acd76f15809085",
+        "android_client_info": {
+          "package_name": "com.digiclin.miap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFp3nldZw6MVPRSj3wv_QY4wEFlyx8wxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

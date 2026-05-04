@@ -1,10 +1,18 @@
 import axios from 'axios';
-
-const API_BASE_URL = 'http://18.220.93.246:3000/api'; // Tu IP de la EC2
+import * as SecureStore from 'expo-secure-store';
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 5000, // RNF-01: Las respuestas deben ser rápidas [cite: 445]
+  baseURL: 'http://18.220.93.246:3000', // Tu IP de AWS
+  headers: { 'Content-Type': 'application/json' }
+});
+
+// Interceptor para inyectar el token automáticamente (RNF-05) [cite: 450, 455]
+api.interceptors.request.use(async (config) => {
+  const token = await SecureStore.getItemAsync('userToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default api;

@@ -1,34 +1,69 @@
-import { router } from 'expo-router';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { processPasswordChange } from '../logic/handlePassword';
 
-export default function ChangePassword() {
-  const [pass, setPass] = useState('');
+const C = { p: '#1976D2', t: '#1E293B', m: '#64748B', b: '#E2E8F0', g: '#F8FAFC' };
 
-  const validateAndSave = () => {
-    // Validaciones del SRS: 8 caracteres, letra y número [cite: 401-403]
-    const isValid = pass.length >= 8 && /[A-Za-z]/.test(pass) && /\d/.test(pass);
-    
-    if (!isValid) {
-      Alert.alert("Seguridad", "La clave debe tener 8+ caracteres, letras y números.");
-      return;
+export default function ChangePasswordScreen() {
+  const [f, sF] = useState({ c: '', n: '', cf: '' });
+  const [l, sL] = useState(false);
+  const [v1, sV1] = useState(false);
+  const [v2, sV2] = useState(false);
+  const [v3, sV3] = useState(false);
+  const router = useRouter();
+
+  const hP = async () => {
+    if (!f.c || !f.n || !f.cf) return Alert.alert("Error", "Llena todos los campos.");
+    const res = await processPasswordChange({current: f.c, next: f.n, confirm: f.cf}, sL);
+    if (res.success) {
+      Alert.alert("Éxito", "Contraseña cambiada.", [{ text: "OK", onPress: () => router.replace('/') }]);
+    } else {
+      Alert.alert("Error", res.message);
     }
-    Alert.alert("Éxito", "Contraseña actualizada.");
-    router.replace('/');
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Actualizar Contraseña</Text>
-      <TextInput style={styles.input} placeholder="Nueva contraseña" secureTextEntry onChangeText={setPass} />
-      <TouchableOpacity style={styles.btn} onPress={validateAndSave}><Text style={styles.btnText}>Guardar</Text></TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView behavior={Platform.OS==='ios'?'padding':'height'} style={{flex:1,backgroundColor:C.g}}>
+      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <View style={styles.header}>
+          <MaterialCommunityIcons name="shield-lock" size={60} color={C.p} />
+          <Text style={styles.title}>Nueva Contraseña</Text>
+        </View>
+        <View style={styles.card}>
+          <Text style={styles.label}>Contraseña Actual</Text>
+          <View style={styles.row}>
+            <TextInput secureTextEntry={!v1} style={styles.input} value={f.c} onChangeText={(t)=>sF({...f,c:t})} />
+            <TouchableOpacity onPress={()=>sV1(!v1)}><Ionicons name={v1?"eye":"eye-off"} size={22} color={C.p} /></TouchableOpacity>
+          </View>
+          <Text style={styles.label}>Nueva Contraseña</Text>
+          <View style={styles.row}>
+            <TextInput secureTextEntry={!v2} style={styles.input} value={f.n} onChangeText={(t)=>sF({...f,n:t})} />
+            <TouchableOpacity onPress={()=>sV2(!v2)}><Ionicons name={v2?"eye":"eye-off"} size={22} color={C.p} /></TouchableOpacity>
+          </View>
+          <Text style={styles.label}>Confirmar Contraseña</Text>
+          <View style={styles.row}>
+            <TextInput secureTextEntry={!v3} style={styles.input} value={f.cf} onChangeText={(t)=>sF({...f,cf:t})} />
+            <TouchableOpacity onPress={()=>sV3(!v3)}><Ionicons name={v3?"eye":"eye-off"} size={22} color={C.p} /></TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.btn} onPress={hP} disabled={l}>
+            {l ? <ActivityIndicator color="#FFF" /> : <Text style={styles.btnT}>Actualizar</Text>}
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
+
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 40, justifyContent: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  input: { borderBottomWidth: 1, borderColor: '#666', marginBottom: 30, fontSize: 18, padding: 10 },
-  btn: { backgroundColor: '#1565C0', padding: 15, borderRadius: 10, alignItems: 'center' },
-  btnText: { color: 'white', fontWeight: 'bold' }
+  container: { flexGrow: 1, padding: 25, justifyContent: 'center' },
+  header: { alignItems: 'center', marginBottom: 20 },
+  title: { fontSize: 22, fontWeight: 'bold', color: C.t },
+  card: { backgroundColor: '#FFF', borderRadius: 20, padding: 20, elevation: 5 },
+  label: { fontSize: 13, fontWeight: '700', color: C.t, marginBottom: 5, marginTop: 15 },
+  row: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: C.b, borderRadius: 10, paddingHorizontal: 10, height: 50 },
+  input: { flex: 1, fontSize: 15 },
+  btn: { backgroundColor: '#22C55E', height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', marginTop: 30 },
+  btnT: { color: '#FFF', fontWeight: 'bold' }
 });

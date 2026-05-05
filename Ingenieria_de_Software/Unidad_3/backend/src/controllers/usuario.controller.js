@@ -46,13 +46,16 @@ const crearUsuario = async (req, res, next) => {
 const actualizarUsuario = async (req, res, next) => {
   try {
     const { nombre_usuario } = req.params;
+
     const data = await usuarioService.actualizarUsuario({
       nombre_usuario_actual: nombre_usuario,
-      ...req.body
+      nuevo_nombre_usuario: req.body.nuevo_nombre_usuario,
+      correo: req.body.correo
     });
+
     res.json({
       ok: true,
-      mensaje: 'Usuario actualizado correctamente',
+      mensaje: 'Datos del usuario actualizados correctamente',
       data
     });
   } catch (error) {
@@ -140,6 +143,22 @@ const actualizarMiPerfil = async (req, res, next) => {
   }
 };
 
+const resetearPasswordUsuario = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await usuarioService.resetearPasswordUsuario(nombre_usuario);
+
+    res.json({
+      ok: true,
+      mensaje: 'Contraseña reiniciada correctamente. El usuario deberá cambiarla al iniciar sesión.',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   obtenerUsuarios,
   obtenerActivos,
@@ -150,5 +169,6 @@ module.exports = {
   obtenerUsuarioPorCorreo,
   inhabilitarUsuario,
   habilitarUsuario,
-  actualizarMiPerfil
+  actualizarMiPerfil,
+  resetearPasswordUsuario
 };

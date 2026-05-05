@@ -84,61 +84,45 @@ try {
 const actualizarUsuario = async ({
   nombre_usuario_actual,
   nuevo_nombre_usuario,
-  correo,
-  password,
-  nombre_rol,
-  nombre_estatus,
-  debe_cambiar_password
+  correo
 }) => {
   if (!nombre_usuario_actual) {
-    const error = new Error('nombre_usuario_actual es obligatorio');
+    const error = new Error('El nombre_usuario actual es obligatorio');
     error.statusCode = 400;
     throw error;
   }
 
-  const limpiarTexto = (valor) => {
-    if (valor === undefined || valor === null || valor === '') {
-      return null;
-    }
-    return valor;
-  };
-
-  const nuevoNombreLimpio = limpiarTexto(nuevo_nombre_usuario);
-  const correoLimpio = limpiarTexto(correo);
-  const rolLimpio = limpiarTexto(nombre_rol);
-  const estatusLimpio = limpiarTexto(nombre_estatus);
-
-  let password_hash = null;
-
-  if (password !== undefined && password !== null && password !== '') {
-    password_hash = await bcrypt.hash(password, 10);
+  if (!nuevo_nombre_usuario && !correo) {
+    const error = new Error('Debes enviar al menos un dato para actualizar');
+    error.statusCode = 400;
+    throw error;
   }
 
-  await db.query(
-    'CALL digiclin.sp_actualizar_usuario($1::varchar, $2::varchar, $3::varchar, $4::varchar, $5::varchar, $6::varchar, $7::boolean)',
-    [
-      nombre_usuario_actual,
-      nuevoNombreLimpio,
-      correoLimpio,
-      password_hash,
-      rolLimpio,
-      estatusLimpio,
-      debe_cambiar_password ?? null
-    ]
-  );
+  try {
+    await db.query(
+      'CALL digiclin.sp_actualizar_usuario($1::varchar, $2::varchar, $3::varchar)',
+      [
+        nombre_usuario_actual,
+        nuevo_nombre_usuario || null,
+        correo || null
+      ]
+    );
+  } catch (err) {
+    if (err.code === '23505') {
+      const error = new Error('El nombre de usuario o correo ya existe');
+      error.statusCode = 409;
+      throw error;
+    }
 
-  const nombreFinal = nuevoNombreLimpio || nombre_usuario_actual;
+    throw err;
+  }
+
+  const nombreFinal = nuevo_nombre_usuario || nombre_usuario_actual;
 
   const res = await db.query(
     'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
     [nombreFinal]
   );
-
-  if (res.rows.length === 0) {
-    const error = new Error('Usuario no encontrado después de actualizar');
-    error.statusCode = 404;
-    throw error;
-  }
 
   return res.rows[0];
 };
@@ -282,6 +266,34 @@ const actualizarMiPerfil = async ({
   return res.rows[0];
 };
 
+const resetearPasswordUsuario = async (nombre_usuario) => {
+  if (!nombre_usuario) {
+    const error = new Error('El nombre_usuario es obligatorio');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const password_hash = await bcrypt.hash(PASSWORD_TEMPORAL, SALT_ROUNDS);
+
+  try {
+    await db.query(
+      'CALL digiclin.sp_resetear_password_usuario($1::varchar, $2::varchar)',
+      [nombre_usuario, password_hash]
+    );
+  } catch (err) {
+    const error = new Error(err.message || 'Error al resetear contraseña');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
+    [nombre_usuario]
+  );
+
+  return res.rows[0];
+};
+
 module.exports = {
   listarActivos,
   listarTodos,
@@ -292,5 +304,6 @@ module.exports = {
   obtenerUsuarioPorCorreo,
   inhabilitarUsuario,
   habilitarUsuario,
-  actualizarMiPerfil
+  actualizarMiPerfil,
+  resetearPasswordUsuario
 };

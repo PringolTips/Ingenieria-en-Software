@@ -18,6 +18,16 @@ router.put(
   usuarioController.actualizarMiPerfil
 );
 
+
+router.get('/:nombre_usuario', verificarToken, usuarioController.obtenerUsuarioPorNombre);
+
+router.post(
+  '/',
+  verificarToken,
+  verificarRol('Admin'),
+  usuarioController.crearUsuario
+);
+
 router.put(
   '/:nombre_usuario/inhabilitar',
   verificarToken,
@@ -32,13 +42,11 @@ router.put(
   usuarioController.habilitarUsuario
 );
 
-router.get('/:nombre_usuario', verificarToken, usuarioController.obtenerUsuarioPorNombre);
-
-router.post(
-  '/',
+router.put(
+  '/:nombre_usuario/reset-password',
   verificarToken,
   verificarRol('Admin'),
-  usuarioController.crearUsuario
+  usuarioController.resetearPasswordUsuario
 );
 
 router.put(
@@ -47,7 +55,6 @@ router.put(
   verificarRol('Admin'),
   usuarioController.actualizarUsuario
 );
-
 
 router.delete(
   '/:nombre_usuario',

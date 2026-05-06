@@ -1,8 +1,8 @@
 import {
-    LayoutDashboard, FolderOpen, Clock, Star, FileText
+    LayoutDashboard, FolderOpen, Clock, Star, FileText, Archive
   } from 'lucide-react';
   
-  export type Page = 'inicio' | 'mis-archivos' | 'recientes' | 'destacados' | 'mi-archivo';
+  export type Page = 'inicio' | 'mis-archivos' | 'recientes' | 'destacados' | 'mi-archivo' | 'usuarios-archivados';
   
   export interface NavItem {
     id: Page;
@@ -10,12 +10,24 @@ import {
     icon: React.ReactNode;
   }
   
-  export const NAV_ITEMS: NavItem[] = [
+  export const NAV_ITEMS_MEDICO: NavItem[] = [
     { id: 'inicio',       label: 'Página principal', icon: <LayoutDashboard size={18} /> },
     { id: 'mis-archivos', label: 'Mis archivos',      icon: <FolderOpen size={18} /> },
     { id: 'recientes',    label: 'Recientes',          icon: <Clock size={18} /> },
     { id: 'destacados',   label: 'Destacados',         icon: <Star size={18} /> },
     { id: 'mi-archivo',   label: 'Mi archivo',         icon: <FileText size={18} /> },
+  ];
+  
+  export const NAV_ITEMS_ENFERMERO: NavItem[] = [
+    { id: 'inicio',       label: 'Página principal', icon: <LayoutDashboard size={18} /> },
+    { id: 'mis-archivos', label: 'Mis archivos',      icon: <FolderOpen size={18} /> },
+    { id: 'recientes',    label: 'Recientes',          icon: <Clock size={18} /> },
+    { id: 'mi-archivo',   label: 'Mi archivo',         icon: <FileText size={18} /> },
+  ];
+  
+  export const NAV_ITEMS_ADMIN: NavItem[] = [
+    { id: 'inicio',               label: 'Página principal',    icon: <LayoutDashboard size={18} /> },
+    { id: 'usuarios-archivados',  label: 'Usuarios archivados', icon: <Archive size={18} /> },
   ];
   
   export const PAGE_CONTENT: Record<Page, { title: string; description: string }> = {
@@ -24,4 +36,5 @@ import {
     'recientes':    { title: 'Recientes',           description: 'Archivos y expedientes a los que accediste recientemente.' },
     'destacados':   { title: 'Destacados',          description: 'Documentos marcados como favoritos para acceso rápido.' },
     'mi-archivo':   { title: 'Mi archivo',          description: 'Tu expediente personal y configuración de perfil clínico.' },
+    'usuarios-archivados': {title: 'Usuarios archivados', description: 'Miembros del personal que ya no tienen permisos activos'},
   };

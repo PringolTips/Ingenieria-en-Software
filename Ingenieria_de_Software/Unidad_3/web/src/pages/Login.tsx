@@ -17,7 +17,6 @@ export default function Login() {
       const data = await auth_api.login(email, password);
 
       if (data.data.token) {
-        console.log(data.data);
         localStorage.setItem("token", data.data.token);
         setUser({
           nombre_usuario: data.data.usuario.nombre_usuario,
@@ -25,7 +24,12 @@ export default function Login() {
           correo: data.data.usuario.correo
         });
         toast.success('Login exitoso, bienvenido!');
-        navigate("/dashboard");
+        /*if(data.data.usuario.debe_cambiar_password == true) {
+          navigate("/password_change");
+        } else {
+          navigate("/dashboard");
+        }*/
+        navigate("/dashboard")
       }
 
     } catch (err: any) {

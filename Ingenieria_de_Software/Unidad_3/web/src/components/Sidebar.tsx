@@ -1,11 +1,8 @@
-import {
-  Activity, UserPlus, Upload, ChevronRight
-} from 'lucide-react';
+import { Activity, UserPlus, ChevronRight, NotebookText } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import {
   type Page,
-  NAV_ITEMS_MEDICO,
-  NAV_ITEMS_ENFERMERO,
+  NAV_ITEMS_PERSONAL,
   NAV_ITEMS_ADMIN
 } from '../types/navigation';
 import { type Dispatch, type SetStateAction } from 'react';
@@ -22,8 +19,7 @@ export default function Sidebar({ activePage, onNavigate, onOpenAddUser }: Sideb
 
   const navItems =
     rol === 'Admin' ? NAV_ITEMS_ADMIN :
-    rol === 'enfermero'     ? NAV_ITEMS_ENFERMERO :
-                              NAV_ITEMS_MEDICO;
+                      NAV_ITEMS_PERSONAL;
 
   return (
     <aside className="w-[16.666%] min-w-[200px] max-w-[260px] h-full bg-card border-r border-border flex flex-col shrink-0">
@@ -42,18 +38,18 @@ export default function Sidebar({ activePage, onNavigate, onOpenAddUser }: Sideb
       {/* Botones de acción */}
       <div className="px-4 pt-5 pb-4 flex flex-col gap-2.5 border-b border-border">
         {/* Agregar paciente: médico y enfermero */}
-        {(rol === 'médico' || rol === 'enfermero') && (
+        {(rol === 'Medico' || rol === 'Enfermero') && (
           <button className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium py-2.5 px-3 rounded-lg transition-colors">
             <UserPlus size={16} />
             Agregar paciente
           </button>
         )}
 
-        {/* Subir expediente: solo médico */}
-        {rol === 'médico' && (
+        {/* Subir expediente: médico y enfermero */}
+        {(rol === 'Medico' || rol === 'Enfermero') && (
           <button className="flex items-center justify-center gap-2 w-full bg-secondary hover:bg-secondary/80 text-secondary-foreground text-sm font-medium py-2.5 px-3 rounded-lg transition-colors border border-border">
-            <Upload size={16} />
-            Subir expediente
+            <NotebookText size={16} />
+            Crear expediente
           </button>
         )}
 

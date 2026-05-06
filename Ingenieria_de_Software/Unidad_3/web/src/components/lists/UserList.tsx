@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { MoreVertical, Pencil, Archive, Trash2, UserCheck } from 'lucide-react';
+import { MoreVertical, Pencil, Trash2, UserCheck } from 'lucide-react';
+// import { Archive } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { users_api } from '../../api/users_api';
 import ConfirmationModal from '../ConfirmationModal';
@@ -65,10 +66,10 @@ export default function UserList({ onUpdate, refresh }: UserListProps) {
       day: '2-digit', month: 'short', year: 'numeric'
     });
 
-  const handleArchivar = (usuario: Usuario) => {
+  /* const handleArchivar = (usuario: Usuario) => {
     setMenuAbierto(null);
     setConfirmModal({ tipo: 'archivar', usuario });
-  };
+  }; */
 
   const handleEliminar = async (usuario: Usuario) => {
     setMenuAbierto(null);
@@ -194,6 +195,7 @@ export default function UserList({ onUpdate, refresh }: UserListProps) {
                           <Pencil size={14} className="text-muted-foreground" />
                           Modificar
                         </button>
+                        {/* }
                         <button
                           onClick={() => handleArchivar(usuario)}
                           className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
@@ -201,6 +203,7 @@ export default function UserList({ onUpdate, refresh }: UserListProps) {
                           <Archive size={14} className="text-muted-foreground" />
                           Deshabilitar
                         </button>
+                        {*/}
                         <div className="border-t border-border" />
                         <button
                           onClick={() => handleEliminar(usuario)}

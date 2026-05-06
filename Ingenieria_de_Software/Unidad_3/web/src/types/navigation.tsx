@@ -10,18 +10,11 @@ import {
     icon: React.ReactNode;
   }
   
-  export const NAV_ITEMS_MEDICO: NavItem[] = [
+  export const NAV_ITEMS_PERSONAL: NavItem[] = [
     { id: 'inicio',       label: 'Página principal', icon: <LayoutDashboard size={18} /> },
     { id: 'mis-archivos', label: 'Mis archivos',      icon: <FolderOpen size={18} /> },
     { id: 'recientes',    label: 'Recientes',          icon: <Clock size={18} /> },
     { id: 'destacados',   label: 'Destacados',         icon: <Star size={18} /> },
-    { id: 'mi-archivo',   label: 'Mi archivo',         icon: <FileText size={18} /> },
-  ];
-  
-  export const NAV_ITEMS_ENFERMERO: NavItem[] = [
-    { id: 'inicio',       label: 'Página principal', icon: <LayoutDashboard size={18} /> },
-    { id: 'mis-archivos', label: 'Mis archivos',      icon: <FolderOpen size={18} /> },
-    { id: 'recientes',    label: 'Recientes',          icon: <Clock size={18} /> },
     { id: 'mi-archivo',   label: 'Mi archivo',         icon: <FileText size={18} /> },
   ];
   

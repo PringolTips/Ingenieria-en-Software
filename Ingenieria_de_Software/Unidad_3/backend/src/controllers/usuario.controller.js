@@ -46,13 +46,16 @@ const crearUsuario = async (req, res, next) => {
 const actualizarUsuario = async (req, res, next) => {
   try {
     const { nombre_usuario } = req.params;
+
     const data = await usuarioService.actualizarUsuario({
       nombre_usuario_actual: nombre_usuario,
-      ...req.body
+      nuevo_nombre_usuario: req.body.nuevo_nombre_usuario,
+      correo: req.body.correo
     });
+
     res.json({
       ok: true,
-      mensaje: 'Usuario actualizado correctamente',
+      mensaje: 'Datos del usuario actualizados correctamente',
       data
     });
   } catch (error) {
@@ -89,6 +92,73 @@ const obtenerUsuarioPorCorreo = async (req, res, next) => {
   }
 };
 
+const inhabilitarUsuario = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await usuarioService.inhabilitarUsuario(nombre_usuario);
+
+    res.json({
+      ok: true,
+      mensaje: 'Usuario inhabilitado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const habilitarUsuario = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await usuarioService.habilitarUsuario(nombre_usuario);
+
+    res.json({
+      ok: true,
+      mensaje: 'Usuario habilitado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const actualizarMiPerfil = async (req, res, next) => {
+  try {
+    const nombre_usuario_actual = req.usuario.nombre_usuario;
+
+    const data = await usuarioService.actualizarMiPerfil({
+      nombre_usuario_actual,
+      ...req.body
+    });
+
+    res.json({
+      ok: true,
+      mensaje: 'Perfil actualizado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const resetearPasswordUsuario = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await usuarioService.resetearPasswordUsuario(nombre_usuario);
+
+    res.json({
+      ok: true,
+      mensaje: 'Contraseña reiniciada correctamente. El usuario deberá cambiarla al iniciar sesión.',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   obtenerUsuarios,
   obtenerActivos,
@@ -96,5 +166,9 @@ module.exports = {
   crearUsuario,
   actualizarUsuario,
   eliminarUsuario,
-  obtenerUsuarioPorCorreo
+  obtenerUsuarioPorCorreo,
+  inhabilitarUsuario,
+  habilitarUsuario,
+  actualizarMiPerfil,
+  resetearPasswordUsuario
 };

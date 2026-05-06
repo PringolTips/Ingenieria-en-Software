@@ -2,13 +2,18 @@ const authService = require('../services/auth.service');
 
 const login = async (req, res, next) => {
   try {
-    const { correo, password } = req.body;
+    const { identificador, correo, password } = req.body;
 
-    const data = await authService.login({ correo, password });
+    const data = await authService.login({
+      identificador: identificador || correo,
+      password
+    });
 
     res.json({
       ok: true,
-      mensaje: 'Login correcto',
+      mensaje: data.usuario.debe_cambiar_password
+        ? 'Debe cambiar su contraseña'
+        : 'Login correcto',
       data
     });
   } catch (error) {
@@ -33,12 +38,7 @@ const perfil = async (req, res, next) => {
 
 const cambiarPassword = async (req, res, next) => {
   try {
-    const { correo } = req.body;
-
-    const resultado = await authService.cambiarPassword(
-      correo,
-      req.body
-    );
+    const resultado = await authService.cambiarPassword(req.body);
 
     res.json({
       ok: true,

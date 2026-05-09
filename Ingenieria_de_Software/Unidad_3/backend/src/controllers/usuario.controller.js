@@ -159,6 +159,19 @@ const resetearPasswordUsuario = async (req, res, next) => {
   }
 };
 
+const obtenerInactivos = async (req, res, next) => {
+  try {
+    const usuarios = await usuarioService.listarInactivos();
+
+    res.json({
+      ok: true,
+      data: usuarios
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   obtenerUsuarios,
   obtenerActivos,
@@ -170,5 +183,6 @@ module.exports = {
   inhabilitarUsuario,
   habilitarUsuario,
   actualizarMiPerfil,
-  resetearPasswordUsuario
+  resetearPasswordUsuario,
+  obtenerInactivos
 };

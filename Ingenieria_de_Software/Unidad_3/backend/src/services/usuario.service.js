@@ -294,6 +294,13 @@ const resetearPasswordUsuario = async (nombre_usuario) => {
   return res.rows[0];
 };
 
+const listarInactivos = async () => {
+    
+  const res = await db.query('SELECT * FROM vw_usuarios_inactivos');
+
+  return res.rows;
+};
+
 module.exports = {
   listarActivos,
   listarTodos,
@@ -305,5 +312,6 @@ module.exports = {
   inhabilitarUsuario,
   habilitarUsuario,
   actualizarMiPerfil,
-  resetearPasswordUsuario
+  resetearPasswordUsuario,
+  listarInactivos
 };

@@ -5,7 +5,18 @@ const usuarioController = require('../controllers/usuario.controller');
 const verificarToken = require('../middlewares/auth.middleware');
 const verificarRol = require('../middlewares/rol.middleware');
 
-router.get('/activos', verificarToken, usuarioController.obtenerActivos);
+router.get(
+  '/activos', 
+  verificarToken, 
+  verificarRol('Admin'),
+  usuarioController.obtenerActivos);
+
+router.get(
+  '/inactivos',
+  verificarToken,
+  verificarRol('Admin'),
+  usuarioController.obtenerInactivos
+);
 
 router.get('/correo/:correo', verificarToken, usuarioController.obtenerUsuarioPorCorreo);
 

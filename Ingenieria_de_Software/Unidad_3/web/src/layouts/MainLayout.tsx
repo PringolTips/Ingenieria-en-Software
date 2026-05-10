@@ -6,6 +6,7 @@ import type { Page } from "../types/navigation";
 import Modal from "../components/Modal";
 import FormCreateUser from "../components/forms/FormCreateUser";
 import FormUpdateUser from '../components/forms/FormUpdateUser';
+import FormCreatePatient from '../components/forms/FormCreatePatient';
 import toast from 'react-hot-toast';
 import { users_api } from '../api/users_api';
 
@@ -20,6 +21,14 @@ export default function MainLayout() {
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState<string | null>(null);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [isPatientModalOpen, setIsPatientModalOpen] = useState(false);
+  const [isPatientLoading, setIsPatientLoading] = useState(false);
+  const [isPatientFormComplete, setIsPatientFormComplete] = useState(false);
+
+  const closePatientModal = () => {
+    setIsPatientModalOpen(false);
+    setIsPatientFormComplete(false);
+  }
 
   const handleSearch = async (query: string) => {
     if (!query.trim()) {
@@ -48,17 +57,23 @@ export default function MainLayout() {
 
   return (
     <div className="flex h-screen w-full bg-background overflow-hidden">
-      <Sidebar activePage={activePage} onNavigate={setActivePage} onOpenAddUser={() => setIsUserModalOpen(true)} />
+      <Sidebar
+        activePage={activePage}
+        onNavigate={setActivePage}
+        onOpenAddUser={() => setIsUserModalOpen(true)}
+        onOpenAddPatient={() => setIsPatientModalOpen(true)}
+      />
       <div className="flex-1 flex flex-col h-full overflow-hidden">
-        <Topbar 
-          searchQuery={searchQuery} 
-          onSearchChange={setSearchQuery} 
-          onSearch={handleSearch}/>
-        <PageContent 
-          activePage={activePage} 
+        <Topbar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onSearch={handleSearch}
+        />
+        <PageContent
+          activePage={activePage}
           onUpdate={(usuario) => {
-          setUsuarioSeleccionado(usuario.nombre_usuario);
-          setIsUpdateModalOpen(true);
+            setUsuarioSeleccionado(usuario.nombre_usuario);
+            setIsUpdateModalOpen(true);
           }}
           refresh={refresh}
           searchResults={searchResults}
@@ -89,6 +104,42 @@ export default function MainLayout() {
           onClose={() => setIsUpdateModalOpen(false)}
           onSuccess={refreshList}
           nombreUsuario={usuarioSeleccionado} />
+      </Modal>
+
+      <Modal
+        key={isPatientModalOpen ? 'open' : 'closed'}
+        isOpen={isPatientModalOpen}
+        onClose={closePatientModal}
+        title="Registrar paciente"
+        description="Completa los datos del nuevo paciente"
+        wide
+        actions={
+          <>
+            <button
+              type="button"
+              onClick={closePatientModal}
+              disabled={isPatientLoading}
+              className="px-4 py-2 rounded-lg border border-border text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-60"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              form="form-patient"
+              disabled={isPatientLoading || !isPatientFormComplete}
+              className="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {isPatientLoading ? 'Registrando...' : 'Registrar paciente'}
+            </button>
+          </>
+        }
+      >
+        <FormCreatePatient
+          onClose={closePatientModal}
+          onSuccess={refreshList}
+          onLoadingChange={setIsPatientLoading}
+          onFormChange={setIsPatientFormComplete}
+        />
       </Modal>
     </div>
   );

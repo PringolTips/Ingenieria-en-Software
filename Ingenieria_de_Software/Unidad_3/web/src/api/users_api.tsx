@@ -14,7 +14,7 @@ export const users_api = {
         
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Hubo un error en el registro");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -30,7 +30,7 @@ export const users_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Hubo un error en la solicitud");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -46,7 +46,7 @@ export const users_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Usuario no encontrado");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -62,7 +62,7 @@ export const users_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Usuario no encontrado");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -81,7 +81,7 @@ export const users_api = {
         
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Hubo un error en el registro");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -98,7 +98,7 @@ export const users_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "No se pudo completar la solicitud");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -115,7 +115,7 @@ export const users_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "No se pudo completar la solicitud");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -132,7 +132,7 @@ export const users_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "No se pudo completar la solicitud");
+            throw new Error(error.message);
         }
 
         return res.json();

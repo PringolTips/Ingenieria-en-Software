@@ -5,6 +5,7 @@ const usuarioRoutes = require('./routes/usuario.routes');
 const authRoutes = require('./routes/auth.routes');
 const errorHandler = require('./middlewares/error.middleware');
 const healthRoutes = require('./routes/health.routes');
+const pacienteRoutes = require('./routes/paciente.routes');
 
 
 const app = express();
@@ -17,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 
-
+app.use('/api/pacientes', pacienteRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/health', healthRoutes);

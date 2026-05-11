@@ -17,7 +17,6 @@ import {
   View
 } from 'react-native';
 
-// IMPORTANTE: Asegúrate de que en logic/handleLogin.ts uses "export default handleLogin"
 import handleLogin from '../logic/handleLogin';
 
 const COLORS = {
@@ -37,49 +36,40 @@ export default function LoginWebStyle() {
   const [showPass, setShowPass] = useState(false);
   const router = useRouter();
 
-  // Función de orquestación del Login (Orquestador de ruteo)
   const onLoginPress = async () => {
     if (!email || !pass) {
       Alert.alert("Campos incompletos", "Por favor, llena todos los campos.");
       return;
     }
 
-    setLoading(true);
-
     try {
-      // Ejecutamos la lógica de autenticación
       const userData = await handleLogin(email, pass, setLoading) as any;
 
       if (userData && typeof userData === 'object') {
-        // REQUERIMIENTO: Limpiar estado de seguridad inmediatamente
         setPass('');
 
-        // Lógica de ruteo por Roles y Seguridad (RF-09 / RF-12)
         if (userData.debe_cambiar_password) {
-          router.replace('/change-password');
+          router.replace('/change-password' as any);
         } else {
+          // Ajuste de ruteo: 'Medico' sin acento para coincidir con la carpeta
           switch (userData.nombre_rol) {
             case 'Admin':
-              router.replace('/(admin)/dashboard');
+              router.replace('/(admin)/dashboard' as any);
               break;
             case 'Enfermero':
-              router.replace('/(enfermero)/dashboard');
+              router.replace('/(enfermero)/dashboard' as any);
               break;
-            case 'Médico':
-              router.replace('/(medico)/dashboard');
+            case 'Medico':
+              router.replace('/(medico)/dashboard' as any);
               break;
             default:
-              router.replace('/');
+              router.replace('/' as any);
               break;
           }
         }
-      } else {
-        Alert.alert("Error de acceso", "Credenciales incorrectas o problema de conexión.");
       }
     } catch (error) {
       console.error("Error en el flujo de login:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -91,7 +81,6 @@ export default function LoginWebStyle() {
       <StatusBar style="light" />
       <ScrollView contentContainerStyle={styles.scroll} bounces={false} keyboardShouldPersistTaps="handled">
 
-        {/* Branding con degradado */}
         <LinearGradient
           colors={[COLORS.primary, COLORS.primaryDark]}
           style={styles.header}
@@ -114,9 +103,8 @@ export default function LoginWebStyle() {
           <Text style={styles.loginTitle}>Iniciar sesión</Text>
           <Text style={styles.loginSub}>Accede de forma segura a la gestión de pacientes y expedientes.</Text>
 
-          {/* INPUT: CORREO */}
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Correo electrónico</Text>
+            <Text style={styles.label}>Usuario</Text>
             <View style={styles.inputWrapper}>
               <Ionicons name="mail-outline" size={20} color={COLORS.muted} style={styles.inputIcon} />
               <TextInput
@@ -126,12 +114,10 @@ export default function LoginWebStyle() {
                 onChangeText={setEmail}
                 value={email}
                 autoCapitalize="none"
-                keyboardType="email-address"
               />
             </View>
           </View>
 
-          {/* INPUT: CONTRASEÑA */}
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Contraseña</Text>
             <View style={styles.inputWrapper}>
@@ -158,13 +144,6 @@ export default function LoginWebStyle() {
             </View>
           </View>
 
-          {/* 
-<TouchableOpacity style={styles.forgotBtn}>
-  <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
-</TouchableOpacity> 
-*/}
-
-          {/* BOTÓN DE ACCIÓN: Llamando a onLoginPress */}
           <TouchableOpacity
             style={styles.submitBtn}
             onPress={onLoginPress}
@@ -178,12 +157,11 @@ export default function LoginWebStyle() {
             )}
           </TouchableOpacity>
 
-          <Text style={styles.versionText}>v 1.0.3 · DIGICLIN ITQ</Text>
+          <Text style={styles.versionText}>v 1.0.4 · DIGICLIN ITQ</Text>
         </View>
 
       </ScrollView>
 
-      {/* MODAL DE CARGA */}
       <Modal transparent visible={loading} animationType="fade">
         <View style={styles.modalBg}>
           <View style={styles.loaderCard}>
@@ -245,9 +223,6 @@ const styles = StyleSheet.create({
   inputIcon: { marginRight: 12 },
   input: { flex: 1, fontSize: 16, color: COLORS.text, height: '100%' },
   eyeBtn: { padding: 8 },
-
-  forgotBtn: { alignSelf: 'flex-end', marginBottom: 30 },
-  forgotText: { color: COLORS.primary, fontWeight: '700', fontSize: 14 },
 
   submitBtn: {
     backgroundColor: COLORS.primary, height: 58, borderRadius: 14,

@@ -1,27 +1,21 @@
 import api from './api';
 
 export const userService = {
-  // Obtener todos los usuarios activos (RF-10)
-  async obtenerActivos() {
-    const response = await api.get('/api/usuarios/activos');
+  // RF-09: Actualización general (Nombre, Correo, Contraseña)
+  async actualizarUsuario(nombreUsuarioOriginal: string, userData: any) {
+    const response = await api.put(`/api/usuarios/${nombreUsuarioOriginal}`, userData);
     return response.data;
   },
 
-  // Obtener un usuario específico por su nombre
-  async obtenerPorNombre(nombreUsuario: string) {
-    const response = await api.get(`/api/usuarios/${nombreUsuario}`);
+  // RF-10: Inhabilitar siguiendo el estándar de pacientes
+  async inhabilitarUsuario(nombreUsuario: string) {
+    const response = await api.put(`/api/usuarios/${nombreUsuario}/inhabilitar`);
     return response.data;
   },
 
-  // Crear un nuevo usuario (Médico, Enfermero, etc.) (RF-09)
-  async crearUsuario(userData: any) {
-    const response = await api.post('/api/usuarios', userData);
-    return response.data;
-  },
-
-  // Eliminar/Desactivar usuario (RF-10)
-  async eliminarUsuario(nombreUsuario: string) {
-    const response = await api.delete(`/api/usuarios/${nombreUsuario}`);
+  // Reactivación de cuenta
+  async activarUsuario(nombreUsuario: string) {
+    const response = await api.put(`/api/usuarios/${nombreUsuario}/habilitar`);
     return response.data;
   }
 };

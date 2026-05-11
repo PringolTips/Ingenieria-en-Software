@@ -6,12 +6,15 @@ import { Alert, TouchableOpacity } from 'react-native';
 export default function AdminLayout() {
   const router = useRouter();
 
-  const handleLogout = async () => {
-    Alert.alert("Cerrar Sesión", "¿Deseas salir del sistema de forma segura?", [
-      { text: "Cancelar", style: "cancel" },
-      { text: "Cerrar Sesión", onPress: async () => {
+  const handleLogout = () => {
+    Alert.alert("Cerrar Sesión", "¿Deseas salir del sistema?", [
+      { text: "No", style: "cancel" },
+      { 
+        text: "Sí", 
+        onPress: async () => {
           await SecureStore.deleteItemAsync('userToken');
-          router.replace('/'); // Regreso forzado al Login raíz
+          await SecureStore.deleteItemAsync('userRole');
+          router.replace('/' as any); 
         } 
       }
     ]);
@@ -25,12 +28,14 @@ export default function AdminLayout() {
       headerTintColor: '#fff',
       headerRight: () => (
         <TouchableOpacity onPress={handleLogout} style={{ marginRight: 15 }}>
-          <Ionicons name="log-out-outline" size={24} color="white" />
+          <Ionicons name="log-out" size={24} color="white" />
         </TouchableOpacity>
       )
     }}>
       <Tabs.Screen name="dashboard" options={{ title: 'Inicio', tabBarIcon: ({ color }) => <Ionicons name="home" size={24} color={color} /> }} />
-      <Tabs.Screen name="create-user" options={{ title: 'Alta Personal', tabBarIcon: ({ color }) => <Ionicons name="person-add" size={24} color={color} /> }} />
+      <Tabs.Screen name="menu" options={{ title: 'Menú', tabBarIcon: ({ color }) => <Ionicons name="menu" size={24} color={color} /> }} />
+      <Tabs.Screen name="create-user" options={{ href: null }} />
+      <Tabs.Screen name="inactive-users" options={{ href: null }} />
     </Tabs>
   );
 }

@@ -1,22 +1,30 @@
 import api from './api';
 
 export const patientService = {
-  // Registrar un nuevo paciente (RF-01)
-  // Requiere: nombre, apellidos, fecha_nacimiento, CURP, etc.
-  async registrarPaciente(patientData: any) {
-    const response = await api.post('/api/pacientes', patientData);
-    return response.data;
+  async obtenerPacientes() {
+    const res = await api.get('/api/pacientes');
+    return res.data;
   },
 
-  // Consultar pacientes por nombre, ID o CURP (RF-02)
-  async buscarPacientes(criterio: string) {
-    const response = await api.get(`/api/pacientes/buscar?query=${criterio}`);
-    return response.data;
+  async obtenerPacientesInactivos() {
+    const res = await api.get('/api/pacientes/inactivos');
+    return res.data;
   },
 
-  // Registrar un expediente clínico asociado (RF-05)
-  async registrarExpediente(expedienteData: any) {
-    const response = await api.post('/api/expedientes', expedienteData);
-    return response.data;
+  async registrarPaciente(data: any) {
+    const res = await api.post('/api/pacientes', data);
+    return res.data;
+  },
+
+  async inhabilitarPaciente(curp: string) {
+    console.log(`[DevOps] Solicitando inhabilitación de: ${curp}`);
+    const res = await api.put(`/api/pacientes/${curp}/inhabilitar`);
+    return res.data;
+  },
+
+  async habilitarPaciente(curp: string) {
+    console.log(`[DevOps] Solicitando habilitación de: ${curp}`);
+    const res = await api.put(`/api/pacientes/${curp}/habilitar`);
+    return res.data;
   }
 };

@@ -12,7 +12,7 @@ export const auth_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Credenciales incorrectas");
+            throw new Error(error.message);
         }
 
         return res.json();
@@ -29,7 +29,7 @@ export const auth_api = {
 
         if(!res.ok) {
             const error = await res.json();
-            throw new Error(error.message || "Hubo un error en la solicitud");
+            throw new Error(error.message);
         }
 
         return res.json();

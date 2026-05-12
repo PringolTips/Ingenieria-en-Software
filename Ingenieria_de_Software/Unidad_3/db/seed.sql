@@ -14,8 +14,7 @@ ON CONFLICT (nombre_rol) DO NOTHING;
 INSERT INTO estatus_usuario (nombre_estatus, descripcion)
 VALUES
 ('Activo', 'Usuario activo'),
-('Inactivo', 'Usuario inactivo'),
-('Bloqueado', 'Usuario bloqueado')
+('Inactivo', 'Usuario inactivo')
 ON CONFLICT (nombre_estatus) DO NOTHING;
 
 INSERT INTO estatus_expediente (nombre_estatus, descripcion) 
@@ -85,6 +84,9 @@ VALUES
 ON CONFLICT (nombre) DO NOTHING;
 
 
+INSERT INTO digiclin.estatus_paciente (nombre_estatus)
+VALUES ('Activo'), ('Inactivo')
+ON CONFLICT (nombre_estatus) DO NOTHING;
 
 -- USUARIOS EXISTENTES DE PRUEBA
 
@@ -223,7 +225,8 @@ INSERT INTO paciente (
     ocupacion,
     telefono,
     contacto_emergencia,
-    id_tipo_sangre
+    id_tipo_sangre,
+    id_estatus_paciente
 )
 VALUES
 (
@@ -239,7 +242,8 @@ VALUES
     'Estudiante',
     '4421111111',
     'María Ramírez',
-    (SELECT id_tipo_sangre FROM tipo_sangre WHERE tipo = 'A+')
+    (SELECT id_tipo_sangre FROM tipo_sangre WHERE tipo = 'A+'),
+    (SELECT id_estatus_paciente FROM estatus_paciente WHERE nombre_estatus = 'Activo')
 ),
 (
     'Carlos',
@@ -254,7 +258,8 @@ VALUES
     'Ingeniero',
     '4422222222',
     'Laura Pérez',
-    (SELECT id_tipo_sangre FROM tipo_sangre WHERE tipo = 'O+')
+    (SELECT id_tipo_sangre FROM tipo_sangre WHERE tipo = 'O+'),
+    (SELECT id_estatus_paciente FROM estatus_paciente WHERE nombre_estatus = 'Activo')
 ),
 (
     'Sofía',
@@ -269,7 +274,8 @@ VALUES
     'Diseñadora',
     '4423333333',
     'Pedro Gómez',
-    (SELECT id_tipo_sangre FROM tipo_sangre WHERE tipo = 'B+')
+    (SELECT id_tipo_sangre FROM tipo_sangre WHERE tipo = 'B+'),
+    (SELECT id_estatus_paciente FROM estatus_paciente WHERE nombre_estatus = 'Activo')
 )
 ON CONFLICT (curp) DO NOTHING;
 
@@ -478,6 +484,9 @@ VALUES
     '2 meses',
     'Revisar niveles de glucosa'
 );
+
+
+
 
 
 -- VALIDACIONES

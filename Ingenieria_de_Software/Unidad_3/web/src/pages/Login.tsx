@@ -18,6 +18,7 @@ export default function Login() {
 
       if (data.data.token) {
         localStorage.setItem("token", data.data.token);
+        console.log(data.data.token);
         setUser({
           nombre_usuario: data.data.usuario.nombre_usuario,
           nombre_rol: data.data.usuario.nombre_rol,

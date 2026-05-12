@@ -73,6 +73,11 @@ CREATE TABLE tipo_tratamiento (
 );
 
 
+CREATE TABLE digiclin.estatus_paciente (
+    id_estatus_paciente INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre_estatus VARCHAR(30) NOT NULL UNIQUE
+);
+
 --TABLAS DE USUARIOS
 SET search_path TO digiclin;
 
@@ -151,12 +156,15 @@ CREATE TABLE paciente (
     contacto_emergencia VARCHAR(100),
     id_tipo_sangre INTEGER,
     fecha_registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id_estatus_paciente INTEGER NOT NULL,
     CONSTRAINT fk_paciente_sexo
         FOREIGN KEY (id_sexo) REFERENCES sexo(id_sexo),
     CONSTRAINT fk_paciente_estado_civil
         FOREIGN KEY (id_estado_civil) REFERENCES estado_civil(id_estado_civil),
     CONSTRAINT fk_paciente_tipo_sangre
-        FOREIGN KEY (id_tipo_sangre) REFERENCES tipo_sangre(id_tipo_sangre)
+        FOREIGN KEY (id_tipo_sangre) REFERENCES tipo_sangre(id_tipo_sangre),
+    CONSTRAINT fk_paciente_estatus
+    FOREIGN KEY (id_estatus_paciente) REFERENCES estatus_paciente(id_estatus_paciente)
 );
 
 CREATE TABLE paciente_alergia (
@@ -289,6 +297,29 @@ CREATE TABLE auditoria (
         CHECK (accion IN ('INSERT', 'UPDATE', 'DELETE', 'CONSULTA'))
 );
 
+
+
+
+
+ALTER TABLE digiclin.paciente
+ADD COLUMN IF NOT EXISTS id_estatus_paciente INTEGER;
+
+ALTER TABLE digiclin.paciente
+ADD CONSTRAINT fk_paciente_estatus
+FOREIGN KEY (id_estatus_paciente)
+REFERENCES digiclin.estatus_paciente(id_estatus_paciente);
+
+UPDATE digiclin.paciente
+SET id_estatus_paciente = (
+    SELECT id_estatus_paciente
+    FROM digiclin.estatus_paciente
+    WHERE LOWER(nombre_estatus) = LOWER('Activo')
+)
+WHERE id_estatus_paciente IS NULL;
+
+ALTER TABLE digiclin.paciente
+ALTER COLUMN id_estatus_paciente SET NOT NULL;
+
 -- Indices
 CREATE INDEX idx_paciente_nombre
     ON paciente (apellido_pat, apellido_mat, nombre_p);
@@ -304,3 +335,8 @@ CREATE INDEX idx_expediente_diagnostico
 
 CREATE INDEX idx_expediente_fecha
     ON expediente_clinico (fecha_consulta);
+
+
+
+
+

@@ -1,3 +1,4 @@
+//api.ts - Configuración de Axios para la comunicación con el backend
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 

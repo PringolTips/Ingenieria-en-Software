@@ -11,9 +11,10 @@ interface SidebarProps {
   activePage: Page;
   onNavigate: Dispatch<SetStateAction<Page>>;
   onOpenAddUser: () => void;
+  onOpenAddPatient: () => void;
 }
 
-export default function Sidebar({ activePage, onNavigate, onOpenAddUser }: SidebarProps) {
+export default function Sidebar({ activePage, onNavigate, onOpenAddUser, onOpenAddPatient }: SidebarProps) {
   const { user } = useUser();
   const rol = user?.nombre_rol;
 
@@ -39,7 +40,9 @@ export default function Sidebar({ activePage, onNavigate, onOpenAddUser }: Sideb
       <div className="px-4 pt-5 pb-4 flex flex-col gap-2.5 border-b border-border">
         {/* Agregar paciente: médico y enfermero */}
         {(rol === 'Medico' || rol === 'Enfermero') && (
-          <button className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium py-2.5 px-3 rounded-lg transition-colors">
+          <button 
+            onClick={onOpenAddPatient}
+            className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium py-2.5 px-3 rounded-lg transition-colors">
             <UserPlus size={16} />
             Agregar paciente
           </button>

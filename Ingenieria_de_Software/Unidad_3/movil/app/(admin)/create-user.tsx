@@ -1,159 +1,88 @@
 import React, { useState } from 'react';
-import {
-  ActivityIndicator, Alert,
-  ScrollView,
-  StyleSheet,
-  Text, TextInput, TouchableOpacity,
-  View
-} from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { handleCreateUser } from '../../logic/handleCreateUser';
-
-const COLORS = { primary: '#1976D2', border: '#E2E8F0', muted: '#64748B', bg: '#F8FAFC' };
 
 export default function CreateUserScreen() {
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState('');
-  const [form, setForm] = useState({
-    nombres: '',
-    apellido_paterno: '',
-    apellido_materno: '',
-    nombre_rol: 'Enfermero',
-    cedula: '',
-    especialidad: ''
-  });
+  const [form, setForm] = useState({ username: '', emailPrefix: '', nombre_rol: '' });
 
-  const roles = ['Admin', 'Médico', 'Enfermero'];
-
-  const onCreate = async () => {
-    if (!username || !form.nombres || !form.apellido_paterno) {
-      Alert.alert("Campos obligatorios", "Por favor llena el nombre y el ID de usuario.");
+  const handleCreate = async () => {
+    if (!form.username || !form.emailPrefix || !form.nombre_rol) {
+      Alert.alert("Atención", "Todos los campos son obligatorios.");
       return;
     }
+    const finalEmail = `${form.emailPrefix.trim()}@digiclin.com`;
+    const success = await handleCreateUser({
+      nombre_usuario: form.username,
+      correo: finalEmail,
+      nombre_rol: form.nombre_rol,
+      nombres: "Personal",
+      apellido_paterno: "Digiclin"
+    }, setLoading);
 
-    const finalData = {
-      ...form,
-      nombre_usuario: username.trim(),
-      correo: `${username.toLowerCase().trim()}@digiclin.com` // Dominio automático
-    };
-
-    const success = await handleCreateUser(finalData, setLoading);
     if (success) {
-      Alert.alert("Éxito", "Usuario registrado. Contraseña temporal: 12345678");
-      // Resetear campos
-      setUsername('');
-      setForm({ nombres: '', apellido_paterno: '', apellido_materno: '', nombre_rol: 'Enfermero', cedula: '', especialidad: '' });
+      Alert.alert("Éxito", "Usuario creado correctamente");
+      setForm({ username: '', emailPrefix: '', nombre_rol: '' });
     }
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
-      <Text style={styles.sectionTitle}>Datos Personales</Text>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>Agregar nuevo usuario</Text>
       
-      <Text style={styles.label}>Nombre(s) *</Text>
+      <Text style={styles.label}>Nombre de usuario</Text>
       <TextInput 
         style={styles.input} 
-        placeholder="Juan" 
-        value={form.nombres}
-        onChangeText={(v) => setForm({...form, nombres: v})} 
+        placeholder="ej. dr.ramirez" 
+        onChangeText={(v) => setForm({...form, username: v})} 
+        value={form.username} 
       />
 
-      <View style={styles.row}>
-        <View style={{ flex: 1, marginRight: 10 }}>
-          <Text style={styles.label}>Apellido Paterno *</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="Pérez" 
-            value={form.apellido_paterno}
-            onChangeText={(v) => setForm({...form, apellido_paterno: v})} 
-          />
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.label}>Apellido Materno</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="García" 
-            value={form.apellido_materno}
-            onChangeText={(v) => setForm({...form, apellido_materno: v})} 
-          />
-        </View>
-      </View>
-
-      <Text style={[styles.sectionTitle, { marginTop: 30 }]}>Configuración de Cuenta</Text>
-
-      <Text style={styles.label}>ID de Usuario (Username) *</Text>
-      <View style={styles.inputWrapper}>
+      <Text style={styles.label}>Correo institucional</Text>
+      <View style={styles.emailRow}>
         <TextInput 
-          style={{ flex: 1, fontSize: 16 }} 
-          placeholder="ej. jperez" 
-          value={username}
-          onChangeText={setUsername}
+          style={styles.emailInput} 
+          placeholder="nombre.apellido"
+          onChangeText={(v) => setForm({...form, emailPrefix: v})}
+          value={form.emailPrefix}
           autoCapitalize="none"
         />
-        <Text style={styles.domain}>@digiclin.com</Text>
+        <View style={styles.suffix}><Text style={styles.suffixText}>@digiclin.com</Text></View>
       </View>
 
-      <Text style={styles.label}>Rol en el Sistema</Text>
-      <View style={styles.roleGrid}>
-        {roles.map((r) => (
+      <Text style={styles.label}>Asignar Rol</Text>
+      <View style={styles.roleContainer}>
+        {['Admin', 'Medico', 'Enfermero'].map((r) => (
           <TouchableOpacity 
             key={r} 
-            style={[styles.roleBtn, form.nombre_rol === r && styles.roleBtnActive]}
+            style={[styles.roleBtn, form.nombre_rol === r && styles.roleBtnActive]} 
             onPress={() => setForm({...form, nombre_rol: r})}
           >
-            <Text style={[styles.roleBtnText, form.nombre_rol === r && { color: '#fff' }]}>{r}</Text>
+            <Text style={[styles.roleText, form.nombre_rol === r && { color: '#FFF' }]}>{r}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
-      {/* CAMPOS CONDICIONALES POR ROL */}
-      {form.nombre_rol !== 'Admin' && (
-        <View style={{ marginTop: 20 }}>
-          <Text style={styles.label}>Cédula Profesional</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="7-8 dígitos" 
-            keyboardType="numeric"
-            value={form.cedula}
-            onChangeText={(v) => setForm({...form, cedula: v})} 
-          />
-        </View>
-      )}
-
-      {form.nombre_rol === 'Médico' && (
-        <View style={{ marginTop: 20 }}>
-          <Text style={styles.label}>Especialidad</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="ej. Pediatría" 
-            value={form.especialidad}
-            onChangeText={(v) => setForm({...form, especialidad: v})} 
-          />
-        </View>
-      )}
-
-      <TouchableOpacity 
-        style={[styles.mainBtn, loading && { opacity: 0.7 }]} 
-        onPress={onCreate}
-        disabled={loading}
-      >
-        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.mainBtnText}>Crear Acceso Seguro</Text>}
+      <TouchableOpacity style={styles.submitBtn} onPress={handleCreate} disabled={loading}>
+        {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.submitBtnText}>Registrar Personal</Text>}
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 25, backgroundColor: COLORS.bg },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', color: COLORS.primary, marginBottom: 15 },
-  label: { fontWeight: '700', fontSize: 14, marginBottom: 8, color: '#1E293B' },
-  input: { backgroundColor: '#fff', borderWidth: 1, borderColor: COLORS.border, borderRadius: 12, padding: 15, fontSize: 16, marginBottom: 10 },
-  row: { flexDirection: 'row' },
-  inputWrapper: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#fff', borderWidth: 1, borderColor: COLORS.border, borderRadius: 12, paddingHorizontal: 15, height: 58 },
-  domain: { color: COLORS.muted, fontWeight: 'bold' },
-  roleGrid: { flexDirection: 'row', gap: 10, marginTop: 10 },
-  roleBtn: { paddingVertical: 10, paddingHorizontal: 20, borderWidth: 1, borderColor: COLORS.primary, borderRadius: 25 },
-  roleBtnActive: { backgroundColor: COLORS.primary },
-  roleBtnText: { color: COLORS.primary, fontWeight: '600' },
-  mainBtn: { backgroundColor: COLORS.primary, padding: 20, borderRadius: 15, marginTop: 40, alignItems: 'center', elevation: 4 },
-  mainBtnText: { color: '#fff', fontSize: 18, fontWeight: 'bold' }
+  container: { flex: 1, backgroundColor: '#FFF', padding: 25 },
+  title: { fontSize: 22, fontWeight: 'bold', color: '#1E293B', marginBottom: 20 },
+  label: { fontSize: 13, fontWeight: 'bold', color: '#64748B', marginTop: 15, marginBottom: 8 },
+  input: { borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 12, padding: 12, backgroundColor: '#F8FAFC' },
+  emailRow: { flexDirection: 'row', height: 50, borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 12, overflow: 'hidden' },
+  emailInput: { flex: 1, paddingHorizontal: 15, backgroundColor: '#F8FAFC' },
+  suffix: { backgroundColor: '#F1F5F9', justifyContent: 'center', paddingHorizontal: 12, borderLeftWidth: 1, borderLeftColor: '#E2E8F0' },
+  suffixText: { color: '#64748B', fontWeight: 'bold', fontSize: 12 },
+  roleContainer: { flexDirection: 'row', gap: 10, marginTop: 10 },
+  roleBtn: { flex: 1, padding: 12, borderRadius: 10, borderWidth: 1, borderColor: '#1976D2', alignItems: 'center' },
+  roleBtnActive: { backgroundColor: '#1976D2' },
+  roleText: { color: '#1976D2', fontWeight: 'bold', fontSize: 12 },
+  submitBtn: { backgroundColor: '#1976D2', padding: 18, borderRadius: 12, marginTop: 40, alignItems: 'center' },
+  submitBtnText: { color: '#FFF', fontWeight: 'bold' }
 });

@@ -2,33 +2,27 @@
   "expo": {
     "name": "DIGICLIN",
     "slug": "digiclin",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/images/Digiclin_icono.png",
     "scheme": "digiclin",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    
     "updates": {
       "url": "https://u.expo.dev/b7149423-d557-4874-b140-c91db7405611",
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 0
     },
-
     "runtimeVersion": {
       "policy": "appVersion"
     },
-
     "ios": {
       "supportsTablet": true
     },
-
     "android": {
       "adaptiveIcon": {
-
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/Digiclin_icono.png"
-       
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -36,12 +30,10 @@
       "googleServicesFile": "./google-services.json",
       "versionCode": 5
     },
-
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-
     "plugins": [
       "expo-router",
       [
@@ -56,21 +48,19 @@
           }
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "@react-native-community/datetimepicker"
     ],
-
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
     },
-
     "extra": {
       "router": {},
       "eas": {
         "projectId": "b7149423-d557-4874-b140-c91db7405611"
       }
     },
-
     "owner": "christophervegaangeless-organization"
   }
 }

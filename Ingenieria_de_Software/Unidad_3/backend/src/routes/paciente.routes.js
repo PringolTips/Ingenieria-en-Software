@@ -54,6 +54,22 @@ router.put(
   pacienteController.habilitarPaciente
 );
 
+
+router.put(
+  '/:curp/corregir-curp',
+  verificarToken,
+  verificarRol('Admin', 'Director', 'Administrativo'),
+  pacienteController.corregirCurpPaciente
+);
+
+
+router.put(
+  '/:curp',
+  verificarToken,
+  verificarRol('Admin', 'Medico', 'Enfermero'),
+  pacienteController.actualizarPaciente
+);
+
 router.get(
   '/:curp',
   verificarToken,

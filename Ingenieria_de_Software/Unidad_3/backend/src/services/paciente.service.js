@@ -1,5 +1,19 @@
 const db = require('../config/db');
 
+const normalizarCurp = (curp) => {
+  return curp.trim().toUpperCase();
+};
+
+const validarFormatoCurp = (curp) => {
+  if (!curp) return false;
+
+  const curpNormalizada = normalizarCurp(curp);
+
+  const regexCurp = /^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d$/;
+
+  return regexCurp.test(curpNormalizada);
+};
+
 const obtenerVistaPorRol = (rol) => {
   switch (rol) {
     case 'Admin':
@@ -64,13 +78,19 @@ const obtenerPorCurp = async (curp, rol) => {
     throw error;
   }
 
+  if (!validarFormatoCurp(curp)) {
+    const error = new Error('La CURP tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
   const vista = obtenerVistaPorRol(rol);
 
   const res = await db.query(
     `SELECT *
      FROM ${vista}
      WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
-    [curp]
+    [normalizarCurp(curp)]
   );
 
   if (res.rows.length === 0) {
@@ -125,6 +145,12 @@ const crearPaciente = async (pacienteObj = {}) => {
     throw error;
   }
 
+  if (!validarFormatoCurp(pacienteObj.curp)) {
+    const error = new Error('La CURP tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
   try {
     await db.query(
       `CALL digiclin.sp_crear_paciente(
@@ -148,7 +174,7 @@ const crearPaciente = async (pacienteObj = {}) => {
         pacienteObj.apellido_mat,
         pacienteObj.fecha_nacimiento,
         pacienteObj.nombre_sexo,
-        pacienteObj.curp,
+        normalizarCurp(pacienteObj.curp),
         pacienteObj.domicilio,
         pacienteObj.nombre_estado_civil || null,
         pacienteObj.correo || null,
@@ -174,7 +200,155 @@ const crearPaciente = async (pacienteObj = {}) => {
     `SELECT *
      FROM digiclin.vw_paciente_completo
      WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
-    [pacienteObj.curp]
+    [normalizarCurp(pacienteObj.curp)]
+  );
+
+  return res.rows[0];
+};
+
+const actualizarPaciente = async (pacienteObj = {}) => {
+  if (!pacienteObj.curp) {
+    const error = new Error('La CURP es obligatoria');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!validarFormatoCurp(pacienteObj.curp)) {
+    const error = new Error('La CURP tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const camposActualizables = [
+    'nombre_p',
+    'apellido_pat',
+    'apellido_mat',
+    'fecha_nacimiento',
+    'nombre_sexo',
+    'domicilio',
+    'nombre_estado_civil',
+    'correo',
+    'ocupacion',
+    'telefono',
+    'contacto_emergencia',
+    'nombre_tipo_sangre'
+  ];
+
+  const tieneAlgunCampo = camposActualizables.some(
+    (campo) =>
+      pacienteObj[campo] !== undefined &&
+      pacienteObj[campo] !== null &&
+      pacienteObj[campo] !== ''
+  );
+
+  if (!tieneAlgunCampo) {
+    const error = new Error('Debes enviar al menos un campo para actualizar');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  try {
+    await db.query(
+      `CALL digiclin.sp_actualizar_paciente(
+        $1::varchar,
+        $2::varchar,
+        $3::varchar,
+        $4::varchar,
+        $5::date,
+        $6::varchar,
+        $7::varchar,
+        $8::varchar,
+        $9::varchar,
+        $10::varchar,
+        $11::varchar,
+        $12::varchar,
+        $13::varchar
+      )`,
+      [
+        normalizarCurp(pacienteObj.curp),
+        pacienteObj.nombre_p || null,
+        pacienteObj.apellido_pat || null,
+        pacienteObj.apellido_mat || null,
+        pacienteObj.fecha_nacimiento || null,
+        pacienteObj.nombre_sexo || null,
+        pacienteObj.domicilio || null,
+        pacienteObj.nombre_estado_civil || null,
+        pacienteObj.correo || null,
+        pacienteObj.ocupacion || null,
+        pacienteObj.telefono || null,
+        pacienteObj.contacto_emergencia || null,
+        pacienteObj.nombre_tipo_sangre || null
+      ]
+    );
+  } catch (err) {
+    const error = new Error(err.message || 'Error al actualizar paciente');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    `SELECT *
+     FROM digiclin.vw_paciente_completo
+     WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
+    [normalizarCurp(pacienteObj.curp)]
+  );
+
+  if (res.rows.length === 0) {
+    const error = new Error('Paciente no encontrado después de actualizar');
+    error.statusCode = 404;
+    throw error;
+  }
+
+  return res.rows[0];
+};
+
+const corregirCurpPaciente = async ({ curp_actual, nuevo_curp }) => {
+  if (!curp_actual) {
+    const error = new Error('La CURP actual es obligatoria');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!nuevo_curp) {
+    const error = new Error('La nueva CURP es obligatoria');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!validarFormatoCurp(curp_actual)) {
+    const error = new Error('La CURP actual tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!validarFormatoCurp(nuevo_curp)) {
+    const error = new Error('La nueva CURP tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  try {
+    await db.query(
+      'CALL digiclin.sp_corregir_curp_paciente($1::varchar, $2::varchar)',
+      [normalizarCurp(curp_actual), normalizarCurp(nuevo_curp)]
+    );
+  } catch (err) {
+    if (err.code === '23505') {
+      const error = new Error('La nueva CURP ya está registrada');
+      error.statusCode = 409;
+      throw error;
+    }
+
+    const error = new Error(err.message || 'Error al corregir CURP');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    `SELECT *
+     FROM digiclin.vw_paciente_identificador
+     WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
+    [normalizarCurp(nuevo_curp)]
   );
 
   return res.rows[0];
@@ -187,10 +361,16 @@ const inhabilitarPaciente = async (curp) => {
     throw error;
   }
 
+  if (!validarFormatoCurp(curp)) {
+    const error = new Error('La CURP tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
   try {
     await db.query(
       'CALL digiclin.sp_inhabilitar_paciente($1::varchar)',
-      [curp]
+      [normalizarCurp(curp)]
     );
   } catch (err) {
     const error = new Error(err.message || 'Error al inhabilitar paciente');
@@ -202,7 +382,7 @@ const inhabilitarPaciente = async (curp) => {
     `SELECT *
      FROM digiclin.vw_paciente_completo
      WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
-    [curp]
+    [normalizarCurp(curp)]
   );
 
   return res.rows[0];
@@ -215,10 +395,16 @@ const habilitarPaciente = async (curp) => {
     throw error;
   }
 
+  if (!validarFormatoCurp(curp)) {
+    const error = new Error('La CURP tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
   try {
     await db.query(
       'CALL digiclin.sp_habilitar_paciente($1::varchar)',
-      [curp]
+      [normalizarCurp(curp)]
     );
   } catch (err) {
     const error = new Error(err.message || 'Error al habilitar paciente');
@@ -230,7 +416,7 @@ const habilitarPaciente = async (curp) => {
     `SELECT *
      FROM digiclin.vw_paciente_completo
      WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
-    [curp]
+    [normalizarCurp(curp)]
   );
 
   return res.rows[0];
@@ -243,6 +429,8 @@ module.exports = {
   obtenerPorCurp,
   buscarPorNombre,
   crearPaciente,
+  actualizarPaciente,
+  corregirCurpPaciente,
   inhabilitarPaciente,
   habilitarPaciente
 };

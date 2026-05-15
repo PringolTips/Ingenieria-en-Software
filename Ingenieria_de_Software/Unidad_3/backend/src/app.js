@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
 
 
 
-app.use('/api/expedientes', expedienteRoutes);
-app.use('/api/pacientes', pacienteRoutes);
-app.use('/api/usuarios', usuarioRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/health', healthRoutes);
+app.use('/api/v1/expedientes', expedienteRoutes);
+app.use('/api/v1/pacientes', pacienteRoutes);
+app.use('/api/v1/usuarios', usuarioRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/health', healthRoutes);
 
 app.use(errorHandler);
 

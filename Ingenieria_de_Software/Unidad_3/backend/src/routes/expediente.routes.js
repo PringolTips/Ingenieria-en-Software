@@ -8,42 +8,42 @@ const verificarRol = require('../middlewares/rol.middleware');
 router.get(
   '/',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Medico', 'Enfermero'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerExpedientes
 );
 
 router.get(
   '/abiertos',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Medico', 'Enfermero'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerAbiertos
 );
 
 router.get(
   '/archivados',
   verificarToken,
-  verificarRol('Admin', 'Director'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerArchivados
 );
 
 router.get(
   '/paciente/:curp',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Medico', 'Enfermero'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerPorPaciente
 );
 
 router.get(
   '/usuario/:id_usuario',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Medico', 'Enfermero'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerPorIdUsuarioCreador
 );
 
 router.get(
   '/usuario/nombre/:nombre_usuario',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Medico', 'Enfermero'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerPorNombreUsuarioCreador
 );
 
@@ -57,28 +57,28 @@ router.post(
 router.put(
   '/:id_expediente/archivar',
   verificarToken,
-  verificarRol('Admin', 'Director'),
+  verificarRol('Medico', 'Director'),
   expedienteController.archivarExpediente
 );
 
 router.put(
   '/:id_expediente/desarchivar',
   verificarToken,
-  verificarRol('Admin', 'Director'),
+  verificarRol('Medico', 'Director'),
   expedienteController.desarchivarExpediente
 );
 
 router.put(
   '/:id_expediente',
   verificarToken,
-  verificarRol('Admin', 'Medico'),
+  verificarRol('Medico'),
   expedienteController.actualizarExpediente
 );
 
 router.get(
   '/:id_expediente',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Medico', 'Enfermero'),
+  verificarRol('Director', 'Medico', 'Enfermero'),
   expedienteController.obtenerPorId
 );
 

@@ -1,5 +1,4 @@
 SET search_path TO digiclin;
-
 -- Insert tablas catalogo
 
 INSERT INTO rol (nombre_rol, descripcion) 

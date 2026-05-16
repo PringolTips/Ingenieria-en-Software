@@ -12,6 +12,111 @@ const validarId = (valor, nombreCampo) => {
   return numero;
 };
 
+const esCampoEnviado = (valor) => {
+  return valor !== undefined && valor !== null && valor !== '';
+};
+
+const validarNumeroEnRango = (valor, nombreCampo, min, max) => {
+  if (!esCampoEnviado(valor)) return;
+
+  const numero = Number(valor);
+
+  if (Number.isNaN(numero)) {
+    const error = new Error(`${nombreCampo} debe ser numérico`);
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (numero < min || numero > max) {
+    const error = new Error(`${nombreCampo} debe estar entre ${min} y ${max}`);
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const validarLongitudTexto = (valor, nombreCampo, max) => {
+  if (!esCampoEnviado(valor)) return;
+
+  if (String(valor).trim().length > max) {
+    const error = new Error(`${nombreCampo} no debe exceder ${max} caracteres`);
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const validarFechaConsulta = (fechaConsulta) => {
+  if (!esCampoEnviado(fechaConsulta)) return;
+
+  const fecha = new Date(fechaConsulta);
+
+  if (Number.isNaN(fecha.getTime())) {
+    const error = new Error('fecha_consulta tiene un formato inválido');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const ahora = new Date();
+
+  if (fecha > ahora) {
+    const error = new Error('fecha_consulta no puede ser futura');
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const validarPresionArterial = (presion) => {
+  if (!esCampoEnviado(presion)) return;
+
+  const presionTexto = String(presion).trim();
+  const regex = /^\d{2,3}\/\d{2,3}$/;
+
+  if (!regex.test(presionTexto)) {
+    const error = new Error('presion_arterial debe tener formato sistólica/diastólica, ejemplo: 120/80');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const [sistolica, diastolica] = presionTexto.split('/').map(Number);
+
+  if (sistolica < 60 || sistolica > 250) {
+    const error = new Error('La presión sistólica debe estar entre 60 y 250');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (diastolica < 30 || diastolica > 150) {
+    const error = new Error('La presión diastólica debe estar entre 30 y 150');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (sistolica <= diastolica) {
+    const error = new Error('La presión sistólica debe ser mayor que la diastólica');
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const validarValoresExpediente = (expedienteObj = {}) => {
+  validarFechaConsulta(expedienteObj.fecha_consulta);
+
+  validarLongitudTexto(expedienteObj.motivo, 'motivo', 4000);
+  validarLongitudTexto(expedienteObj.antecedentes_personales, 'antecedentes_personales', 4000);
+  validarLongitudTexto(expedienteObj.antecedentes_familiares, 'antecedentes_familiares', 4000);
+  validarLongitudTexto(expedienteObj.observaciones, 'observaciones', 4000);
+  validarLongitudTexto(expedienteObj.presion_arterial, 'presion_arterial', 20);
+
+  validarPresionArterial(expedienteObj.presion_arterial);
+
+  validarNumeroEnRango(expedienteObj.frecuencia_cardiaca, 'frecuencia_cardiaca', 30, 220);
+  validarNumeroEnRango(expedienteObj.frecuencia_respiratoria, 'frecuencia_respiratoria', 5, 60);
+  validarNumeroEnRango(expedienteObj.temperatura, 'temperatura', 30, 45);
+  validarNumeroEnRango(expedienteObj.saturacion_oxigeno, 'saturacion_oxigeno', 50, 100);
+  validarNumeroEnRango(expedienteObj.peso, 'peso', 0.5, 500);
+  validarNumeroEnRango(expedienteObj.talla_cintura, 'talla_cintura', 20, 250);
+  validarNumeroEnRango(expedienteObj.altura, 'altura', 0.3, 2.5);
+};
+
 const listarTodos = async () => {
   const res = await db.query('SELECT * FROM digiclin.vw_expedientes');
   return res.rows;
@@ -89,11 +194,11 @@ const obtenerPorNombreUsuarioCreador = async (nombre_usuario) => {
   return res.rows;
 };
 
-const crearExpediente = async (expedienteObj = {}) => {
+const crearExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
   const camposFaltantes = [];
 
+  if (!usuarioAutenticado.id_usuario) camposFaltantes.push('id_usuario_token');
   if (!expedienteObj.id_paciente) camposFaltantes.push('id_paciente');
-  if (!expedienteObj.id_medico) camposFaltantes.push('id_medico');
   if (!expedienteObj.id_diagnostico) camposFaltantes.push('id_diagnostico');
   if (!expedienteObj.fecha_consulta) camposFaltantes.push('fecha_consulta');
   if (!expedienteObj.motivo) camposFaltantes.push('motivo');
@@ -105,9 +210,104 @@ const crearExpediente = async (expedienteObj = {}) => {
     throw error;
   }
 
+  let idExpedienteGenerado = null;
+  validarValoresExpediente(expedienteObj);
+  try {
+    const res = await db.query(
+      `CALL digiclin.sp_crear_expediente_desde_usuario(
+        $1::integer,
+        $2::integer,
+        $3::integer,
+        $4::timestamp,
+        $5::varchar,
+        $6::varchar,
+        $7::varchar,
+        $8::varchar,
+        $9::numeric,
+        $10::numeric,
+        $11::numeric,
+        $12::numeric,
+        $13::numeric,
+        $14::numeric,
+        $15::numeric,
+        $16::varchar,
+        $17::integer
+      )`,
+      [
+        Number(usuarioAutenticado.id_usuario),
+        Number(expedienteObj.id_paciente),
+        Number(expedienteObj.id_diagnostico),
+        expedienteObj.fecha_consulta,
+        expedienteObj.motivo,
+        expedienteObj.antecedentes_personales || null,
+        expedienteObj.antecedentes_familiares || null,
+        expedienteObj.presion_arterial || null,
+        expedienteObj.frecuencia_cardiaca || null,
+        expedienteObj.frecuencia_respiratoria || null,
+        expedienteObj.temperatura || null,
+        expedienteObj.saturacion_oxigeno || null,
+        expedienteObj.peso || null,
+        expedienteObj.talla_cintura || null,
+        expedienteObj.altura || null,
+        expedienteObj.observaciones || null,
+        null
+      ]
+    );
+
+    idExpedienteGenerado = res.rows[0]?.p_id_expediente_generado;
+  } catch (err) {
+    const error = new Error(err.message || 'Error al crear expediente');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!idExpedienteGenerado) {
+    return {
+      mensaje: 'Expediente creado, pero no se recibió el ID generado'
+    };
+  }
+
+  return await obtenerPorId(idExpedienteGenerado);
+};
+
+const actualizarExpediente = async (expedienteObj = {}) => {
+  const id = validarId(expedienteObj.id_expediente, 'id_expediente');
+
+  const camposActualizables = [
+    'id_paciente',
+    'id_diagnostico',
+    'fecha_consulta',
+    'motivo',
+    'antecedentes_personales',
+    'antecedentes_familiares',
+    'presion_arterial',
+    'frecuencia_cardiaca',
+    'frecuencia_respiratoria',
+    'temperatura',
+    'saturacion_oxigeno',
+    'peso',
+    'talla_cintura',
+    'altura',
+    'observaciones'
+  ];
+
+  const tieneAlgunCampo = camposActualizables.some(
+    (campo) => expedienteObj[campo] !== undefined &&
+               expedienteObj[campo] !== null &&
+               expedienteObj[campo] !== ''
+  );
+
+  if (!tieneAlgunCampo) {
+    const error = new Error('Debes enviar al menos un campo para actualizar');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  validarValoresExpediente(expedienteObj);
+
   try {
     await db.query(
-      `CALL digiclin.sp_crear_expediente(
+      `CALL digiclin.sp_actualizar_expediente(
         $1::integer,
         $2::integer,
         $3::integer,
@@ -126,88 +326,11 @@ const crearExpediente = async (expedienteObj = {}) => {
         $16::varchar
       )`,
       [
-        Number(expedienteObj.id_paciente),
-        Number(expedienteObj.id_medico),
-        Number(expedienteObj.id_diagnostico),
-        expedienteObj.fecha_consulta,
-        expedienteObj.motivo,
-        expedienteObj.antecedentes_personales || null,
-        expedienteObj.antecedentes_familiares || null,
-        expedienteObj.presion_arterial || null,
-        expedienteObj.frecuencia_cardiaca || null,
-        expedienteObj.frecuencia_respiratoria || null,
-        expedienteObj.temperatura || null,
-        expedienteObj.saturacion_oxigeno || null,
-        expedienteObj.peso || null,
-        expedienteObj.talla_cintura || null,
-        expedienteObj.altura || null,
-        expedienteObj.observaciones || null
-      ]
-    );
-  } catch (err) {
-    const error = new Error(err.message || 'Error al crear expediente');
-    error.statusCode = 400;
-    throw error;
-  }
-
-  const res = await db.query(
-    `SELECT *
-     FROM digiclin.vw_expedientes
-     WHERE id_paciente = $1::integer
-     ORDER BY id_expediente DESC
-     LIMIT 1`,
-    [Number(expedienteObj.id_paciente)]
-  );
-
-  return res.rows[0];
-};
-
-const actualizarExpediente = async (expedienteObj = {}) => {
-  const id = validarId(expedienteObj.id_expediente, 'id_expediente');
-
-  const camposFaltantes = [];
-
-  if (!expedienteObj.id_paciente) camposFaltantes.push('id_paciente');
-  if (!expedienteObj.id_medico) camposFaltantes.push('id_medico');
-  if (!expedienteObj.id_diagnostico) camposFaltantes.push('id_diagnostico');
-  if (!expedienteObj.fecha_consulta) camposFaltantes.push('fecha_consulta');
-  if (!expedienteObj.motivo) camposFaltantes.push('motivo');
-
-  if (camposFaltantes.length > 0) {
-    const error = new Error('Faltan campos obligatorios');
-    error.statusCode = 400;
-    error.campos = camposFaltantes;
-    throw error;
-  }
-
-  try {
-    await db.query(
-      `CALL digiclin.sp_actualizar_expediente(
-        $1::integer,
-        $2::integer,
-        $3::integer,
-        $4::integer,
-        $5::timestamp,
-        $6::varchar,
-        $7::varchar,
-        $8::varchar,
-        $9::varchar,
-        $10::numeric,
-        $11::numeric,
-        $12::numeric,
-        $13::numeric,
-        $14::numeric,
-        $15::numeric,
-        $16::numeric,
-        $17::varchar
-      )`,
-      [
         id,
-        Number(expedienteObj.id_paciente),
-        Number(expedienteObj.id_medico),
-        Number(expedienteObj.id_diagnostico),
-        expedienteObj.fecha_consulta,
-        expedienteObj.motivo,
+        expedienteObj.id_paciente ? Number(expedienteObj.id_paciente) : null,
+        expedienteObj.id_diagnostico ? Number(expedienteObj.id_diagnostico) : null,
+        expedienteObj.fecha_consulta || null,
+        expedienteObj.motivo || null,
         expedienteObj.antecedentes_personales || null,
         expedienteObj.antecedentes_familiares || null,
         expedienteObj.presion_arterial || null,
@@ -247,6 +370,23 @@ const archivarExpediente = async (id_expediente) => {
   return await obtenerPorId(id);
 };
 
+const desarchivarExpediente = async (id_expediente) => {
+  const id = validarId(id_expediente, 'id_expediente');
+
+  try {
+    await db.query(
+      'CALL digiclin.sp_desarchivar_expediente($1::integer)',
+      [id]
+    );
+  } catch (err) {
+    const error = new Error(err.message || 'Error al desarchivar expediente');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return await obtenerPorId(id);
+};
+
 module.exports = {
   listarTodos,
   listarAbiertos,
@@ -257,5 +397,6 @@ module.exports = {
   obtenerPorNombreUsuarioCreador,
   crearExpediente,
   actualizarExpediente,
-  archivarExpediente
+  archivarExpediente,
+  desarchivarExpediente
 };

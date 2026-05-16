@@ -14,6 +14,224 @@ const validarFormatoCurp = (curp) => {
   return regexCurp.test(curpNormalizada);
 };
 
+const crearError = (mensaje, statusCode = 400, campos = null) => {
+  const error = new Error(mensaje);
+  error.statusCode = statusCode;
+  if (campos) error.campos = campos;
+  return error;
+};
+
+const esCampoEnviado = (valor) => {
+  return valor !== undefined && valor !== null && String(valor).trim() !== '';
+};
+
+const limpiarTexto = (valor) => {
+  if (!esCampoEnviado(valor)) return null;
+  return String(valor).trim();
+};
+
+const normalizarTexto = (valor) => {
+  return String(valor)
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+};
+
+const validarNombrePersona = (valor, nombreCampo) => {
+  if (!esCampoEnviado(valor)) return;
+
+  const texto = limpiarTexto(valor);
+
+  const regex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s.'-]+$/;
+
+  if (!regex.test(texto)) {
+    throw crearError(`${nombreCampo} no debe contener números ni caracteres no permitidos`);
+  }
+
+  if (texto.length > 60) {
+    throw crearError(`${nombreCampo} no debe exceder 60 caracteres`);
+  }
+};
+
+const validarCorreo = (correo) => {
+  if (!esCampoEnviado(correo)) return;
+
+  const texto = limpiarTexto(correo);
+
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!regex.test(texto)) {
+    throw crearError('El correo tiene un formato inválido');
+  }
+
+  if (texto.length > 100) {
+    throw crearError('El correo no debe exceder 100 caracteres');
+  }
+};
+
+const validarTelefono = (telefono) => {
+  if (!esCampoEnviado(telefono)) return;
+
+  const texto = limpiarTexto(telefono);
+
+  if (!/^\d+$/.test(texto)) {
+    throw crearError('El teléfono debe contener solo números');
+  }
+
+  if (texto.length !== 10) {
+    throw crearError('El teléfono debe tener 10 dígitos');
+  }
+};
+
+const validarContactoEmergencia = (contactoEmergencia, telefono) => {
+  if (!esCampoEnviado(contactoEmergencia)) return;
+
+  const contacto = limpiarTexto(contactoEmergencia);
+
+  if (contacto.length > 100) {
+    throw crearError('El contacto de emergencia no debe exceder 100 caracteres');
+  }
+
+  if (
+    esCampoEnviado(telefono) &&
+    normalizarTexto(contacto) === normalizarTexto(telefono)
+  ) {
+    throw crearError('El contacto de emergencia debe ser diferente al teléfono principal');
+  }
+};
+
+const normalizarFechaNacimiento = (fechaNacimiento) => {
+  if (!esCampoEnviado(fechaNacimiento)) return null;
+
+  const texto = limpiarTexto(fechaNacimiento);
+
+  // Acepta formato YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+    return texto;
+  }
+
+  // Acepta formato DD/MM/YYYY y lo convierte a YYYY-MM-DD
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
+    const [dia, mes, anio] = texto.split('/');
+    return `${anio}-${mes}-${dia}`;
+  }
+
+  throw crearError('La fecha de nacimiento debe tener formato válido: YYYY-MM-DD o DD/MM/YYYY');
+};
+
+const validarFechaNacimiento = (fechaNacimiento) => {
+  if (!esCampoEnviado(fechaNacimiento)) return;
+
+  const fechaISO = normalizarFechaNacimiento(fechaNacimiento);
+  const fecha = new Date(`${fechaISO}T00:00:00`);
+
+  if (Number.isNaN(fecha.getTime())) {
+    throw crearError('La fecha de nacimiento es inválida');
+  }
+
+  const hoy = new Date();
+
+  if (fecha > hoy) {
+    throw crearError('La fecha de nacimiento no puede ser futura');
+  }
+
+  let edad = hoy.getFullYear() - fecha.getFullYear();
+  const mes = hoy.getMonth() - fecha.getMonth();
+
+  if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+    edad--;
+  }
+
+  if (edad >= 120) {
+    throw crearError('La edad calculada debe ser menor a 120 años');
+  }
+
+  return fechaISO;
+};
+
+const validarSexo = (sexo) => {
+  if (!esCampoEnviado(sexo)) return;
+
+  const permitidos = ['masculino', 'femenino'];
+  const valor = normalizarTexto(sexo);
+
+  if (!permitidos.includes(valor)) {
+    throw crearError('Sexo solo permite: Masculino o Femenino');
+  }
+};
+
+const validarEstadoCivil = (estadoCivil) => {
+  if (!esCampoEnviado(estadoCivil)) return;
+
+  const permitidos = ['soltero', 'casado', 'divorciado', 'viudo', 'separado'];
+  const valor = normalizarTexto(estadoCivil);
+
+  if (!permitidos.includes(valor)) {
+    throw crearError('Estado civil solo permite: Soltero, Casado, Divorciado, Viudo o Separado');
+  }
+};
+
+const validarTipoSangre = (tipoSangre) => {
+  if (!esCampoEnviado(tipoSangre)) return;
+
+  const permitidos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+
+  if (!permitidos.includes(String(tipoSangre).trim().toUpperCase())) {
+    throw crearError('Tipo de sangre solo permite: A+, A-, B+, B-, AB+, AB-, O+ y O-');
+  }
+};
+
+const validarLongitudTexto = (valor, nombreCampo, max) => {
+  if (!esCampoEnviado(valor)) return;
+
+  if (String(valor).trim().length > max) {
+    throw crearError(`${nombreCampo} no debe exceder ${max} caracteres`);
+  }
+};
+
+const validarDatosPaciente = (pacienteObj = {}, requiereObligatorios = false) => {
+  const camposFaltantes = [];
+
+  if (requiereObligatorios) {
+    if (!esCampoEnviado(pacienteObj.nombre_p)) camposFaltantes.push('nombre_p');
+    if (!esCampoEnviado(pacienteObj.apellido_pat)) camposFaltantes.push('apellido_pat');
+    if (!esCampoEnviado(pacienteObj.apellido_mat)) camposFaltantes.push('apellido_mat');
+    if (!esCampoEnviado(pacienteObj.fecha_nacimiento)) camposFaltantes.push('fecha_nacimiento');
+    if (!esCampoEnviado(pacienteObj.nombre_sexo)) camposFaltantes.push('nombre_sexo');
+    if (!esCampoEnviado(pacienteObj.curp)) camposFaltantes.push('curp');
+    if (!esCampoEnviado(pacienteObj.domicilio)) camposFaltantes.push('domicilio');
+    if (!esCampoEnviado(pacienteObj.telefono)) camposFaltantes.push('telefono');
+    if (!esCampoEnviado(pacienteObj.contacto_emergencia)) camposFaltantes.push('contacto_emergencia');
+  }
+
+  if (camposFaltantes.length > 0) {
+    throw crearError('Faltan campos obligatorios', 400, camposFaltantes);
+  }
+
+  validarNombrePersona(pacienteObj.nombre_p, 'nombre_p');
+  validarNombrePersona(pacienteObj.apellido_pat, 'apellido_pat');
+  validarNombrePersona(pacienteObj.apellido_mat, 'apellido_mat');
+
+  const fechaNormalizada = validarFechaNacimiento(pacienteObj.fecha_nacimiento);
+
+  validarSexo(pacienteObj.nombre_sexo);
+  validarEstadoCivil(pacienteObj.nombre_estado_civil);
+  validarTipoSangre(pacienteObj.nombre_tipo_sangre);
+
+  validarCorreo(pacienteObj.correo);
+  validarTelefono(pacienteObj.telefono);
+  validarContactoEmergencia(pacienteObj.contacto_emergencia, pacienteObj.telefono);
+
+  validarLongitudTexto(pacienteObj.domicilio, 'domicilio', 200);
+  validarLongitudTexto(pacienteObj.ocupacion, 'ocupacion', 80);
+
+  return {
+    ...pacienteObj,
+    fecha_nacimiento: fechaNormalizada || pacienteObj.fecha_nacimiento
+  };
+};
+
 const obtenerVistaPorRol = (rol) => {
   switch (rol) {
     case 'Admin':
@@ -126,26 +344,9 @@ const buscarPorNombre = async (nombre, rol) => {
 };
 
 const crearPaciente = async (pacienteObj = {}) => {
-  const camposFaltantes = [];
+  const pacienteValidado = validarDatosPaciente(pacienteObj, true);
 
-  if (!pacienteObj.nombre_p) camposFaltantes.push('nombre_p');
-  if (!pacienteObj.apellido_pat) camposFaltantes.push('apellido_pat');
-  if (!pacienteObj.apellido_mat) camposFaltantes.push('apellido_mat');
-  if (!pacienteObj.fecha_nacimiento) camposFaltantes.push('fecha_nacimiento');
-  if (!pacienteObj.nombre_sexo) camposFaltantes.push('nombre_sexo');
-  if (!pacienteObj.curp) camposFaltantes.push('curp');
-  if (!pacienteObj.domicilio) camposFaltantes.push('domicilio');
-  if (!pacienteObj.telefono) camposFaltantes.push('telefono');
-  if (!pacienteObj.contacto_emergencia) camposFaltantes.push('contacto_emergencia');
-
-  if (camposFaltantes.length > 0) {
-    const error = new Error('Faltan campos obligatorios');
-    error.statusCode = 400;
-    error.campos = camposFaltantes;
-    throw error;
-  }
-
-  if (!validarFormatoCurp(pacienteObj.curp)) {
+  if (!validarFormatoCurp(pacienteValidado.curp)) {
     const error = new Error('La CURP tiene un formato inválido');
     error.statusCode = 400;
     throw error;
@@ -169,19 +370,19 @@ const crearPaciente = async (pacienteObj = {}) => {
         $13::varchar
       )`,
       [
-        pacienteObj.nombre_p,
-        pacienteObj.apellido_pat,
-        pacienteObj.apellido_mat,
-        pacienteObj.fecha_nacimiento,
-        pacienteObj.nombre_sexo,
-        normalizarCurp(pacienteObj.curp),
-        pacienteObj.domicilio,
-        pacienteObj.nombre_estado_civil || null,
-        pacienteObj.correo || null,
-        pacienteObj.ocupacion || null,
-        pacienteObj.telefono,
-        pacienteObj.contacto_emergencia,
-        pacienteObj.nombre_tipo_sangre || null
+        pacienteValidado.nombre_p,
+        pacienteValidado.apellido_pat,
+        pacienteValidado.apellido_mat,
+        pacienteValidado.fecha_nacimiento,
+        pacienteValidado.nombre_sexo,
+        normalizarCurp(pacienteValidado.curp),
+        pacienteValidado.domicilio,
+        pacienteValidado.nombre_estado_civil || null,
+        pacienteValidado.correo || null,
+        pacienteValidado.ocupacion || null,
+        pacienteValidado.telefono,
+        pacienteValidado.contacto_emergencia,
+        pacienteValidado.nombre_tipo_sangre || null
       ]
     );
   } catch (err) {
@@ -200,7 +401,7 @@ const crearPaciente = async (pacienteObj = {}) => {
     `SELECT *
      FROM digiclin.vw_paciente_completo
      WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
-    [normalizarCurp(pacienteObj.curp)]
+    [normalizarCurp(pacienteValidado.curp)]
   );
 
   return res.rows[0];
@@ -247,6 +448,8 @@ const actualizarPaciente = async (pacienteObj = {}) => {
     throw error;
   }
 
+  const pacienteValidado = validarDatosPaciente(pacienteObj, false);
+
   try {
     await db.query(
       `CALL digiclin.sp_actualizar_paciente(
@@ -265,19 +468,19 @@ const actualizarPaciente = async (pacienteObj = {}) => {
         $13::varchar
       )`,
       [
-        normalizarCurp(pacienteObj.curp),
-        pacienteObj.nombre_p || null,
-        pacienteObj.apellido_pat || null,
-        pacienteObj.apellido_mat || null,
-        pacienteObj.fecha_nacimiento || null,
-        pacienteObj.nombre_sexo || null,
-        pacienteObj.domicilio || null,
-        pacienteObj.nombre_estado_civil || null,
-        pacienteObj.correo || null,
-        pacienteObj.ocupacion || null,
-        pacienteObj.telefono || null,
-        pacienteObj.contacto_emergencia || null,
-        pacienteObj.nombre_tipo_sangre || null
+        normalizarCurp(pacienteValidado.curp),
+        pacienteValidado.nombre_p || null,
+        pacienteValidado.apellido_pat || null,
+        pacienteValidado.apellido_mat || null,
+        pacienteValidado.fecha_nacimiento || null,
+        pacienteValidado.nombre_sexo || null,
+        pacienteValidado.domicilio || null,
+        pacienteValidado.nombre_estado_civil || null,
+        pacienteValidado.correo || null,
+        pacienteValidado.ocupacion || null,
+        pacienteValidado.telefono || null,
+        pacienteValidado.contacto_emergencia || null,
+        pacienteValidado.nombre_tipo_sangre || null
       ]
     );
   } catch (err) {
@@ -290,7 +493,7 @@ const actualizarPaciente = async (pacienteObj = {}) => {
     `SELECT *
      FROM digiclin.vw_paciente_completo
      WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
-    [normalizarCurp(pacienteObj.curp)]
+    [normalizarCurp(pacienteValidado.curp)]
   );
 
   if (res.rows.length === 0) {

@@ -8,49 +8,49 @@ const verificarRol = require('../middlewares/rol.middleware');
 router.get(
   '/',
   verificarToken,
-  verificarRol('Medico', 'Enfermero', 'Administrativo', 'Director', 'Admin'),
+  verificarRol('Medico', 'Enfermero', 'Administrativo', 'Director'),
   pacienteController.obtenerPacientes
 );
 
 router.get(
   '/activos',
   verificarToken,
-  verificarRol('Medico', 'Enfermero', 'Administrativo', 'Director', 'Admin'),
+  verificarRol('Medico', 'Enfermero', 'Administrativo', 'Director'),
   pacienteController.obtenerPacientesActivos
 );
 
 router.get(
   '/inactivos',
   verificarToken,
-  verificarRol('Director', 'Administrativo', 'Admin'),
+  verificarRol('Medico','Director', 'Administrativo'),
   pacienteController.obtenerPacientesInactivos
 );
 
 router.get(
   '/buscar/nombre',
   verificarToken,
-  verificarRol('Medico', 'Enfermero', 'Administrativo', 'Director', 'Admin'),
+  verificarRol('Medico', 'Enfermero', 'Administrativo', 'Director'),
   pacienteController.obtenerPacientesPorNombre
 );
 
 router.post(
   '/',
   verificarToken,
-  verificarRol('Medico', 'Enfermero','Admin'),
+  verificarRol('Medico', 'Enfermero','Director'),
   pacienteController.crearPaciente
 );
 
 router.put(
   '/:curp/inhabilitar',
   verificarToken,
-  verificarRol('Director', 'Administrativo', 'Admin'),
+  verificarRol('Medico','Director', 'Administrativo'),
   pacienteController.inhabilitarPaciente
 );
 
 router.put(
   '/:curp/habilitar',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Administrativo'),
+  verificarRol('Medico','Director', 'Administrativo'),
   pacienteController.habilitarPaciente
 );
 
@@ -58,7 +58,7 @@ router.put(
 router.put(
   '/:curp/corregir-curp',
   verificarToken,
-  verificarRol('Admin', 'Director', 'Administrativo'),
+  verificarRol('Medico','Director', 'Administrativo'),
   pacienteController.corregirCurpPaciente
 );
 
@@ -66,7 +66,7 @@ router.put(
 router.put(
   '/:curp',
   verificarToken,
-  verificarRol('Admin', 'Medico', 'Enfermero'),
+  verificarRol('Medico','Director', 'Administrativo'),
   pacienteController.actualizarPaciente
 );
 

@@ -79,7 +79,10 @@ const obtenerPorNombreUsuarioCreador = async (req, res, next) => {
 
 const crearExpediente = async (req, res, next) => {
   try {
-    const data = await expedienteService.crearExpediente(req.body || {});
+    const data = await expedienteService.crearExpediente(
+      req.body || {},
+      req.usuario
+    );
 
     res.status(201).json({
       ok: true,
@@ -126,6 +129,22 @@ const archivarExpediente = async (req, res, next) => {
   }
 };
 
+const desarchivarExpediente = async (req, res, next) => {
+  try {
+    const { id_expediente } = req.params;
+
+    const data = await expedienteService.desarchivarExpediente(id_expediente);
+
+    res.json({
+      ok: true,
+      mensaje: 'Expediente desarchivado correctamente',
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 
 module.exports = {
@@ -138,5 +157,6 @@ module.exports = {
   obtenerPorNombreUsuarioCreador,
   crearExpediente,
   actualizarExpediente,
-  archivarExpediente
+  archivarExpediente,
+  desarchivarExpediente
 };

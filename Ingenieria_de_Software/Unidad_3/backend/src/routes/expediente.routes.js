@@ -50,7 +50,7 @@ router.get(
 router.post(
   '/',
   verificarToken,
-  verificarRol('Admin', 'Medico'),
+  verificarRol('Medico'),
   expedienteController.crearExpediente
 );
 
@@ -59,6 +59,13 @@ router.put(
   verificarToken,
   verificarRol('Admin', 'Director'),
   expedienteController.archivarExpediente
+);
+
+router.put(
+  '/:id_expediente/desarchivar',
+  verificarToken,
+  verificarRol('Admin', 'Director'),
+  expedienteController.desarchivarExpediente
 );
 
 router.put(

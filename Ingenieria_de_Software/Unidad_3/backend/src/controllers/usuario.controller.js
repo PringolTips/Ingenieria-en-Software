@@ -32,7 +32,8 @@ const obtenerUsuarioPorNombre = async (req, res, next) => {
 
 const crearUsuario = async (req, res, next) => {
   try {
-    const data = await usuarioService.crearUsuario(req.body);
+    const data = await usuarioService.crearUsuario(req.body || {});
+
     res.status(201).json({
       ok: true,
       mensaje: 'Usuario creado correctamente',

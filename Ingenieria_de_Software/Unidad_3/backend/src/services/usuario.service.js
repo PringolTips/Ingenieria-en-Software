@@ -30,51 +30,69 @@ const listarActivos = async () => {
 }; 
 
 
-const crearUsuario = async (usuarioObj) => {
+const crearUsuario = async (usuarioObj = {}) => {
+  const camposFaltantes = [];
 
-const camposFaltantes = [];
+  if (!usuarioObj.nombre_usuario) camposFaltantes.push('nombre_usuario');
+  if (!usuarioObj.correo) camposFaltantes.push('correo');
+  if (!usuarioObj.nombre_rol) camposFaltantes.push('nombre_rol');
 
-if (!usuarioObj.nombre_usuario) camposFaltantes.push('nombre_usuario');
-if (!usuarioObj.correo) camposFaltantes.push('correo');
-if (!usuarioObj.nombre_rol) camposFaltantes.push('nombre_rol');
+  const nombreRol = usuarioObj.nombre_rol
+    ? usuarioObj.nombre_rol.trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    : null;
 
-if (camposFaltantes.length > 0) {
-  const error = new Error('Faltan campos obligatorios');
-  error.statusCode = 400;
-  error.campos = camposFaltantes; 
-  throw error;
-}
+  if (nombreRol && nombreRol.toLowerCase() === 'medico') {
+    if (!usuarioObj.cedula) {
+    camposFaltantes.push('cedula');
+  }
 
-const password_hash = await bcrypt.hash(PASSWORD_TEMPORAL, SALT_ROUNDS);
+    if (!usuarioObj.nombre_especialidad) {
+      camposFaltantes.push('nombre_especialidad');
+    }
+  }
 
-try {
-  await db.query(
-    'CALL digiclin.sp_crear_usuario($1, $2, $3, $4)',
-    [
-      usuarioObj.nombre_usuario,
-      usuarioObj.correo,
-      password_hash,
-      usuarioObj.nombre_rol
-    ]
-  );
-} catch (err) {
-  if (err.code === '23505') {
-    const error = new Error('El nombre de usuario o correo ya existe');
-    error.statusCode = 409;
+  if (camposFaltantes.length > 0) {
+    const error = new Error('Faltan campos obligatorios');
+    error.statusCode = 400;
+    error.campos = camposFaltantes;
     throw error;
   }
 
-  if (err.code === '23503') {
-    const error = new Error('El rol o estatus no existe');
+  const password_hash = await bcrypt.hash(PASSWORD_TEMPORAL, SALT_ROUNDS);
+
+  try {
+    await db.query(
+  `CALL digiclin.sp_crear_usuario(
+    $1::varchar,
+    $2::varchar,
+    $3::varchar,
+    $4::varchar,
+    $5::varchar,
+    $6::varchar
+  )`,
+  [
+    usuarioObj.nombre_usuario,
+    usuarioObj.correo,
+    password_hash,
+    nombreRol,
+    usuarioObj.cedula || null,
+    usuarioObj.nombre_especialidad || null
+  ]
+);
+  } catch (err) {
+    if (err.code === '23505') {
+      const error = new Error('El nombre de usuario o correo ya existe');
+      error.statusCode = 409;
+      throw error;
+    }
+
+    const error = new Error(err.message || 'Error al crear usuario');
     error.statusCode = 400;
     throw error;
   }
 
-  throw err;
-}
-
   const res = await db.query(
-    'SELECT * FROM vw_usuario WHERE nombre_usuario = $1',
+    'SELECT * FROM digiclin.vw_usuario WHERE nombre_usuario = $1::varchar',
     [usuarioObj.nombre_usuario]
   );
 

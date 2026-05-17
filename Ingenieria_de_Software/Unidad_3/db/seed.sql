@@ -1,5 +1,4 @@
 SET search_path TO digiclin;
-
 -- Insert tablas catalogo
 
 INSERT INTO rol (nombre_rol, descripcion) 
@@ -20,7 +19,6 @@ ON CONFLICT (nombre_estatus) DO NOTHING;
 INSERT INTO estatus_expediente (nombre_estatus, descripcion) 
 VALUES
 ('Abierto', 'Expediente abierto'),
-('Cerrado', 'Expediente cerrado'),
 ('Archivado', 'Expediente archivado')
 ON CONFLICT (nombre_estatus) DO NOTHING;
 
@@ -38,15 +36,25 @@ VALUES
 ('Otro')
 ON CONFLICT (nombre) DO NOTHING;
 
-INSERT INTO tipo_sangre (tipo) 
-VALUES
-('A+'), ('O+'), ('B+')
+INSERT INTO tipo_sangre (tipo)
+VALUES 
+('A+'),
+('A-'),
+('B+'),
+('B-'),
+('AB+'),
+('AB-'),
+('O+'),
+('O-')
 ON CONFLICT (tipo) DO NOTHING;
 
-INSERT INTO estado_civil (nombre) VALUES
+INSERT INTO estado_civil (nombre) 
+VALUES
 ('Soltero'),
 ('Casado'),
-('Divorciado')
+('Divorciado'),
+('Viudo'),
+('Separado')
 ON CONFLICT (nombre) DO NOTHING;
 
 INSERT INTO alergia (nombre, descripcion) VALUES
@@ -407,7 +415,7 @@ VALUES
     (SELECT id_paciente FROM paciente WHERE curp = 'MAGS010115MDFRRF03'),
     (SELECT id_usuario FROM usuario WHERE nombre_usuario = 'Jose'),
     (SELECT id_diagnostico FROM diagnostico WHERE codigo_cie = 'E11'),
-    (SELECT id_estatus_expediente FROM estatus_expediente WHERE nombre_estatus = 'Cerrado'),
+    (SELECT id_estatus_expediente FROM estatus_expediente WHERE nombre_estatus = 'Abierto'),
     CURRENT_TIMESTAMP,
     'Control metabólico y revisión general',
     'Diabetes tipo 2 en control',

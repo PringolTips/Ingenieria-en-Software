@@ -272,7 +272,7 @@ const listarActivos = async (rol) => {
 };
 
 const listarInactivos = async (rol) => {
-  if (!['Admin', 'Administrativo', 'Director'].includes(rol)) {
+  if (!['Medico', 'Administrativo', 'Director'].includes(rol)) {
     const error = new Error('No tienes permisos para consultar pacientes inactivos');
     error.statusCode = 403;
     throw error;

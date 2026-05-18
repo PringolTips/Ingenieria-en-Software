@@ -1,3 +1,4 @@
+// app/(enfermero)/dashboard.tsx
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
@@ -16,7 +17,7 @@ export default function EnfermeroDashboard() {
         onPress: async () => {
           await SecureStore.deleteItemAsync('userToken');
           await SecureStore.deleteItemAsync('userRole');
-          router.replace('/' as any); // Regresa al Login (index.tsx)
+          router.replace('/' as any);
         } 
       }
     ]);

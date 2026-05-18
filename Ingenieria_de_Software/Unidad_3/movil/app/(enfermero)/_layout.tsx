@@ -1,5 +1,6 @@
+// app/(enfermero)/_layout.tsx
 import { Stack } from 'expo-router';
 
-export default function GroupLayout() {
+export default function EnfermeroLayout() {
   return <Stack screenOptions={{ headerShown: false }} />;
 }

@@ -1,3 +1,4 @@
+// app/(admin)/inactive-users.tsx
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';

@@ -1,3 +1,4 @@
+// app/(admin)/dashboard.tsx
 import { Ionicons } from '@expo/vector-icons';
 
 import { useFocusEffect } from '@react-navigation/native';
@@ -38,8 +39,7 @@ export default function AdminDashboard() {
 
     try {
 
-      const endpoint = showInactives ? '/api/usuarios/inactivos' : '/api/usuarios/activos';
-
+      const endpoint = showInactives ? '/api/v1/usuarios/inactivos' : '/api/v1/usuarios/activos';
       const response = await api.get(endpoint);
 
       if (response.data?.ok) setUsers(response.data.data || []);

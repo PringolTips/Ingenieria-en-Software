@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict fRenarw42A6rmWQWkRDSBTa8yJOdJHAczuzajNgLQEPTqtdh1K0rQ3qwde5IrJg
+
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-05-18 19:25:14
+-- Started on 2026-05-18 21:45:48
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -32,7 +32,7 @@ CREATE SCHEMA digiclin;
 ALTER SCHEMA digiclin OWNER TO postgres;
 
 --
--- TOC entry 356 (class 1255 OID 17150)
+-- TOC entry 368 (class 1255 OID 17150)
 -- Name: fn_bitacora_general(); Type: FUNCTION; Schema: digiclin; Owner: postgres
 --
 
@@ -103,7 +103,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 258 (class 1259 OID 16727)
+-- TOC entry 270 (class 1259 OID 16727)
 -- Name: diagnostico; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -118,7 +118,7 @@ CREATE TABLE digiclin.diagnostico (
 ALTER TABLE digiclin.diagnostico OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 16501)
+-- TOC entry 239 (class 1259 OID 16501)
 -- Name: estatus_expediente; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -132,7 +132,7 @@ CREATE TABLE digiclin.estatus_expediente (
 ALTER TABLE digiclin.estatus_expediente OWNER TO postgres;
 
 --
--- TOC entry 260 (class 1259 OID 16737)
+-- TOC entry 272 (class 1259 OID 16737)
 -- Name: expediente_clinico; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -168,7 +168,7 @@ CREATE TABLE digiclin.expediente_clinico (
 ALTER TABLE digiclin.expediente_clinico OWNER TO postgres;
 
 --
--- TOC entry 254 (class 1259 OID 16671)
+-- TOC entry 266 (class 1259 OID 16671)
 -- Name: paciente; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -195,7 +195,7 @@ CREATE TABLE digiclin.paciente (
 ALTER TABLE digiclin.paciente OWNER TO postgres;
 
 --
--- TOC entry 247 (class 1259 OID 16584)
+-- TOC entry 259 (class 1259 OID 16584)
 -- Name: usuario; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -214,7 +214,7 @@ CREATE TABLE digiclin.usuario (
 ALTER TABLE digiclin.usuario OWNER TO postgres;
 
 --
--- TOC entry 325 (class 1259 OID 17231)
+-- TOC entry 337 (class 1259 OID 17231)
 -- Name: vw_expedientes; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -256,7 +256,7 @@ CREATE VIEW digiclin.vw_expedientes AS
 ALTER VIEW digiclin.vw_expedientes OWNER TO postgres;
 
 --
--- TOC entry 334 (class 1255 OID 17262)
+-- TOC entry 346 (class 1255 OID 17262)
 -- Name: fn_expedientes_por_id_usuario(integer); Type: FUNCTION; Schema: digiclin; Owner: postgres
 --
 
@@ -272,7 +272,7 @@ $$;
 ALTER FUNCTION digiclin.fn_expedientes_por_id_usuario(p_id_usuario integer) OWNER TO postgres;
 
 --
--- TOC entry 335 (class 1255 OID 17263)
+-- TOC entry 347 (class 1255 OID 17263)
 -- Name: fn_expedientes_por_nombre_usuario(character varying); Type: FUNCTION; Schema: digiclin; Owner: postgres
 --
 
@@ -288,7 +288,7 @@ $$;
 ALTER FUNCTION digiclin.fn_expedientes_por_nombre_usuario(p_nombre_usuario character varying) OWNER TO postgres;
 
 --
--- TOC entry 235 (class 1259 OID 16533)
+-- TOC entry 247 (class 1259 OID 16533)
 -- Name: estado_civil; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -301,7 +301,7 @@ CREATE TABLE digiclin.estado_civil (
 ALTER TABLE digiclin.estado_civil OWNER TO postgres;
 
 --
--- TOC entry 269 (class 1259 OID 16862)
+-- TOC entry 281 (class 1259 OID 16862)
 -- Name: estatus_paciente; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -314,7 +314,7 @@ CREATE TABLE digiclin.estatus_paciente (
 ALTER TABLE digiclin.estatus_paciente OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 16517)
+-- TOC entry 243 (class 1259 OID 16517)
 -- Name: sexo; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -327,7 +327,7 @@ CREATE TABLE digiclin.sexo (
 ALTER TABLE digiclin.sexo OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 16525)
+-- TOC entry 245 (class 1259 OID 16525)
 -- Name: tipo_sangre; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -340,7 +340,7 @@ CREATE TABLE digiclin.tipo_sangre (
 ALTER TABLE digiclin.tipo_sangre OWNER TO postgres;
 
 --
--- TOC entry 270 (class 1259 OID 16879)
+-- TOC entry 282 (class 1259 OID 16879)
 -- Name: vw_paciente; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -376,7 +376,7 @@ CREATE VIEW digiclin.vw_paciente AS
 ALTER VIEW digiclin.vw_paciente OWNER TO postgres;
 
 --
--- TOC entry 332 (class 1255 OID 16891)
+-- TOC entry 344 (class 1255 OID 16891)
 -- Name: fn_obtener_paciente_por_curp(character varying); Type: FUNCTION; Schema: digiclin; Owner: postgres
 --
 
@@ -392,7 +392,7 @@ $$;
 ALTER FUNCTION digiclin.fn_obtener_paciente_por_curp(p_curp character varying) OWNER TO postgres;
 
 --
--- TOC entry 363 (class 1255 OID 17273)
+-- TOC entry 375 (class 1255 OID 17273)
 -- Name: sp_actualizar_expediente(integer, integer, integer, timestamp without time zone, character varying, character varying, character varying, character varying, numeric, numeric, numeric, numeric, numeric, numeric, numeric, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -446,7 +446,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_actualizar_expediente(IN p_id_expediente integer, IN p_id_paciente integer, IN p_id_diagnostico integer, IN p_fecha_consulta timestamp without time zone, IN p_motivo character varying, IN p_antecedentes_personales character varying, IN p_antecedentes_familiares character varying, IN p_presion_arterial character varying, IN p_frecuencia_cardiaca numeric, IN p_frecuencia_respiratoria numeric, IN p_temperatura numeric, IN p_saturacion_oxigeno numeric, IN p_peso numeric, IN p_talla_cintura numeric, IN p_altura numeric, IN p_observaciones character varying) OWNER TO postgres;
 
 --
--- TOC entry 336 (class 1255 OID 16844)
+-- TOC entry 348 (class 1255 OID 16844)
 -- Name: sp_actualizar_mi_perfil(character varying, character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -470,7 +470,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_actualizar_mi_perfil(IN p_nombre_usuario_actual character varying, IN p_nuevo_nombre_usuario character varying, IN p_correo character varying) OWNER TO postgres;
 
 --
--- TOC entry 358 (class 1255 OID 17253)
+-- TOC entry 370 (class 1255 OID 17253)
 -- Name: sp_actualizar_paciente(character varying, character varying, character varying, character varying, date, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -545,7 +545,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_actualizar_paciente(IN p_curp character varying, IN p_nombre_p character varying, IN p_apellido_pat character varying, IN p_apellido_mat character varying, IN p_fecha_nacimiento date, IN p_nombre_sexo character varying, IN p_domicilio character varying, IN p_nombre_estado_civil character varying, IN p_correo character varying, IN p_ocupacion character varying, IN p_telefono character varying, IN p_contacto_emergencia character varying, IN p_nombre_tipo_sangre character varying) OWNER TO postgres;
 
 --
--- TOC entry 339 (class 1255 OID 16859)
+-- TOC entry 351 (class 1255 OID 16859)
 -- Name: sp_actualizar_usuario(character varying, character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -569,7 +569,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_actualizar_usuario(IN p_nombre_usuario_actual character varying, IN p_nuevo_nombre_usuario character varying, IN p_correo character varying) OWNER TO postgres;
 
 --
--- TOC entry 360 (class 1255 OID 17260)
+-- TOC entry 372 (class 1255 OID 17260)
 -- Name: sp_archivar_expediente(integer); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -602,7 +602,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_archivar_expediente(IN p_id_expediente integer) OWNER TO postgres;
 
 --
--- TOC entry 333 (class 1255 OID 16843)
+-- TOC entry 345 (class 1255 OID 16843)
 -- Name: sp_cambiar_password_usuario(character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -625,7 +625,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_cambiar_password_usuario(IN p_nombre_usuario character varying, IN p_password_hash_nuevo character varying) OWNER TO postgres;
 
 --
--- TOC entry 357 (class 1255 OID 17252)
+-- TOC entry 369 (class 1255 OID 17252)
 -- Name: sp_corregir_curp_paciente(character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -668,7 +668,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_corregir_curp_paciente(IN p_curp_actual character varying, IN p_nuevo_curp character varying) OWNER TO postgres;
 
 --
--- TOC entry 359 (class 1255 OID 17258)
+-- TOC entry 371 (class 1255 OID 17258)
 -- Name: sp_crear_expediente(integer, integer, integer, timestamp without time zone, character varying, character varying, character varying, character varying, numeric, numeric, numeric, numeric, numeric, numeric, numeric, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -732,7 +732,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_crear_expediente(IN p_id_paciente integer, IN p_id_medico integer, IN p_id_diagnostico integer, IN p_fecha_consulta timestamp without time zone, IN p_motivo character varying, IN p_antecedentes_personales character varying, IN p_antecedentes_familiares character varying, IN p_presion_arterial character varying, IN p_frecuencia_cardiaca numeric, IN p_frecuencia_respiratoria numeric, IN p_temperatura numeric, IN p_saturacion_oxigeno numeric, IN p_peso numeric, IN p_talla_cintura numeric, IN p_altura numeric, IN p_observaciones character varying) OWNER TO postgres;
 
 --
--- TOC entry 361 (class 1255 OID 17265)
+-- TOC entry 373 (class 1255 OID 17265)
 -- Name: sp_crear_expediente_desde_usuario(integer, integer, integer, timestamp without time zone, character varying, character varying, character varying, character varying, numeric, numeric, numeric, numeric, numeric, numeric, numeric, character varying, integer); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -809,7 +809,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_crear_expediente_desde_usuario(IN p_id_usuario integer, IN p_id_paciente integer, IN p_id_diagnostico integer, IN p_fecha_consulta timestamp without time zone, IN p_motivo character varying, IN p_antecedentes_personales character varying, IN p_antecedentes_familiares character varying, IN p_presion_arterial character varying, IN p_frecuencia_cardiaca numeric, IN p_frecuencia_respiratoria numeric, IN p_temperatura numeric, IN p_saturacion_oxigeno numeric, IN p_peso numeric, IN p_talla_cintura numeric, IN p_altura numeric, IN p_observaciones character varying, INOUT p_id_expediente_generado integer) OWNER TO postgres;
 
 --
--- TOC entry 355 (class 1255 OID 16888)
+-- TOC entry 367 (class 1255 OID 16888)
 -- Name: sp_crear_paciente(character varying, character varying, character varying, date, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -901,7 +901,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_crear_paciente(IN p_nombre_p character varying, IN p_apellido_pat character varying, IN p_apellido_mat character varying, IN p_fecha_nacimiento date, IN p_nombre_sexo character varying, IN p_curp character varying, IN p_domicilio character varying, IN p_nombre_estado_civil character varying, IN p_correo character varying, IN p_ocupacion character varying, IN p_telefono character varying, IN p_contacto_emergencia character varying, IN p_nombre_tipo_sangre character varying) OWNER TO postgres;
 
 --
--- TOC entry 362 (class 1255 OID 17272)
+-- TOC entry 374 (class 1255 OID 17272)
 -- Name: sp_crear_usuario(character varying, character varying, character varying, character varying, character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -996,7 +996,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_crear_usuario(IN p_nombre_usuario character varying, IN p_correo character varying, IN p_password_hash character varying, IN p_nombre_rol character varying, IN p_cedula character varying, IN p_nombre_especialidad character varying) OWNER TO postgres;
 
 --
--- TOC entry 354 (class 1255 OID 17264)
+-- TOC entry 366 (class 1255 OID 17264)
 -- Name: sp_desarchivar_expediente(integer); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -1025,7 +1025,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_desarchivar_expediente(IN p_id_expediente integer) OWNER TO postgres;
 
 --
--- TOC entry 331 (class 1255 OID 16833)
+-- TOC entry 343 (class 1255 OID 16833)
 -- Name: sp_eliminar_usuario(character varying); Type: PROCEDURE; Schema: digiclin; Owner: digiclin_app
 --
 
@@ -1046,7 +1046,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_eliminar_usuario(IN p_nombre_usuario character varying) OWNER TO digiclin_app;
 
 --
--- TOC entry 353 (class 1255 OID 16890)
+-- TOC entry 365 (class 1255 OID 16890)
 -- Name: sp_habilitar_paciente(character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -1079,7 +1079,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_habilitar_paciente(IN p_curp character varying) OWNER TO postgres;
 
 --
--- TOC entry 338 (class 1255 OID 16848)
+-- TOC entry 350 (class 1255 OID 16848)
 -- Name: sp_habilitar_usuario(character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -1112,7 +1112,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_habilitar_usuario(IN p_nombre_usuario character varying) OWNER TO postgres;
 
 --
--- TOC entry 341 (class 1255 OID 16889)
+-- TOC entry 353 (class 1255 OID 16889)
 -- Name: sp_inhabilitar_paciente(character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -1145,7 +1145,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_inhabilitar_paciente(IN p_curp character varying) OWNER TO postgres;
 
 --
--- TOC entry 337 (class 1255 OID 16847)
+-- TOC entry 349 (class 1255 OID 16847)
 -- Name: sp_inhabilitar_usuario(character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -1178,7 +1178,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_inhabilitar_usuario(IN p_nombre_usuario character varying) OWNER TO postgres;
 
 --
--- TOC entry 340 (class 1255 OID 16860)
+-- TOC entry 352 (class 1255 OID 16860)
 -- Name: sp_resetear_password_usuario(character varying, character varying); Type: PROCEDURE; Schema: digiclin; Owner: postgres
 --
 
@@ -1201,7 +1201,7 @@ $$;
 ALTER PROCEDURE digiclin.sp_resetear_password_usuario(IN p_nombre_usuario character varying, IN p_password_hash character varying) OWNER TO postgres;
 
 --
--- TOC entry 237 (class 1259 OID 16541)
+-- TOC entry 249 (class 1259 OID 16541)
 -- Name: alergia; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1215,7 +1215,7 @@ CREATE TABLE digiclin.alergia (
 ALTER TABLE digiclin.alergia OWNER TO postgres;
 
 --
--- TOC entry 284 (class 1259 OID 16944)
+-- TOC entry 296 (class 1259 OID 16944)
 -- Name: alergia_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1234,7 +1234,7 @@ CREATE TABLE digiclin.alergia_bitacora (
 ALTER TABLE digiclin.alergia_bitacora OWNER TO postgres;
 
 --
--- TOC entry 283 (class 1259 OID 16943)
+-- TOC entry 295 (class 1259 OID 16943)
 -- Name: alergia_bitacora_id_alergia_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1249,7 +1249,7 @@ ALTER TABLE digiclin.alergia_bitacora ALTER COLUMN id_alergia_bitacora ADD GENER
 
 
 --
--- TOC entry 236 (class 1259 OID 16540)
+-- TOC entry 248 (class 1259 OID 16540)
 -- Name: alergia_id_alergia_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1264,7 +1264,7 @@ ALTER TABLE digiclin.alergia ALTER COLUMN id_alergia ADD GENERATED ALWAYS AS IDE
 
 
 --
--- TOC entry 241 (class 1259 OID 16557)
+-- TOC entry 253 (class 1259 OID 16557)
 -- Name: certificacion; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1278,7 +1278,7 @@ CREATE TABLE digiclin.certificacion (
 ALTER TABLE digiclin.certificacion OWNER TO postgres;
 
 --
--- TOC entry 302 (class 1259 OID 17029)
+-- TOC entry 314 (class 1259 OID 17029)
 -- Name: certificacion_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1297,7 +1297,7 @@ CREATE TABLE digiclin.certificacion_bitacora (
 ALTER TABLE digiclin.certificacion_bitacora OWNER TO postgres;
 
 --
--- TOC entry 301 (class 1259 OID 17028)
+-- TOC entry 313 (class 1259 OID 17028)
 -- Name: certificacion_bitacora_id_certificacion_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1312,7 +1312,7 @@ ALTER TABLE digiclin.certificacion_bitacora ALTER COLUMN id_certificacion_bitaco
 
 
 --
--- TOC entry 240 (class 1259 OID 16556)
+-- TOC entry 252 (class 1259 OID 16556)
 -- Name: certificacion_id_certificacion_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1327,7 +1327,7 @@ ALTER TABLE digiclin.certificacion ALTER COLUMN id_certificacion ADD GENERATED A
 
 
 --
--- TOC entry 322 (class 1259 OID 17131)
+-- TOC entry 334 (class 1259 OID 17131)
 -- Name: diagnostico_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1347,7 +1347,7 @@ CREATE TABLE digiclin.diagnostico_bitacora (
 ALTER TABLE digiclin.diagnostico_bitacora OWNER TO postgres;
 
 --
--- TOC entry 321 (class 1259 OID 17130)
+-- TOC entry 333 (class 1259 OID 17130)
 -- Name: diagnostico_bitacora_id_diagnostico_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1362,7 +1362,7 @@ ALTER TABLE digiclin.diagnostico_bitacora ALTER COLUMN id_diagnostico_bitacora A
 
 
 --
--- TOC entry 257 (class 1259 OID 16726)
+-- TOC entry 269 (class 1259 OID 16726)
 -- Name: diagnostico_id_diagnostico_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1377,7 +1377,7 @@ ALTER TABLE digiclin.diagnostico ALTER COLUMN id_diagnostico ADD GENERATED ALWAY
 
 
 --
--- TOC entry 252 (class 1259 OID 16658)
+-- TOC entry 264 (class 1259 OID 16658)
 -- Name: director; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1390,7 +1390,7 @@ CREATE TABLE digiclin.director (
 ALTER TABLE digiclin.director OWNER TO postgres;
 
 --
--- TOC entry 304 (class 1259 OID 17040)
+-- TOC entry 316 (class 1259 OID 17040)
 -- Name: director_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1408,7 +1408,7 @@ CREATE TABLE digiclin.director_bitacora (
 ALTER TABLE digiclin.director_bitacora OWNER TO postgres;
 
 --
--- TOC entry 303 (class 1259 OID 17039)
+-- TOC entry 315 (class 1259 OID 17039)
 -- Name: director_bitacora_id_director_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1423,7 +1423,7 @@ ALTER TABLE digiclin.director_bitacora ALTER COLUMN id_director_bitacora ADD GEN
 
 
 --
--- TOC entry 239 (class 1259 OID 16549)
+-- TOC entry 251 (class 1259 OID 16549)
 -- Name: enfermedad_cronica; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1437,7 +1437,7 @@ CREATE TABLE digiclin.enfermedad_cronica (
 ALTER TABLE digiclin.enfermedad_cronica OWNER TO postgres;
 
 --
--- TOC entry 310 (class 1259 OID 17069)
+-- TOC entry 322 (class 1259 OID 17069)
 -- Name: enfermedad_cronica_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1456,7 +1456,7 @@ CREATE TABLE digiclin.enfermedad_cronica_bitacora (
 ALTER TABLE digiclin.enfermedad_cronica_bitacora OWNER TO postgres;
 
 --
--- TOC entry 309 (class 1259 OID 17068)
+-- TOC entry 321 (class 1259 OID 17068)
 -- Name: enfermedad_cronica_bitacora_id_enfermedad_cronica_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1471,7 +1471,7 @@ ALTER TABLE digiclin.enfermedad_cronica_bitacora ALTER COLUMN id_enfermedad_cron
 
 
 --
--- TOC entry 238 (class 1259 OID 16548)
+-- TOC entry 250 (class 1259 OID 16548)
 -- Name: enfermedad_cronica_id_enfermedad_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1486,7 +1486,7 @@ ALTER TABLE digiclin.enfermedad_cronica ALTER COLUMN id_enfermedad ADD GENERATED
 
 
 --
--- TOC entry 250 (class 1259 OID 16632)
+-- TOC entry 262 (class 1259 OID 16632)
 -- Name: enfermero; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1498,7 +1498,7 @@ CREATE TABLE digiclin.enfermero (
 ALTER TABLE digiclin.enfermero OWNER TO postgres;
 
 --
--- TOC entry 298 (class 1259 OID 17011)
+-- TOC entry 310 (class 1259 OID 17011)
 -- Name: enfermero_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1515,7 +1515,7 @@ CREATE TABLE digiclin.enfermero_bitacora (
 ALTER TABLE digiclin.enfermero_bitacora OWNER TO postgres;
 
 --
--- TOC entry 297 (class 1259 OID 17010)
+-- TOC entry 309 (class 1259 OID 17010)
 -- Name: enfermero_bitacora_id_enfermero_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1530,7 +1530,7 @@ ALTER TABLE digiclin.enfermero_bitacora ALTER COLUMN id_enfermero_bitacora ADD G
 
 
 --
--- TOC entry 251 (class 1259 OID 16642)
+-- TOC entry 263 (class 1259 OID 16642)
 -- Name: enfermero_certificacion; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1544,7 +1544,7 @@ CREATE TABLE digiclin.enfermero_certificacion (
 ALTER TABLE digiclin.enfermero_certificacion OWNER TO postgres;
 
 --
--- TOC entry 300 (class 1259 OID 17020)
+-- TOC entry 312 (class 1259 OID 17020)
 -- Name: enfermero_certificacion_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1563,7 +1563,7 @@ CREATE TABLE digiclin.enfermero_certificacion_bitacora (
 ALTER TABLE digiclin.enfermero_certificacion_bitacora OWNER TO postgres;
 
 --
--- TOC entry 299 (class 1259 OID 17019)
+-- TOC entry 311 (class 1259 OID 17019)
 -- Name: enfermero_certificacion_bitac_id_enfermero_certificacion_bi_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1578,7 +1578,7 @@ ALTER TABLE digiclin.enfermero_certificacion_bitacora ALTER COLUMN id_enfermero_
 
 
 --
--- TOC entry 229 (class 1259 OID 16509)
+-- TOC entry 241 (class 1259 OID 16509)
 -- Name: especialidad; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1592,7 +1592,7 @@ CREATE TABLE digiclin.especialidad (
 ALTER TABLE digiclin.especialidad OWNER TO postgres;
 
 --
--- TOC entry 296 (class 1259 OID 17002)
+-- TOC entry 308 (class 1259 OID 17002)
 -- Name: especialidad_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1611,7 +1611,7 @@ CREATE TABLE digiclin.especialidad_bitacora (
 ALTER TABLE digiclin.especialidad_bitacora OWNER TO postgres;
 
 --
--- TOC entry 295 (class 1259 OID 17001)
+-- TOC entry 307 (class 1259 OID 17001)
 -- Name: especialidad_bitacora_id_especialidad_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1626,7 +1626,7 @@ ALTER TABLE digiclin.especialidad_bitacora ALTER COLUMN id_especialidad_bitacora
 
 
 --
--- TOC entry 228 (class 1259 OID 16508)
+-- TOC entry 240 (class 1259 OID 16508)
 -- Name: especialidad_id_especialidad_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1641,7 +1641,7 @@ ALTER TABLE digiclin.especialidad ALTER COLUMN id_especialidad ADD GENERATED ALW
 
 
 --
--- TOC entry 280 (class 1259 OID 16926)
+-- TOC entry 292 (class 1259 OID 16926)
 -- Name: estado_civil_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1659,7 +1659,7 @@ CREATE TABLE digiclin.estado_civil_bitacora (
 ALTER TABLE digiclin.estado_civil_bitacora OWNER TO postgres;
 
 --
--- TOC entry 279 (class 1259 OID 16925)
+-- TOC entry 291 (class 1259 OID 16925)
 -- Name: estado_civil_bitacora_id_estado_civil_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1674,7 +1674,7 @@ ALTER TABLE digiclin.estado_civil_bitacora ALTER COLUMN id_estado_civil_bitacora
 
 
 --
--- TOC entry 234 (class 1259 OID 16532)
+-- TOC entry 246 (class 1259 OID 16532)
 -- Name: estado_civil_id_estado_civil_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1689,7 +1689,7 @@ ALTER TABLE digiclin.estado_civil ALTER COLUMN id_estado_civil ADD GENERATED ALW
 
 
 --
--- TOC entry 286 (class 1259 OID 16955)
+-- TOC entry 298 (class 1259 OID 16955)
 -- Name: estatus_expediente_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1708,7 +1708,7 @@ CREATE TABLE digiclin.estatus_expediente_bitacora (
 ALTER TABLE digiclin.estatus_expediente_bitacora OWNER TO postgres;
 
 --
--- TOC entry 285 (class 1259 OID 16954)
+-- TOC entry 297 (class 1259 OID 16954)
 -- Name: estatus_expediente_bitacora_id_estatus_expediente_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1723,7 +1723,7 @@ ALTER TABLE digiclin.estatus_expediente_bitacora ALTER COLUMN id_estatus_expedie
 
 
 --
--- TOC entry 226 (class 1259 OID 16500)
+-- TOC entry 238 (class 1259 OID 16500)
 -- Name: estatus_expediente_id_estatus_expediente_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1738,7 +1738,7 @@ ALTER TABLE digiclin.estatus_expediente ALTER COLUMN id_estatus_expediente ADD G
 
 
 --
--- TOC entry 324 (class 1259 OID 17142)
+-- TOC entry 336 (class 1259 OID 17142)
 -- Name: estatus_paciente_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1756,7 +1756,7 @@ CREATE TABLE digiclin.estatus_paciente_bitacora (
 ALTER TABLE digiclin.estatus_paciente_bitacora OWNER TO postgres;
 
 --
--- TOC entry 323 (class 1259 OID 17141)
+-- TOC entry 335 (class 1259 OID 17141)
 -- Name: estatus_paciente_bitacora_id_estatus_paciente_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1771,7 +1771,7 @@ ALTER TABLE digiclin.estatus_paciente_bitacora ALTER COLUMN id_estatus_paciente_
 
 
 --
--- TOC entry 268 (class 1259 OID 16861)
+-- TOC entry 280 (class 1259 OID 16861)
 -- Name: estatus_paciente_id_estatus_paciente_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1786,7 +1786,7 @@ ALTER TABLE digiclin.estatus_paciente ALTER COLUMN id_estatus_paciente ADD GENER
 
 
 --
--- TOC entry 225 (class 1259 OID 16493)
+-- TOC entry 237 (class 1259 OID 16493)
 -- Name: estatus_usuario; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1800,7 +1800,7 @@ CREATE TABLE digiclin.estatus_usuario (
 ALTER TABLE digiclin.estatus_usuario OWNER TO postgres;
 
 --
--- TOC entry 290 (class 1259 OID 16975)
+-- TOC entry 302 (class 1259 OID 16975)
 -- Name: estatus_usuario_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1819,7 +1819,7 @@ CREATE TABLE digiclin.estatus_usuario_bitacora (
 ALTER TABLE digiclin.estatus_usuario_bitacora OWNER TO postgres;
 
 --
--- TOC entry 289 (class 1259 OID 16974)
+-- TOC entry 301 (class 1259 OID 16974)
 -- Name: estatus_usuario_bitacora_id_estatus_usuario_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1834,7 +1834,7 @@ ALTER TABLE digiclin.estatus_usuario_bitacora ALTER COLUMN id_estatus_usuario_bi
 
 
 --
--- TOC entry 224 (class 1259 OID 16492)
+-- TOC entry 236 (class 1259 OID 16492)
 -- Name: estatus_usuario_id_estatus_usuario_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1849,7 +1849,7 @@ ALTER TABLE digiclin.estatus_usuario ALTER COLUMN id_estatus_usuario ADD GENERAT
 
 
 --
--- TOC entry 320 (class 1259 OID 17120)
+-- TOC entry 332 (class 1259 OID 17120)
 -- Name: expediente_clinico_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1883,7 +1883,7 @@ CREATE TABLE digiclin.expediente_clinico_bitacora (
 ALTER TABLE digiclin.expediente_clinico_bitacora OWNER TO postgres;
 
 --
--- TOC entry 319 (class 1259 OID 17119)
+-- TOC entry 331 (class 1259 OID 17119)
 -- Name: expediente_clinico_bitacora_id_expediente_clinico_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1898,7 +1898,7 @@ ALTER TABLE digiclin.expediente_clinico_bitacora ALTER COLUMN id_expediente_clin
 
 
 --
--- TOC entry 259 (class 1259 OID 16736)
+-- TOC entry 271 (class 1259 OID 16736)
 -- Name: expediente_clinico_id_expediente_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1913,7 +1913,7 @@ ALTER TABLE digiclin.expediente_clinico ALTER COLUMN id_expediente ADD GENERATED
 
 
 --
--- TOC entry 243 (class 1259 OID 16565)
+-- TOC entry 255 (class 1259 OID 16565)
 -- Name: medicamento; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1928,7 +1928,7 @@ CREATE TABLE digiclin.medicamento (
 ALTER TABLE digiclin.medicamento OWNER TO postgres;
 
 --
--- TOC entry 288 (class 1259 OID 16964)
+-- TOC entry 300 (class 1259 OID 16964)
 -- Name: medicamento_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1948,7 +1948,7 @@ CREATE TABLE digiclin.medicamento_bitacora (
 ALTER TABLE digiclin.medicamento_bitacora OWNER TO postgres;
 
 --
--- TOC entry 287 (class 1259 OID 16963)
+-- TOC entry 299 (class 1259 OID 16963)
 -- Name: medicamento_bitacora_id_medicamento_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1963,7 +1963,7 @@ ALTER TABLE digiclin.medicamento_bitacora ALTER COLUMN id_medicamento_bitacora A
 
 
 --
--- TOC entry 242 (class 1259 OID 16564)
+-- TOC entry 254 (class 1259 OID 16564)
 -- Name: medicamento_id_medicamento_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -1978,7 +1978,7 @@ ALTER TABLE digiclin.medicamento ALTER COLUMN id_medicamento ADD GENERATED ALWAY
 
 
 --
--- TOC entry 249 (class 1259 OID 16617)
+-- TOC entry 261 (class 1259 OID 16617)
 -- Name: medico; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -1991,7 +1991,7 @@ CREATE TABLE digiclin.medico (
 ALTER TABLE digiclin.medico OWNER TO postgres;
 
 --
--- TOC entry 294 (class 1259 OID 16993)
+-- TOC entry 306 (class 1259 OID 16993)
 -- Name: medico_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2009,7 +2009,7 @@ CREATE TABLE digiclin.medico_bitacora (
 ALTER TABLE digiclin.medico_bitacora OWNER TO postgres;
 
 --
--- TOC entry 293 (class 1259 OID 16992)
+-- TOC entry 305 (class 1259 OID 16992)
 -- Name: medico_bitacora_id_medico_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2024,7 +2024,7 @@ ALTER TABLE digiclin.medico_bitacora ALTER COLUMN id_medico_bitacora ADD GENERAT
 
 
 --
--- TOC entry 255 (class 1259 OID 16696)
+-- TOC entry 267 (class 1259 OID 16696)
 -- Name: paciente_alergia; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2038,7 +2038,7 @@ CREATE TABLE digiclin.paciente_alergia (
 ALTER TABLE digiclin.paciente_alergia OWNER TO postgres;
 
 --
--- TOC entry 312 (class 1259 OID 17080)
+-- TOC entry 324 (class 1259 OID 17080)
 -- Name: paciente_alergia_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2057,7 +2057,7 @@ CREATE TABLE digiclin.paciente_alergia_bitacora (
 ALTER TABLE digiclin.paciente_alergia_bitacora OWNER TO postgres;
 
 --
--- TOC entry 311 (class 1259 OID 17079)
+-- TOC entry 323 (class 1259 OID 17079)
 -- Name: paciente_alergia_bitacora_id_paciente_alergia_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2072,7 +2072,7 @@ ALTER TABLE digiclin.paciente_alergia_bitacora ALTER COLUMN id_paciente_alergia_
 
 
 --
--- TOC entry 306 (class 1259 OID 17049)
+-- TOC entry 318 (class 1259 OID 17049)
 -- Name: paciente_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2104,7 +2104,7 @@ CREATE TABLE digiclin.paciente_bitacora (
 ALTER TABLE digiclin.paciente_bitacora OWNER TO postgres;
 
 --
--- TOC entry 305 (class 1259 OID 17048)
+-- TOC entry 317 (class 1259 OID 17048)
 -- Name: paciente_bitacora_id_paciente_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2119,7 +2119,7 @@ ALTER TABLE digiclin.paciente_bitacora ALTER COLUMN id_paciente_bitacora ADD GEN
 
 
 --
--- TOC entry 256 (class 1259 OID 16711)
+-- TOC entry 268 (class 1259 OID 16711)
 -- Name: paciente_enfermedad; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2133,7 +2133,7 @@ CREATE TABLE digiclin.paciente_enfermedad (
 ALTER TABLE digiclin.paciente_enfermedad OWNER TO postgres;
 
 --
--- TOC entry 308 (class 1259 OID 17060)
+-- TOC entry 320 (class 1259 OID 17060)
 -- Name: paciente_enfermedad_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2152,7 +2152,7 @@ CREATE TABLE digiclin.paciente_enfermedad_bitacora (
 ALTER TABLE digiclin.paciente_enfermedad_bitacora OWNER TO postgres;
 
 --
--- TOC entry 307 (class 1259 OID 17059)
+-- TOC entry 319 (class 1259 OID 17059)
 -- Name: paciente_enfermedad_bitacora_id_paciente_enfermedad_bitacor_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2167,7 +2167,7 @@ ALTER TABLE digiclin.paciente_enfermedad_bitacora ALTER COLUMN id_paciente_enfer
 
 
 --
--- TOC entry 253 (class 1259 OID 16670)
+-- TOC entry 265 (class 1259 OID 16670)
 -- Name: paciente_id_paciente_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2182,7 +2182,7 @@ ALTER TABLE digiclin.paciente ALTER COLUMN id_paciente ADD GENERATED ALWAYS AS I
 
 
 --
--- TOC entry 248 (class 1259 OID 16605)
+-- TOC entry 260 (class 1259 OID 16605)
 -- Name: personal_medico; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2195,7 +2195,7 @@ CREATE TABLE digiclin.personal_medico (
 ALTER TABLE digiclin.personal_medico OWNER TO postgres;
 
 --
--- TOC entry 292 (class 1259 OID 16984)
+-- TOC entry 304 (class 1259 OID 16984)
 -- Name: personal_medico_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2213,7 +2213,7 @@ CREATE TABLE digiclin.personal_medico_bitacora (
 ALTER TABLE digiclin.personal_medico_bitacora OWNER TO postgres;
 
 --
--- TOC entry 291 (class 1259 OID 16983)
+-- TOC entry 303 (class 1259 OID 16983)
 -- Name: personal_medico_bitacora_id_personal_medico_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2228,7 +2228,7 @@ ALTER TABLE digiclin.personal_medico_bitacora ALTER COLUMN id_personal_medico_bi
 
 
 --
--- TOC entry 223 (class 1259 OID 16485)
+-- TOC entry 235 (class 1259 OID 16485)
 -- Name: rol; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2242,7 +2242,7 @@ CREATE TABLE digiclin.rol (
 ALTER TABLE digiclin.rol OWNER TO postgres;
 
 --
--- TOC entry 276 (class 1259 OID 16908)
+-- TOC entry 288 (class 1259 OID 16908)
 -- Name: rol_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2261,7 +2261,7 @@ CREATE TABLE digiclin.rol_bitacora (
 ALTER TABLE digiclin.rol_bitacora OWNER TO postgres;
 
 --
--- TOC entry 275 (class 1259 OID 16907)
+-- TOC entry 287 (class 1259 OID 16907)
 -- Name: rol_bitacora_id_rol_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2276,7 +2276,7 @@ ALTER TABLE digiclin.rol_bitacora ALTER COLUMN id_rol_bitacora ADD GENERATED ALW
 
 
 --
--- TOC entry 222 (class 1259 OID 16484)
+-- TOC entry 234 (class 1259 OID 16484)
 -- Name: rol_id_rol_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2291,7 +2291,7 @@ ALTER TABLE digiclin.rol ALTER COLUMN id_rol ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 278 (class 1259 OID 16917)
+-- TOC entry 290 (class 1259 OID 16917)
 -- Name: sexo_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2309,7 +2309,7 @@ CREATE TABLE digiclin.sexo_bitacora (
 ALTER TABLE digiclin.sexo_bitacora OWNER TO postgres;
 
 --
--- TOC entry 277 (class 1259 OID 16916)
+-- TOC entry 289 (class 1259 OID 16916)
 -- Name: sexo_bitacora_id_sexo_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2324,7 +2324,7 @@ ALTER TABLE digiclin.sexo_bitacora ALTER COLUMN id_sexo_bitacora ADD GENERATED A
 
 
 --
--- TOC entry 230 (class 1259 OID 16516)
+-- TOC entry 242 (class 1259 OID 16516)
 -- Name: sexo_id_sexo_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2339,7 +2339,7 @@ ALTER TABLE digiclin.sexo ALTER COLUMN id_sexo ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 282 (class 1259 OID 16935)
+-- TOC entry 294 (class 1259 OID 16935)
 -- Name: tipo_sangre_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2357,7 +2357,7 @@ CREATE TABLE digiclin.tipo_sangre_bitacora (
 ALTER TABLE digiclin.tipo_sangre_bitacora OWNER TO postgres;
 
 --
--- TOC entry 281 (class 1259 OID 16934)
+-- TOC entry 293 (class 1259 OID 16934)
 -- Name: tipo_sangre_bitacora_id_tipo_sangre_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2372,7 +2372,7 @@ ALTER TABLE digiclin.tipo_sangre_bitacora ALTER COLUMN id_tipo_sangre_bitacora A
 
 
 --
--- TOC entry 232 (class 1259 OID 16524)
+-- TOC entry 244 (class 1259 OID 16524)
 -- Name: tipo_sangre_id_tipo_sangre_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2387,7 +2387,7 @@ ALTER TABLE digiclin.tipo_sangre ALTER COLUMN id_tipo_sangre ADD GENERATED ALWAY
 
 
 --
--- TOC entry 245 (class 1259 OID 16573)
+-- TOC entry 257 (class 1259 OID 16573)
 -- Name: tipo_tratamiento; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2401,7 +2401,7 @@ CREATE TABLE digiclin.tipo_tratamiento (
 ALTER TABLE digiclin.tipo_tratamiento OWNER TO postgres;
 
 --
--- TOC entry 316 (class 1259 OID 17100)
+-- TOC entry 328 (class 1259 OID 17100)
 -- Name: tipo_tratamiento_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2420,7 +2420,7 @@ CREATE TABLE digiclin.tipo_tratamiento_bitacora (
 ALTER TABLE digiclin.tipo_tratamiento_bitacora OWNER TO postgres;
 
 --
--- TOC entry 315 (class 1259 OID 17099)
+-- TOC entry 327 (class 1259 OID 17099)
 -- Name: tipo_tratamiento_bitacora_id_tipo_tratamiento_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2435,7 +2435,7 @@ ALTER TABLE digiclin.tipo_tratamiento_bitacora ALTER COLUMN id_tipo_tratamiento_
 
 
 --
--- TOC entry 244 (class 1259 OID 16572)
+-- TOC entry 256 (class 1259 OID 16572)
 -- Name: tipo_tratamiento_id_tipo_tratamiento_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2450,7 +2450,7 @@ ALTER TABLE digiclin.tipo_tratamiento ALTER COLUMN id_tipo_tratamiento ADD GENER
 
 
 --
--- TOC entry 262 (class 1259 OID 16772)
+-- TOC entry 274 (class 1259 OID 16772)
 -- Name: tratamiento; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2470,7 +2470,7 @@ CREATE TABLE digiclin.tratamiento (
 ALTER TABLE digiclin.tratamiento OWNER TO postgres;
 
 --
--- TOC entry 314 (class 1259 OID 17089)
+-- TOC entry 326 (class 1259 OID 17089)
 -- Name: tratamiento_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2495,7 +2495,7 @@ CREATE TABLE digiclin.tratamiento_bitacora (
 ALTER TABLE digiclin.tratamiento_bitacora OWNER TO postgres;
 
 --
--- TOC entry 313 (class 1259 OID 17088)
+-- TOC entry 325 (class 1259 OID 17088)
 -- Name: tratamiento_bitacora_id_tratamiento_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2510,7 +2510,7 @@ ALTER TABLE digiclin.tratamiento_bitacora ALTER COLUMN id_tratamiento_bitacora A
 
 
 --
--- TOC entry 261 (class 1259 OID 16771)
+-- TOC entry 273 (class 1259 OID 16771)
 -- Name: tratamiento_id_tratamiento_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2525,7 +2525,7 @@ ALTER TABLE digiclin.tratamiento ALTER COLUMN id_tratamiento ADD GENERATED ALWAY
 
 
 --
--- TOC entry 318 (class 1259 OID 17109)
+-- TOC entry 330 (class 1259 OID 17109)
 -- Name: usuario_bitacora; Type: TABLE; Schema: digiclin; Owner: postgres
 --
 
@@ -2549,7 +2549,7 @@ CREATE TABLE digiclin.usuario_bitacora (
 ALTER TABLE digiclin.usuario_bitacora OWNER TO postgres;
 
 --
--- TOC entry 317 (class 1259 OID 17108)
+-- TOC entry 329 (class 1259 OID 17108)
 -- Name: usuario_bitacora_id_usuario_bitacora_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2564,7 +2564,7 @@ ALTER TABLE digiclin.usuario_bitacora ALTER COLUMN id_usuario_bitacora ADD GENER
 
 
 --
--- TOC entry 246 (class 1259 OID 16583)
+-- TOC entry 258 (class 1259 OID 16583)
 -- Name: usuario_id_usuario_seq; Type: SEQUENCE; Schema: digiclin; Owner: postgres
 --
 
@@ -2579,7 +2579,7 @@ ALTER TABLE digiclin.usuario ALTER COLUMN id_usuario ADD GENERATED ALWAYS AS IDE
 
 
 --
--- TOC entry 328 (class 1259 OID 17246)
+-- TOC entry 340 (class 1259 OID 17246)
 -- Name: vw_expediente; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2617,7 +2617,7 @@ CREATE VIEW digiclin.vw_expediente AS
 ALTER VIEW digiclin.vw_expediente OWNER TO postgres;
 
 --
--- TOC entry 326 (class 1259 OID 17236)
+-- TOC entry 338 (class 1259 OID 17236)
 -- Name: vw_expedientes_abiertos; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2656,7 +2656,7 @@ CREATE VIEW digiclin.vw_expedientes_abiertos AS
 ALTER VIEW digiclin.vw_expedientes_abiertos OWNER TO postgres;
 
 --
--- TOC entry 327 (class 1259 OID 17241)
+-- TOC entry 339 (class 1259 OID 17241)
 -- Name: vw_expedientes_archivados; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2695,7 +2695,7 @@ CREATE VIEW digiclin.vw_expedientes_archivados AS
 ALTER VIEW digiclin.vw_expedientes_archivados OWNER TO postgres;
 
 --
--- TOC entry 267 (class 1259 OID 16854)
+-- TOC entry 279 (class 1259 OID 16854)
 -- Name: vw_expedientes_detalle; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2720,7 +2720,7 @@ CREATE VIEW digiclin.vw_expedientes_detalle AS
 ALTER VIEW digiclin.vw_expedientes_detalle OWNER TO postgres;
 
 --
--- TOC entry 274 (class 1259 OID 16902)
+-- TOC entry 286 (class 1259 OID 16902)
 -- Name: vw_paciente_administrativo; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2745,7 +2745,7 @@ CREATE VIEW digiclin.vw_paciente_administrativo AS
 ALTER VIEW digiclin.vw_paciente_administrativo OWNER TO postgres;
 
 --
--- TOC entry 272 (class 1259 OID 16892)
+-- TOC entry 284 (class 1259 OID 16892)
 -- Name: vw_paciente_completo; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2782,7 +2782,7 @@ CREATE VIEW digiclin.vw_paciente_completo AS
 ALTER VIEW digiclin.vw_paciente_completo OWNER TO postgres;
 
 --
--- TOC entry 273 (class 1259 OID 16897)
+-- TOC entry 285 (class 1259 OID 16897)
 -- Name: vw_paciente_enfermero; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2812,7 +2812,7 @@ CREATE VIEW digiclin.vw_paciente_enfermero AS
 ALTER VIEW digiclin.vw_paciente_enfermero OWNER TO postgres;
 
 --
--- TOC entry 329 (class 1259 OID 17254)
+-- TOC entry 341 (class 1259 OID 17254)
 -- Name: vw_paciente_identificador; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2826,7 +2826,7 @@ CREATE VIEW digiclin.vw_paciente_identificador AS
 ALTER VIEW digiclin.vw_paciente_identificador OWNER TO postgres;
 
 --
--- TOC entry 266 (class 1259 OID 16849)
+-- TOC entry 278 (class 1259 OID 16849)
 -- Name: vw_pacientes_detalle; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2851,7 +2851,7 @@ CREATE VIEW digiclin.vw_pacientes_detalle AS
 ALTER VIEW digiclin.vw_pacientes_detalle OWNER TO postgres;
 
 --
--- TOC entry 264 (class 1259 OID 16818)
+-- TOC entry 276 (class 1259 OID 16818)
 -- Name: vw_usuario; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2870,7 +2870,7 @@ CREATE VIEW digiclin.vw_usuario AS
 ALTER VIEW digiclin.vw_usuario OWNER TO postgres;
 
 --
--- TOC entry 265 (class 1259 OID 16839)
+-- TOC entry 277 (class 1259 OID 16839)
 -- Name: vw_usuario_delete; Type: VIEW; Schema: digiclin; Owner: digiclin_app
 --
 
@@ -2885,7 +2885,7 @@ CREATE VIEW digiclin.vw_usuario_delete AS
 ALTER VIEW digiclin.vw_usuario_delete OWNER TO digiclin_app;
 
 --
--- TOC entry 330 (class 1259 OID 17266)
+-- TOC entry 342 (class 1259 OID 17266)
 -- Name: vw_usuario_login; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2905,7 +2905,7 @@ CREATE VIEW digiclin.vw_usuario_login AS
 ALTER VIEW digiclin.vw_usuario_login OWNER TO postgres;
 
 --
--- TOC entry 263 (class 1259 OID 16813)
+-- TOC entry 275 (class 1259 OID 16813)
 -- Name: vw_usuarios_activos; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2925,7 +2925,7 @@ CREATE VIEW digiclin.vw_usuarios_activos AS
 ALTER VIEW digiclin.vw_usuarios_activos OWNER TO postgres;
 
 --
--- TOC entry 271 (class 1259 OID 16884)
+-- TOC entry 283 (class 1259 OID 16884)
 -- Name: vw_usuarios_inactivos; Type: VIEW; Schema: digiclin; Owner: postgres
 --
 
@@ -2943,7 +2943,7 @@ CREATE VIEW digiclin.vw_usuarios_inactivos AS
 ALTER VIEW digiclin.vw_usuarios_inactivos OWNER TO postgres;
 
 --
--- TOC entry 4661 (class 2606 OID 16953)
+-- TOC entry 4673 (class 2606 OID 16953)
 -- Name: alergia_bitacora alergia_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -2952,7 +2952,7 @@ ALTER TABLE ONLY digiclin.alergia_bitacora
 
 
 --
--- TOC entry 4595 (class 2606 OID 16547)
+-- TOC entry 4607 (class 2606 OID 16547)
 -- Name: alergia alergia_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -2961,7 +2961,7 @@ ALTER TABLE ONLY digiclin.alergia
 
 
 --
--- TOC entry 4597 (class 2606 OID 16545)
+-- TOC entry 4609 (class 2606 OID 16545)
 -- Name: alergia alergia_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -2970,7 +2970,7 @@ ALTER TABLE ONLY digiclin.alergia
 
 
 --
--- TOC entry 4679 (class 2606 OID 17038)
+-- TOC entry 4691 (class 2606 OID 17038)
 -- Name: certificacion_bitacora certificacion_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -2979,7 +2979,7 @@ ALTER TABLE ONLY digiclin.certificacion_bitacora
 
 
 --
--- TOC entry 4603 (class 2606 OID 16563)
+-- TOC entry 4615 (class 2606 OID 16563)
 -- Name: certificacion certificacion_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -2988,7 +2988,7 @@ ALTER TABLE ONLY digiclin.certificacion
 
 
 --
--- TOC entry 4605 (class 2606 OID 16561)
+-- TOC entry 4617 (class 2606 OID 16561)
 -- Name: certificacion certificacion_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -2997,7 +2997,7 @@ ALTER TABLE ONLY digiclin.certificacion
 
 
 --
--- TOC entry 4699 (class 2606 OID 17140)
+-- TOC entry 4711 (class 2606 OID 17140)
 -- Name: diagnostico_bitacora diagnostico_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3006,7 +3006,7 @@ ALTER TABLE ONLY digiclin.diagnostico_bitacora
 
 
 --
--- TOC entry 4641 (class 2606 OID 16735)
+-- TOC entry 4653 (class 2606 OID 16735)
 -- Name: diagnostico diagnostico_codigo_cie_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3015,7 +3015,7 @@ ALTER TABLE ONLY digiclin.diagnostico
 
 
 --
--- TOC entry 4643 (class 2606 OID 16733)
+-- TOC entry 4655 (class 2606 OID 16733)
 -- Name: diagnostico diagnostico_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3024,7 +3024,7 @@ ALTER TABLE ONLY digiclin.diagnostico
 
 
 --
--- TOC entry 4681 (class 2606 OID 17047)
+-- TOC entry 4693 (class 2606 OID 17047)
 -- Name: director_bitacora director_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3033,7 +3033,7 @@ ALTER TABLE ONLY digiclin.director_bitacora
 
 
 --
--- TOC entry 4629 (class 2606 OID 16662)
+-- TOC entry 4641 (class 2606 OID 16662)
 -- Name: director director_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3042,7 +3042,7 @@ ALTER TABLE ONLY digiclin.director
 
 
 --
--- TOC entry 4631 (class 2606 OID 16664)
+-- TOC entry 4643 (class 2606 OID 16664)
 -- Name: director director_plaza_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3051,7 +3051,7 @@ ALTER TABLE ONLY digiclin.director
 
 
 --
--- TOC entry 4687 (class 2606 OID 17078)
+-- TOC entry 4699 (class 2606 OID 17078)
 -- Name: enfermedad_cronica_bitacora enfermedad_cronica_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3060,7 +3060,7 @@ ALTER TABLE ONLY digiclin.enfermedad_cronica_bitacora
 
 
 --
--- TOC entry 4599 (class 2606 OID 16555)
+-- TOC entry 4611 (class 2606 OID 16555)
 -- Name: enfermedad_cronica enfermedad_cronica_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3069,7 +3069,7 @@ ALTER TABLE ONLY digiclin.enfermedad_cronica
 
 
 --
--- TOC entry 4601 (class 2606 OID 16553)
+-- TOC entry 4613 (class 2606 OID 16553)
 -- Name: enfermedad_cronica enfermedad_cronica_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3078,7 +3078,7 @@ ALTER TABLE ONLY digiclin.enfermedad_cronica
 
 
 --
--- TOC entry 4675 (class 2606 OID 17018)
+-- TOC entry 4687 (class 2606 OID 17018)
 -- Name: enfermero_bitacora enfermero_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3087,7 +3087,7 @@ ALTER TABLE ONLY digiclin.enfermero_bitacora
 
 
 --
--- TOC entry 4677 (class 2606 OID 17027)
+-- TOC entry 4689 (class 2606 OID 17027)
 -- Name: enfermero_certificacion_bitacora enfermero_certificacion_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3096,7 +3096,7 @@ ALTER TABLE ONLY digiclin.enfermero_certificacion_bitacora
 
 
 --
--- TOC entry 4625 (class 2606 OID 16636)
+-- TOC entry 4637 (class 2606 OID 16636)
 -- Name: enfermero enfermero_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3105,7 +3105,7 @@ ALTER TABLE ONLY digiclin.enfermero
 
 
 --
--- TOC entry 4673 (class 2606 OID 17009)
+-- TOC entry 4685 (class 2606 OID 17009)
 -- Name: especialidad_bitacora especialidad_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3114,7 +3114,7 @@ ALTER TABLE ONLY digiclin.especialidad_bitacora
 
 
 --
--- TOC entry 4579 (class 2606 OID 16515)
+-- TOC entry 4591 (class 2606 OID 16515)
 -- Name: especialidad especialidad_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3123,7 +3123,7 @@ ALTER TABLE ONLY digiclin.especialidad
 
 
 --
--- TOC entry 4581 (class 2606 OID 16513)
+-- TOC entry 4593 (class 2606 OID 16513)
 -- Name: especialidad especialidad_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3132,7 +3132,7 @@ ALTER TABLE ONLY digiclin.especialidad
 
 
 --
--- TOC entry 4657 (class 2606 OID 16933)
+-- TOC entry 4669 (class 2606 OID 16933)
 -- Name: estado_civil_bitacora estado_civil_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3141,7 +3141,7 @@ ALTER TABLE ONLY digiclin.estado_civil_bitacora
 
 
 --
--- TOC entry 4591 (class 2606 OID 16539)
+-- TOC entry 4603 (class 2606 OID 16539)
 -- Name: estado_civil estado_civil_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3150,7 +3150,7 @@ ALTER TABLE ONLY digiclin.estado_civil
 
 
 --
--- TOC entry 4593 (class 2606 OID 16537)
+-- TOC entry 4605 (class 2606 OID 16537)
 -- Name: estado_civil estado_civil_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3159,7 +3159,7 @@ ALTER TABLE ONLY digiclin.estado_civil
 
 
 --
--- TOC entry 4663 (class 2606 OID 16962)
+-- TOC entry 4675 (class 2606 OID 16962)
 -- Name: estatus_expediente_bitacora estatus_expediente_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3168,7 +3168,7 @@ ALTER TABLE ONLY digiclin.estatus_expediente_bitacora
 
 
 --
--- TOC entry 4575 (class 2606 OID 16507)
+-- TOC entry 4587 (class 2606 OID 16507)
 -- Name: estatus_expediente estatus_expediente_nombre_estatus_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3177,7 +3177,7 @@ ALTER TABLE ONLY digiclin.estatus_expediente
 
 
 --
--- TOC entry 4577 (class 2606 OID 16505)
+-- TOC entry 4589 (class 2606 OID 16505)
 -- Name: estatus_expediente estatus_expediente_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3186,7 +3186,7 @@ ALTER TABLE ONLY digiclin.estatus_expediente
 
 
 --
--- TOC entry 4701 (class 2606 OID 17149)
+-- TOC entry 4713 (class 2606 OID 17149)
 -- Name: estatus_paciente_bitacora estatus_paciente_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3195,7 +3195,7 @@ ALTER TABLE ONLY digiclin.estatus_paciente_bitacora
 
 
 --
--- TOC entry 4649 (class 2606 OID 16868)
+-- TOC entry 4661 (class 2606 OID 16868)
 -- Name: estatus_paciente estatus_paciente_nombre_estatus_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3204,7 +3204,7 @@ ALTER TABLE ONLY digiclin.estatus_paciente
 
 
 --
--- TOC entry 4651 (class 2606 OID 16866)
+-- TOC entry 4663 (class 2606 OID 16866)
 -- Name: estatus_paciente estatus_paciente_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3213,7 +3213,7 @@ ALTER TABLE ONLY digiclin.estatus_paciente
 
 
 --
--- TOC entry 4667 (class 2606 OID 16982)
+-- TOC entry 4679 (class 2606 OID 16982)
 -- Name: estatus_usuario_bitacora estatus_usuario_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3222,7 +3222,7 @@ ALTER TABLE ONLY digiclin.estatus_usuario_bitacora
 
 
 --
--- TOC entry 4571 (class 2606 OID 16499)
+-- TOC entry 4583 (class 2606 OID 16499)
 -- Name: estatus_usuario estatus_usuario_nombre_estatus_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3231,7 +3231,7 @@ ALTER TABLE ONLY digiclin.estatus_usuario
 
 
 --
--- TOC entry 4573 (class 2606 OID 16497)
+-- TOC entry 4585 (class 2606 OID 16497)
 -- Name: estatus_usuario estatus_usuario_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3240,7 +3240,7 @@ ALTER TABLE ONLY digiclin.estatus_usuario
 
 
 --
--- TOC entry 4697 (class 2606 OID 17129)
+-- TOC entry 4709 (class 2606 OID 17129)
 -- Name: expediente_clinico_bitacora expediente_clinico_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3249,7 +3249,7 @@ ALTER TABLE ONLY digiclin.expediente_clinico_bitacora
 
 
 --
--- TOC entry 4645 (class 2606 OID 16750)
+-- TOC entry 4657 (class 2606 OID 16750)
 -- Name: expediente_clinico expediente_clinico_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3258,7 +3258,7 @@ ALTER TABLE ONLY digiclin.expediente_clinico
 
 
 --
--- TOC entry 4665 (class 2606 OID 16973)
+-- TOC entry 4677 (class 2606 OID 16973)
 -- Name: medicamento_bitacora medicamento_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3267,7 +3267,7 @@ ALTER TABLE ONLY digiclin.medicamento_bitacora
 
 
 --
--- TOC entry 4607 (class 2606 OID 16571)
+-- TOC entry 4619 (class 2606 OID 16571)
 -- Name: medicamento medicamento_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3276,7 +3276,7 @@ ALTER TABLE ONLY digiclin.medicamento
 
 
 --
--- TOC entry 4671 (class 2606 OID 17000)
+-- TOC entry 4683 (class 2606 OID 17000)
 -- Name: medico_bitacora medico_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3285,7 +3285,7 @@ ALTER TABLE ONLY digiclin.medico_bitacora
 
 
 --
--- TOC entry 4623 (class 2606 OID 16621)
+-- TOC entry 4635 (class 2606 OID 16621)
 -- Name: medico medico_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3294,7 +3294,7 @@ ALTER TABLE ONLY digiclin.medico
 
 
 --
--- TOC entry 4689 (class 2606 OID 17087)
+-- TOC entry 4701 (class 2606 OID 17087)
 -- Name: paciente_alergia_bitacora paciente_alergia_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3303,7 +3303,7 @@ ALTER TABLE ONLY digiclin.paciente_alergia_bitacora
 
 
 --
--- TOC entry 4683 (class 2606 OID 17058)
+-- TOC entry 4695 (class 2606 OID 17058)
 -- Name: paciente_bitacora paciente_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3312,7 +3312,7 @@ ALTER TABLE ONLY digiclin.paciente_bitacora
 
 
 --
--- TOC entry 4633 (class 2606 OID 16680)
+-- TOC entry 4645 (class 2606 OID 16680)
 -- Name: paciente paciente_curp_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3321,7 +3321,7 @@ ALTER TABLE ONLY digiclin.paciente
 
 
 --
--- TOC entry 4685 (class 2606 OID 17067)
+-- TOC entry 4697 (class 2606 OID 17067)
 -- Name: paciente_enfermedad_bitacora paciente_enfermedad_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3330,7 +3330,7 @@ ALTER TABLE ONLY digiclin.paciente_enfermedad_bitacora
 
 
 --
--- TOC entry 4635 (class 2606 OID 16678)
+-- TOC entry 4647 (class 2606 OID 16678)
 -- Name: paciente paciente_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3339,7 +3339,7 @@ ALTER TABLE ONLY digiclin.paciente
 
 
 --
--- TOC entry 4669 (class 2606 OID 16991)
+-- TOC entry 4681 (class 2606 OID 16991)
 -- Name: personal_medico_bitacora personal_medico_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3348,7 +3348,7 @@ ALTER TABLE ONLY digiclin.personal_medico_bitacora
 
 
 --
--- TOC entry 4619 (class 2606 OID 16611)
+-- TOC entry 4631 (class 2606 OID 16611)
 -- Name: personal_medico personal_medico_cedula_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3357,7 +3357,7 @@ ALTER TABLE ONLY digiclin.personal_medico
 
 
 --
--- TOC entry 4621 (class 2606 OID 16609)
+-- TOC entry 4633 (class 2606 OID 16609)
 -- Name: personal_medico personal_medico_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3366,7 +3366,7 @@ ALTER TABLE ONLY digiclin.personal_medico
 
 
 --
--- TOC entry 4627 (class 2606 OID 16647)
+-- TOC entry 4639 (class 2606 OID 16647)
 -- Name: enfermero_certificacion pk_enfermero_certificacion; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3375,7 +3375,7 @@ ALTER TABLE ONLY digiclin.enfermero_certificacion
 
 
 --
--- TOC entry 4637 (class 2606 OID 16700)
+-- TOC entry 4649 (class 2606 OID 16700)
 -- Name: paciente_alergia pk_paciente_alergia; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3384,7 +3384,7 @@ ALTER TABLE ONLY digiclin.paciente_alergia
 
 
 --
--- TOC entry 4639 (class 2606 OID 16715)
+-- TOC entry 4651 (class 2606 OID 16715)
 -- Name: paciente_enfermedad pk_paciente_enfermedad; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3393,7 +3393,7 @@ ALTER TABLE ONLY digiclin.paciente_enfermedad
 
 
 --
--- TOC entry 4653 (class 2606 OID 16915)
+-- TOC entry 4665 (class 2606 OID 16915)
 -- Name: rol_bitacora rol_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3402,7 +3402,7 @@ ALTER TABLE ONLY digiclin.rol_bitacora
 
 
 --
--- TOC entry 4567 (class 2606 OID 16491)
+-- TOC entry 4579 (class 2606 OID 16491)
 -- Name: rol rol_nombre_rol_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3411,7 +3411,7 @@ ALTER TABLE ONLY digiclin.rol
 
 
 --
--- TOC entry 4569 (class 2606 OID 16489)
+-- TOC entry 4581 (class 2606 OID 16489)
 -- Name: rol rol_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3420,7 +3420,7 @@ ALTER TABLE ONLY digiclin.rol
 
 
 --
--- TOC entry 4655 (class 2606 OID 16924)
+-- TOC entry 4667 (class 2606 OID 16924)
 -- Name: sexo_bitacora sexo_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3429,7 +3429,7 @@ ALTER TABLE ONLY digiclin.sexo_bitacora
 
 
 --
--- TOC entry 4583 (class 2606 OID 16523)
+-- TOC entry 4595 (class 2606 OID 16523)
 -- Name: sexo sexo_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3438,7 +3438,7 @@ ALTER TABLE ONLY digiclin.sexo
 
 
 --
--- TOC entry 4585 (class 2606 OID 16521)
+-- TOC entry 4597 (class 2606 OID 16521)
 -- Name: sexo sexo_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3447,7 +3447,7 @@ ALTER TABLE ONLY digiclin.sexo
 
 
 --
--- TOC entry 4659 (class 2606 OID 16942)
+-- TOC entry 4671 (class 2606 OID 16942)
 -- Name: tipo_sangre_bitacora tipo_sangre_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3456,7 +3456,7 @@ ALTER TABLE ONLY digiclin.tipo_sangre_bitacora
 
 
 --
--- TOC entry 4587 (class 2606 OID 16529)
+-- TOC entry 4599 (class 2606 OID 16529)
 -- Name: tipo_sangre tipo_sangre_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3465,7 +3465,7 @@ ALTER TABLE ONLY digiclin.tipo_sangre
 
 
 --
--- TOC entry 4589 (class 2606 OID 16531)
+-- TOC entry 4601 (class 2606 OID 16531)
 -- Name: tipo_sangre tipo_sangre_tipo_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3474,7 +3474,7 @@ ALTER TABLE ONLY digiclin.tipo_sangre
 
 
 --
--- TOC entry 4693 (class 2606 OID 17107)
+-- TOC entry 4705 (class 2606 OID 17107)
 -- Name: tipo_tratamiento_bitacora tipo_tratamiento_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3483,7 +3483,7 @@ ALTER TABLE ONLY digiclin.tipo_tratamiento_bitacora
 
 
 --
--- TOC entry 4609 (class 2606 OID 16579)
+-- TOC entry 4621 (class 2606 OID 16579)
 -- Name: tipo_tratamiento tipo_tratamiento_nombre_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3492,7 +3492,7 @@ ALTER TABLE ONLY digiclin.tipo_tratamiento
 
 
 --
--- TOC entry 4611 (class 2606 OID 16577)
+-- TOC entry 4623 (class 2606 OID 16577)
 -- Name: tipo_tratamiento tipo_tratamiento_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3501,7 +3501,7 @@ ALTER TABLE ONLY digiclin.tipo_tratamiento
 
 
 --
--- TOC entry 4691 (class 2606 OID 17098)
+-- TOC entry 4703 (class 2606 OID 17098)
 -- Name: tratamiento_bitacora tratamiento_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3510,7 +3510,7 @@ ALTER TABLE ONLY digiclin.tratamiento_bitacora
 
 
 --
--- TOC entry 4647 (class 2606 OID 16778)
+-- TOC entry 4659 (class 2606 OID 16778)
 -- Name: tratamiento tratamiento_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3519,7 +3519,7 @@ ALTER TABLE ONLY digiclin.tratamiento
 
 
 --
--- TOC entry 4695 (class 2606 OID 17118)
+-- TOC entry 4707 (class 2606 OID 17118)
 -- Name: usuario_bitacora usuario_bitacora_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3528,7 +3528,7 @@ ALTER TABLE ONLY digiclin.usuario_bitacora
 
 
 --
--- TOC entry 4613 (class 2606 OID 16594)
+-- TOC entry 4625 (class 2606 OID 16594)
 -- Name: usuario usuario_correo_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3537,7 +3537,7 @@ ALTER TABLE ONLY digiclin.usuario
 
 
 --
--- TOC entry 4615 (class 2606 OID 16592)
+-- TOC entry 4627 (class 2606 OID 16592)
 -- Name: usuario usuario_nombre_usuario_key; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3546,7 +3546,7 @@ ALTER TABLE ONLY digiclin.usuario
 
 
 --
--- TOC entry 4617 (class 2606 OID 16590)
+-- TOC entry 4629 (class 2606 OID 16590)
 -- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -3555,7 +3555,7 @@ ALTER TABLE ONLY digiclin.usuario
 
 
 --
--- TOC entry 4747 (class 2620 OID 17163)
+-- TOC entry 4759 (class 2620 OID 17163)
 -- Name: alergia trg_alergia_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3563,7 +3563,7 @@ CREATE TRIGGER trg_alergia_ai AFTER INSERT ON digiclin.alergia FOR EACH ROW EXEC
 
 
 --
--- TOC entry 4748 (class 2620 OID 17164)
+-- TOC entry 4760 (class 2620 OID 17164)
 -- Name: alergia trg_alergia_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3571,7 +3571,7 @@ CREATE TRIGGER trg_alergia_au AFTER UPDATE ON digiclin.alergia FOR EACH ROW EXEC
 
 
 --
--- TOC entry 4749 (class 2620 OID 17165)
+-- TOC entry 4761 (class 2620 OID 17165)
 -- Name: alergia trg_alergia_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3579,7 +3579,7 @@ CREATE TRIGGER trg_alergia_bd BEFORE DELETE ON digiclin.alergia FOR EACH ROW EXE
 
 
 --
--- TOC entry 4753 (class 2620 OID 17190)
+-- TOC entry 4765 (class 2620 OID 17190)
 -- Name: certificacion trg_certificacion_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3587,7 +3587,7 @@ CREATE TRIGGER trg_certificacion_ai AFTER INSERT ON digiclin.certificacion FOR E
 
 
 --
--- TOC entry 4754 (class 2620 OID 17191)
+-- TOC entry 4766 (class 2620 OID 17191)
 -- Name: certificacion trg_certificacion_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3595,7 +3595,7 @@ CREATE TRIGGER trg_certificacion_au AFTER UPDATE ON digiclin.certificacion FOR E
 
 
 --
--- TOC entry 4755 (class 2620 OID 17192)
+-- TOC entry 4767 (class 2620 OID 17192)
 -- Name: certificacion trg_certificacion_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3603,7 +3603,7 @@ CREATE TRIGGER trg_certificacion_bd BEFORE DELETE ON digiclin.certificacion FOR 
 
 
 --
--- TOC entry 4789 (class 2620 OID 17220)
+-- TOC entry 4801 (class 2620 OID 17220)
 -- Name: diagnostico trg_diagnostico_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3611,7 +3611,7 @@ CREATE TRIGGER trg_diagnostico_ai AFTER INSERT ON digiclin.diagnostico FOR EACH 
 
 
 --
--- TOC entry 4790 (class 2620 OID 17221)
+-- TOC entry 4802 (class 2620 OID 17221)
 -- Name: diagnostico trg_diagnostico_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3619,7 +3619,7 @@ CREATE TRIGGER trg_diagnostico_au AFTER UPDATE ON digiclin.diagnostico FOR EACH 
 
 
 --
--- TOC entry 4791 (class 2620 OID 17222)
+-- TOC entry 4803 (class 2620 OID 17222)
 -- Name: diagnostico trg_diagnostico_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3627,7 +3627,7 @@ CREATE TRIGGER trg_diagnostico_bd BEFORE DELETE ON digiclin.diagnostico FOR EACH
 
 
 --
--- TOC entry 4777 (class 2620 OID 17193)
+-- TOC entry 4789 (class 2620 OID 17193)
 -- Name: director trg_director_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3635,7 +3635,7 @@ CREATE TRIGGER trg_director_ai AFTER INSERT ON digiclin.director FOR EACH ROW EX
 
 
 --
--- TOC entry 4778 (class 2620 OID 17194)
+-- TOC entry 4790 (class 2620 OID 17194)
 -- Name: director trg_director_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3643,7 +3643,7 @@ CREATE TRIGGER trg_director_au AFTER UPDATE ON digiclin.director FOR EACH ROW EX
 
 
 --
--- TOC entry 4779 (class 2620 OID 17195)
+-- TOC entry 4791 (class 2620 OID 17195)
 -- Name: director trg_director_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3651,7 +3651,7 @@ CREATE TRIGGER trg_director_bd BEFORE DELETE ON digiclin.director FOR EACH ROW E
 
 
 --
--- TOC entry 4750 (class 2620 OID 17202)
+-- TOC entry 4762 (class 2620 OID 17202)
 -- Name: enfermedad_cronica trg_enfermedad_cronica_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3659,7 +3659,7 @@ CREATE TRIGGER trg_enfermedad_cronica_ai AFTER INSERT ON digiclin.enfermedad_cro
 
 
 --
--- TOC entry 4751 (class 2620 OID 17203)
+-- TOC entry 4763 (class 2620 OID 17203)
 -- Name: enfermedad_cronica trg_enfermedad_cronica_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3667,7 +3667,7 @@ CREATE TRIGGER trg_enfermedad_cronica_au AFTER UPDATE ON digiclin.enfermedad_cro
 
 
 --
--- TOC entry 4752 (class 2620 OID 17204)
+-- TOC entry 4764 (class 2620 OID 17204)
 -- Name: enfermedad_cronica trg_enfermedad_cronica_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3675,7 +3675,7 @@ CREATE TRIGGER trg_enfermedad_cronica_bd BEFORE DELETE ON digiclin.enfermedad_cr
 
 
 --
--- TOC entry 4771 (class 2620 OID 17184)
+-- TOC entry 4783 (class 2620 OID 17184)
 -- Name: enfermero trg_enfermero_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3683,7 +3683,7 @@ CREATE TRIGGER trg_enfermero_ai AFTER INSERT ON digiclin.enfermero FOR EACH ROW 
 
 
 --
--- TOC entry 4772 (class 2620 OID 17185)
+-- TOC entry 4784 (class 2620 OID 17185)
 -- Name: enfermero trg_enfermero_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3691,7 +3691,7 @@ CREATE TRIGGER trg_enfermero_au AFTER UPDATE ON digiclin.enfermero FOR EACH ROW 
 
 
 --
--- TOC entry 4773 (class 2620 OID 17186)
+-- TOC entry 4785 (class 2620 OID 17186)
 -- Name: enfermero trg_enfermero_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3699,7 +3699,7 @@ CREATE TRIGGER trg_enfermero_bd BEFORE DELETE ON digiclin.enfermero FOR EACH ROW
 
 
 --
--- TOC entry 4774 (class 2620 OID 17187)
+-- TOC entry 4786 (class 2620 OID 17187)
 -- Name: enfermero_certificacion trg_enfermero_certificacion_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3707,7 +3707,7 @@ CREATE TRIGGER trg_enfermero_certificacion_ai AFTER INSERT ON digiclin.enfermero
 
 
 --
--- TOC entry 4775 (class 2620 OID 17188)
+-- TOC entry 4787 (class 2620 OID 17188)
 -- Name: enfermero_certificacion trg_enfermero_certificacion_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3715,7 +3715,7 @@ CREATE TRIGGER trg_enfermero_certificacion_au AFTER UPDATE ON digiclin.enfermero
 
 
 --
--- TOC entry 4776 (class 2620 OID 17189)
+-- TOC entry 4788 (class 2620 OID 17189)
 -- Name: enfermero_certificacion trg_enfermero_certificacion_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3723,7 +3723,7 @@ CREATE TRIGGER trg_enfermero_certificacion_bd BEFORE DELETE ON digiclin.enfermer
 
 
 --
--- TOC entry 4735 (class 2620 OID 17181)
+-- TOC entry 4747 (class 2620 OID 17181)
 -- Name: especialidad trg_especialidad_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3731,7 +3731,7 @@ CREATE TRIGGER trg_especialidad_ai AFTER INSERT ON digiclin.especialidad FOR EAC
 
 
 --
--- TOC entry 4736 (class 2620 OID 17182)
+-- TOC entry 4748 (class 2620 OID 17182)
 -- Name: especialidad trg_especialidad_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3739,7 +3739,7 @@ CREATE TRIGGER trg_especialidad_au AFTER UPDATE ON digiclin.especialidad FOR EAC
 
 
 --
--- TOC entry 4737 (class 2620 OID 17183)
+-- TOC entry 4749 (class 2620 OID 17183)
 -- Name: especialidad trg_especialidad_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3747,7 +3747,7 @@ CREATE TRIGGER trg_especialidad_bd BEFORE DELETE ON digiclin.especialidad FOR EA
 
 
 --
--- TOC entry 4744 (class 2620 OID 17157)
+-- TOC entry 4756 (class 2620 OID 17157)
 -- Name: estado_civil trg_estado_civil_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3755,7 +3755,7 @@ CREATE TRIGGER trg_estado_civil_ai AFTER INSERT ON digiclin.estado_civil FOR EAC
 
 
 --
--- TOC entry 4745 (class 2620 OID 17158)
+-- TOC entry 4757 (class 2620 OID 17158)
 -- Name: estado_civil trg_estado_civil_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3763,7 +3763,7 @@ CREATE TRIGGER trg_estado_civil_au AFTER UPDATE ON digiclin.estado_civil FOR EAC
 
 
 --
--- TOC entry 4746 (class 2620 OID 17159)
+-- TOC entry 4758 (class 2620 OID 17159)
 -- Name: estado_civil trg_estado_civil_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3771,7 +3771,7 @@ CREATE TRIGGER trg_estado_civil_bd BEFORE DELETE ON digiclin.estado_civil FOR EA
 
 
 --
--- TOC entry 4732 (class 2620 OID 17166)
+-- TOC entry 4744 (class 2620 OID 17166)
 -- Name: estatus_expediente trg_estatus_expediente_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3779,7 +3779,7 @@ CREATE TRIGGER trg_estatus_expediente_ai AFTER INSERT ON digiclin.estatus_expedi
 
 
 --
--- TOC entry 4733 (class 2620 OID 17167)
+-- TOC entry 4745 (class 2620 OID 17167)
 -- Name: estatus_expediente trg_estatus_expediente_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3787,7 +3787,7 @@ CREATE TRIGGER trg_estatus_expediente_au AFTER UPDATE ON digiclin.estatus_expedi
 
 
 --
--- TOC entry 4734 (class 2620 OID 17168)
+-- TOC entry 4746 (class 2620 OID 17168)
 -- Name: estatus_expediente trg_estatus_expediente_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3795,7 +3795,7 @@ CREATE TRIGGER trg_estatus_expediente_bd BEFORE DELETE ON digiclin.estatus_exped
 
 
 --
--- TOC entry 4798 (class 2620 OID 17223)
+-- TOC entry 4810 (class 2620 OID 17223)
 -- Name: estatus_paciente trg_estatus_paciente_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3803,7 +3803,7 @@ CREATE TRIGGER trg_estatus_paciente_ai AFTER INSERT ON digiclin.estatus_paciente
 
 
 --
--- TOC entry 4799 (class 2620 OID 17224)
+-- TOC entry 4811 (class 2620 OID 17224)
 -- Name: estatus_paciente trg_estatus_paciente_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3811,7 +3811,7 @@ CREATE TRIGGER trg_estatus_paciente_au AFTER UPDATE ON digiclin.estatus_paciente
 
 
 --
--- TOC entry 4800 (class 2620 OID 17225)
+-- TOC entry 4812 (class 2620 OID 17225)
 -- Name: estatus_paciente trg_estatus_paciente_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3819,7 +3819,7 @@ CREATE TRIGGER trg_estatus_paciente_bd BEFORE DELETE ON digiclin.estatus_pacient
 
 
 --
--- TOC entry 4729 (class 2620 OID 17172)
+-- TOC entry 4741 (class 2620 OID 17172)
 -- Name: estatus_usuario trg_estatus_usuario_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3827,7 +3827,7 @@ CREATE TRIGGER trg_estatus_usuario_ai AFTER INSERT ON digiclin.estatus_usuario F
 
 
 --
--- TOC entry 4730 (class 2620 OID 17173)
+-- TOC entry 4742 (class 2620 OID 17173)
 -- Name: estatus_usuario trg_estatus_usuario_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3835,7 +3835,7 @@ CREATE TRIGGER trg_estatus_usuario_au AFTER UPDATE ON digiclin.estatus_usuario F
 
 
 --
--- TOC entry 4731 (class 2620 OID 17174)
+-- TOC entry 4743 (class 2620 OID 17174)
 -- Name: estatus_usuario trg_estatus_usuario_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3843,7 +3843,7 @@ CREATE TRIGGER trg_estatus_usuario_bd BEFORE DELETE ON digiclin.estatus_usuario 
 
 
 --
--- TOC entry 4792 (class 2620 OID 17217)
+-- TOC entry 4804 (class 2620 OID 17217)
 -- Name: expediente_clinico trg_expediente_clinico_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3851,7 +3851,7 @@ CREATE TRIGGER trg_expediente_clinico_ai AFTER INSERT ON digiclin.expediente_cli
 
 
 --
--- TOC entry 4793 (class 2620 OID 17218)
+-- TOC entry 4805 (class 2620 OID 17218)
 -- Name: expediente_clinico trg_expediente_clinico_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3859,7 +3859,7 @@ CREATE TRIGGER trg_expediente_clinico_au AFTER UPDATE ON digiclin.expediente_cli
 
 
 --
--- TOC entry 4794 (class 2620 OID 17219)
+-- TOC entry 4806 (class 2620 OID 17219)
 -- Name: expediente_clinico trg_expediente_clinico_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3867,7 +3867,7 @@ CREATE TRIGGER trg_expediente_clinico_bd BEFORE DELETE ON digiclin.expediente_cl
 
 
 --
--- TOC entry 4756 (class 2620 OID 17169)
+-- TOC entry 4768 (class 2620 OID 17169)
 -- Name: medicamento trg_medicamento_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3875,7 +3875,7 @@ CREATE TRIGGER trg_medicamento_ai AFTER INSERT ON digiclin.medicamento FOR EACH 
 
 
 --
--- TOC entry 4757 (class 2620 OID 17170)
+-- TOC entry 4769 (class 2620 OID 17170)
 -- Name: medicamento trg_medicamento_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3883,7 +3883,7 @@ CREATE TRIGGER trg_medicamento_au AFTER UPDATE ON digiclin.medicamento FOR EACH 
 
 
 --
--- TOC entry 4758 (class 2620 OID 17171)
+-- TOC entry 4770 (class 2620 OID 17171)
 -- Name: medicamento trg_medicamento_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3891,7 +3891,7 @@ CREATE TRIGGER trg_medicamento_bd BEFORE DELETE ON digiclin.medicamento FOR EACH
 
 
 --
--- TOC entry 4768 (class 2620 OID 17178)
+-- TOC entry 4780 (class 2620 OID 17178)
 -- Name: medico trg_medico_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3899,7 +3899,7 @@ CREATE TRIGGER trg_medico_ai AFTER INSERT ON digiclin.medico FOR EACH ROW EXECUT
 
 
 --
--- TOC entry 4769 (class 2620 OID 17179)
+-- TOC entry 4781 (class 2620 OID 17179)
 -- Name: medico trg_medico_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3907,7 +3907,7 @@ CREATE TRIGGER trg_medico_au AFTER UPDATE ON digiclin.medico FOR EACH ROW EXECUT
 
 
 --
--- TOC entry 4770 (class 2620 OID 17180)
+-- TOC entry 4782 (class 2620 OID 17180)
 -- Name: medico trg_medico_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3915,7 +3915,7 @@ CREATE TRIGGER trg_medico_bd BEFORE DELETE ON digiclin.medico FOR EACH ROW EXECU
 
 
 --
--- TOC entry 4780 (class 2620 OID 17196)
+-- TOC entry 4792 (class 2620 OID 17196)
 -- Name: paciente trg_paciente_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3923,7 +3923,7 @@ CREATE TRIGGER trg_paciente_ai AFTER INSERT ON digiclin.paciente FOR EACH ROW EX
 
 
 --
--- TOC entry 4783 (class 2620 OID 17205)
+-- TOC entry 4795 (class 2620 OID 17205)
 -- Name: paciente_alergia trg_paciente_alergia_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3931,7 +3931,7 @@ CREATE TRIGGER trg_paciente_alergia_ai AFTER INSERT ON digiclin.paciente_alergia
 
 
 --
--- TOC entry 4784 (class 2620 OID 17206)
+-- TOC entry 4796 (class 2620 OID 17206)
 -- Name: paciente_alergia trg_paciente_alergia_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3939,7 +3939,7 @@ CREATE TRIGGER trg_paciente_alergia_au AFTER UPDATE ON digiclin.paciente_alergia
 
 
 --
--- TOC entry 4785 (class 2620 OID 17207)
+-- TOC entry 4797 (class 2620 OID 17207)
 -- Name: paciente_alergia trg_paciente_alergia_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3947,7 +3947,7 @@ CREATE TRIGGER trg_paciente_alergia_bd BEFORE DELETE ON digiclin.paciente_alergi
 
 
 --
--- TOC entry 4781 (class 2620 OID 17197)
+-- TOC entry 4793 (class 2620 OID 17197)
 -- Name: paciente trg_paciente_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3955,7 +3955,7 @@ CREATE TRIGGER trg_paciente_au AFTER UPDATE ON digiclin.paciente FOR EACH ROW EX
 
 
 --
--- TOC entry 4782 (class 2620 OID 17198)
+-- TOC entry 4794 (class 2620 OID 17198)
 -- Name: paciente trg_paciente_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3963,7 +3963,7 @@ CREATE TRIGGER trg_paciente_bd BEFORE DELETE ON digiclin.paciente FOR EACH ROW E
 
 
 --
--- TOC entry 4786 (class 2620 OID 17199)
+-- TOC entry 4798 (class 2620 OID 17199)
 -- Name: paciente_enfermedad trg_paciente_enfermedad_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3971,7 +3971,7 @@ CREATE TRIGGER trg_paciente_enfermedad_ai AFTER INSERT ON digiclin.paciente_enfe
 
 
 --
--- TOC entry 4787 (class 2620 OID 17200)
+-- TOC entry 4799 (class 2620 OID 17200)
 -- Name: paciente_enfermedad trg_paciente_enfermedad_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3979,7 +3979,7 @@ CREATE TRIGGER trg_paciente_enfermedad_au AFTER UPDATE ON digiclin.paciente_enfe
 
 
 --
--- TOC entry 4788 (class 2620 OID 17201)
+-- TOC entry 4800 (class 2620 OID 17201)
 -- Name: paciente_enfermedad trg_paciente_enfermedad_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3987,7 +3987,7 @@ CREATE TRIGGER trg_paciente_enfermedad_bd BEFORE DELETE ON digiclin.paciente_enf
 
 
 --
--- TOC entry 4765 (class 2620 OID 17175)
+-- TOC entry 4777 (class 2620 OID 17175)
 -- Name: personal_medico trg_personal_medico_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -3995,7 +3995,7 @@ CREATE TRIGGER trg_personal_medico_ai AFTER INSERT ON digiclin.personal_medico F
 
 
 --
--- TOC entry 4766 (class 2620 OID 17176)
+-- TOC entry 4778 (class 2620 OID 17176)
 -- Name: personal_medico trg_personal_medico_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4003,7 +4003,7 @@ CREATE TRIGGER trg_personal_medico_au AFTER UPDATE ON digiclin.personal_medico F
 
 
 --
--- TOC entry 4767 (class 2620 OID 17177)
+-- TOC entry 4779 (class 2620 OID 17177)
 -- Name: personal_medico trg_personal_medico_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4011,7 +4011,7 @@ CREATE TRIGGER trg_personal_medico_bd BEFORE DELETE ON digiclin.personal_medico 
 
 
 --
--- TOC entry 4726 (class 2620 OID 17151)
+-- TOC entry 4738 (class 2620 OID 17151)
 -- Name: rol trg_rol_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4019,7 +4019,7 @@ CREATE TRIGGER trg_rol_ai AFTER INSERT ON digiclin.rol FOR EACH ROW EXECUTE FUNC
 
 
 --
--- TOC entry 4727 (class 2620 OID 17152)
+-- TOC entry 4739 (class 2620 OID 17152)
 -- Name: rol trg_rol_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4027,7 +4027,7 @@ CREATE TRIGGER trg_rol_au AFTER UPDATE ON digiclin.rol FOR EACH ROW EXECUTE FUNC
 
 
 --
--- TOC entry 4728 (class 2620 OID 17153)
+-- TOC entry 4740 (class 2620 OID 17153)
 -- Name: rol trg_rol_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4035,7 +4035,7 @@ CREATE TRIGGER trg_rol_bd BEFORE DELETE ON digiclin.rol FOR EACH ROW EXECUTE FUN
 
 
 --
--- TOC entry 4738 (class 2620 OID 17154)
+-- TOC entry 4750 (class 2620 OID 17154)
 -- Name: sexo trg_sexo_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4043,7 +4043,7 @@ CREATE TRIGGER trg_sexo_ai AFTER INSERT ON digiclin.sexo FOR EACH ROW EXECUTE FU
 
 
 --
--- TOC entry 4739 (class 2620 OID 17155)
+-- TOC entry 4751 (class 2620 OID 17155)
 -- Name: sexo trg_sexo_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4051,7 +4051,7 @@ CREATE TRIGGER trg_sexo_au AFTER UPDATE ON digiclin.sexo FOR EACH ROW EXECUTE FU
 
 
 --
--- TOC entry 4740 (class 2620 OID 17156)
+-- TOC entry 4752 (class 2620 OID 17156)
 -- Name: sexo trg_sexo_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4059,7 +4059,7 @@ CREATE TRIGGER trg_sexo_bd BEFORE DELETE ON digiclin.sexo FOR EACH ROW EXECUTE F
 
 
 --
--- TOC entry 4741 (class 2620 OID 17160)
+-- TOC entry 4753 (class 2620 OID 17160)
 -- Name: tipo_sangre trg_tipo_sangre_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4067,7 +4067,7 @@ CREATE TRIGGER trg_tipo_sangre_ai AFTER INSERT ON digiclin.tipo_sangre FOR EACH 
 
 
 --
--- TOC entry 4742 (class 2620 OID 17161)
+-- TOC entry 4754 (class 2620 OID 17161)
 -- Name: tipo_sangre trg_tipo_sangre_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4075,7 +4075,7 @@ CREATE TRIGGER trg_tipo_sangre_au AFTER UPDATE ON digiclin.tipo_sangre FOR EACH 
 
 
 --
--- TOC entry 4743 (class 2620 OID 17162)
+-- TOC entry 4755 (class 2620 OID 17162)
 -- Name: tipo_sangre trg_tipo_sangre_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4083,7 +4083,7 @@ CREATE TRIGGER trg_tipo_sangre_bd BEFORE DELETE ON digiclin.tipo_sangre FOR EACH
 
 
 --
--- TOC entry 4759 (class 2620 OID 17211)
+-- TOC entry 4771 (class 2620 OID 17211)
 -- Name: tipo_tratamiento trg_tipo_tratamiento_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4091,7 +4091,7 @@ CREATE TRIGGER trg_tipo_tratamiento_ai AFTER INSERT ON digiclin.tipo_tratamiento
 
 
 --
--- TOC entry 4760 (class 2620 OID 17212)
+-- TOC entry 4772 (class 2620 OID 17212)
 -- Name: tipo_tratamiento trg_tipo_tratamiento_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4099,7 +4099,7 @@ CREATE TRIGGER trg_tipo_tratamiento_au AFTER UPDATE ON digiclin.tipo_tratamiento
 
 
 --
--- TOC entry 4761 (class 2620 OID 17213)
+-- TOC entry 4773 (class 2620 OID 17213)
 -- Name: tipo_tratamiento trg_tipo_tratamiento_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4107,7 +4107,7 @@ CREATE TRIGGER trg_tipo_tratamiento_bd BEFORE DELETE ON digiclin.tipo_tratamient
 
 
 --
--- TOC entry 4795 (class 2620 OID 17208)
+-- TOC entry 4807 (class 2620 OID 17208)
 -- Name: tratamiento trg_tratamiento_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4115,7 +4115,7 @@ CREATE TRIGGER trg_tratamiento_ai AFTER INSERT ON digiclin.tratamiento FOR EACH 
 
 
 --
--- TOC entry 4796 (class 2620 OID 17209)
+-- TOC entry 4808 (class 2620 OID 17209)
 -- Name: tratamiento trg_tratamiento_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4123,7 +4123,7 @@ CREATE TRIGGER trg_tratamiento_au AFTER UPDATE ON digiclin.tratamiento FOR EACH 
 
 
 --
--- TOC entry 4797 (class 2620 OID 17210)
+-- TOC entry 4809 (class 2620 OID 17210)
 -- Name: tratamiento trg_tratamiento_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4131,7 +4131,7 @@ CREATE TRIGGER trg_tratamiento_bd BEFORE DELETE ON digiclin.tratamiento FOR EACH
 
 
 --
--- TOC entry 4762 (class 2620 OID 17214)
+-- TOC entry 4774 (class 2620 OID 17214)
 -- Name: usuario trg_usuario_ai; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4139,7 +4139,7 @@ CREATE TRIGGER trg_usuario_ai AFTER INSERT ON digiclin.usuario FOR EACH ROW EXEC
 
 
 --
--- TOC entry 4763 (class 2620 OID 17215)
+-- TOC entry 4775 (class 2620 OID 17215)
 -- Name: usuario trg_usuario_au; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4147,7 +4147,7 @@ CREATE TRIGGER trg_usuario_au AFTER UPDATE ON digiclin.usuario FOR EACH ROW EXEC
 
 
 --
--- TOC entry 4764 (class 2620 OID 17216)
+-- TOC entry 4776 (class 2620 OID 17216)
 -- Name: usuario trg_usuario_bd; Type: TRIGGER; Schema: digiclin; Owner: postgres
 --
 
@@ -4155,7 +4155,7 @@ CREATE TRIGGER trg_usuario_bd BEFORE DELETE ON digiclin.usuario FOR EACH ROW EXE
 
 
 --
--- TOC entry 4710 (class 2606 OID 16665)
+-- TOC entry 4722 (class 2606 OID 16665)
 -- Name: director fk_director_usuario; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4164,7 +4164,7 @@ ALTER TABLE ONLY digiclin.director
 
 
 --
--- TOC entry 4708 (class 2606 OID 16653)
+-- TOC entry 4720 (class 2606 OID 16653)
 -- Name: enfermero_certificacion fk_enf_cert_certificacion; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4173,7 +4173,7 @@ ALTER TABLE ONLY digiclin.enfermero_certificacion
 
 
 --
--- TOC entry 4709 (class 2606 OID 16648)
+-- TOC entry 4721 (class 2606 OID 16648)
 -- Name: enfermero_certificacion fk_enf_cert_enfermero; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4182,7 +4182,7 @@ ALTER TABLE ONLY digiclin.enfermero_certificacion
 
 
 --
--- TOC entry 4707 (class 2606 OID 16637)
+-- TOC entry 4719 (class 2606 OID 16637)
 -- Name: enfermero fk_enfermero_personal; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4191,7 +4191,7 @@ ALTER TABLE ONLY digiclin.enfermero
 
 
 --
--- TOC entry 4719 (class 2606 OID 16761)
+-- TOC entry 4731 (class 2606 OID 16761)
 -- Name: expediente_clinico fk_expediente_diagnostico; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4200,7 +4200,7 @@ ALTER TABLE ONLY digiclin.expediente_clinico
 
 
 --
--- TOC entry 4720 (class 2606 OID 16766)
+-- TOC entry 4732 (class 2606 OID 16766)
 -- Name: expediente_clinico fk_expediente_estatus; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4209,7 +4209,7 @@ ALTER TABLE ONLY digiclin.expediente_clinico
 
 
 --
--- TOC entry 4721 (class 2606 OID 16756)
+-- TOC entry 4733 (class 2606 OID 16756)
 -- Name: expediente_clinico fk_expediente_medico; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4218,7 +4218,7 @@ ALTER TABLE ONLY digiclin.expediente_clinico
 
 
 --
--- TOC entry 4722 (class 2606 OID 16751)
+-- TOC entry 4734 (class 2606 OID 16751)
 -- Name: expediente_clinico fk_expediente_paciente; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4227,7 +4227,7 @@ ALTER TABLE ONLY digiclin.expediente_clinico
 
 
 --
--- TOC entry 4705 (class 2606 OID 16627)
+-- TOC entry 4717 (class 2606 OID 16627)
 -- Name: medico fk_medico_especialidad; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4236,7 +4236,7 @@ ALTER TABLE ONLY digiclin.medico
 
 
 --
--- TOC entry 4706 (class 2606 OID 16622)
+-- TOC entry 4718 (class 2606 OID 16622)
 -- Name: medico fk_medico_personal; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4245,7 +4245,7 @@ ALTER TABLE ONLY digiclin.medico
 
 
 --
--- TOC entry 4715 (class 2606 OID 16706)
+-- TOC entry 4727 (class 2606 OID 16706)
 -- Name: paciente_alergia fk_paciente_alergia_alergia; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4254,7 +4254,7 @@ ALTER TABLE ONLY digiclin.paciente_alergia
 
 
 --
--- TOC entry 4716 (class 2606 OID 16701)
+-- TOC entry 4728 (class 2606 OID 16701)
 -- Name: paciente_alergia fk_paciente_alergia_paciente; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4263,7 +4263,7 @@ ALTER TABLE ONLY digiclin.paciente_alergia
 
 
 --
--- TOC entry 4717 (class 2606 OID 16721)
+-- TOC entry 4729 (class 2606 OID 16721)
 -- Name: paciente_enfermedad fk_paciente_enfermedad_enfermedad; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4272,7 +4272,7 @@ ALTER TABLE ONLY digiclin.paciente_enfermedad
 
 
 --
--- TOC entry 4718 (class 2606 OID 16716)
+-- TOC entry 4730 (class 2606 OID 16716)
 -- Name: paciente_enfermedad fk_paciente_enfermedad_paciente; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4281,7 +4281,7 @@ ALTER TABLE ONLY digiclin.paciente_enfermedad
 
 
 --
--- TOC entry 4711 (class 2606 OID 16686)
+-- TOC entry 4723 (class 2606 OID 16686)
 -- Name: paciente fk_paciente_estado_civil; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4290,7 +4290,7 @@ ALTER TABLE ONLY digiclin.paciente
 
 
 --
--- TOC entry 4712 (class 2606 OID 16874)
+-- TOC entry 4724 (class 2606 OID 16874)
 -- Name: paciente fk_paciente_estatus; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4299,7 +4299,7 @@ ALTER TABLE ONLY digiclin.paciente
 
 
 --
--- TOC entry 4713 (class 2606 OID 16681)
+-- TOC entry 4725 (class 2606 OID 16681)
 -- Name: paciente fk_paciente_sexo; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4308,7 +4308,7 @@ ALTER TABLE ONLY digiclin.paciente
 
 
 --
--- TOC entry 4714 (class 2606 OID 16691)
+-- TOC entry 4726 (class 2606 OID 16691)
 -- Name: paciente fk_paciente_tipo_sangre; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4317,7 +4317,7 @@ ALTER TABLE ONLY digiclin.paciente
 
 
 --
--- TOC entry 4704 (class 2606 OID 16612)
+-- TOC entry 4716 (class 2606 OID 16612)
 -- Name: personal_medico fk_personal_medico_usuario; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4326,7 +4326,7 @@ ALTER TABLE ONLY digiclin.personal_medico
 
 
 --
--- TOC entry 4723 (class 2606 OID 16779)
+-- TOC entry 4735 (class 2606 OID 16779)
 -- Name: tratamiento fk_tratamiento_expediente; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4335,7 +4335,7 @@ ALTER TABLE ONLY digiclin.tratamiento
 
 
 --
--- TOC entry 4724 (class 2606 OID 16789)
+-- TOC entry 4736 (class 2606 OID 16789)
 -- Name: tratamiento fk_tratamiento_medicamento; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4344,7 +4344,7 @@ ALTER TABLE ONLY digiclin.tratamiento
 
 
 --
--- TOC entry 4725 (class 2606 OID 16784)
+-- TOC entry 4737 (class 2606 OID 16784)
 -- Name: tratamiento fk_tratamiento_tipo; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4353,7 +4353,7 @@ ALTER TABLE ONLY digiclin.tratamiento
 
 
 --
--- TOC entry 4702 (class 2606 OID 16600)
+-- TOC entry 4714 (class 2606 OID 16600)
 -- Name: usuario fk_usuario_estatus; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4362,7 +4362,7 @@ ALTER TABLE ONLY digiclin.usuario
 
 
 --
--- TOC entry 4703 (class 2606 OID 16595)
+-- TOC entry 4715 (class 2606 OID 16595)
 -- Name: usuario fk_usuario_rol; Type: FK CONSTRAINT; Schema: digiclin; Owner: postgres
 --
 
@@ -4371,7 +4371,7 @@ ALTER TABLE ONLY digiclin.usuario
 
 
 --
--- TOC entry 4967 (class 0 OID 0)
+-- TOC entry 4979 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: SCHEMA digiclin; Type: ACL; Schema: -; Owner: postgres
 --
@@ -4380,7 +4380,7 @@ GRANT ALL ON SCHEMA digiclin TO digiclin_app;
 
 
 --
--- TOC entry 4968 (class 0 OID 0)
+-- TOC entry 4980 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
 --
@@ -4389,8 +4389,8 @@ GRANT USAGE ON SCHEMA public TO digiclin_app;
 
 
 --
--- TOC entry 4969 (class 0 OID 0)
--- Dependencies: 356
+-- TOC entry 4981 (class 0 OID 0)
+-- Dependencies: 368
 -- Name: FUNCTION fn_bitacora_general(); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4398,8 +4398,8 @@ GRANT ALL ON FUNCTION digiclin.fn_bitacora_general() TO digiclin_app;
 
 
 --
--- TOC entry 4970 (class 0 OID 0)
--- Dependencies: 258
+-- TOC entry 4982 (class 0 OID 0)
+-- Dependencies: 270
 -- Name: TABLE diagnostico; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4407,8 +4407,8 @@ GRANT ALL ON TABLE digiclin.diagnostico TO digiclin_app;
 
 
 --
--- TOC entry 4971 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 4983 (class 0 OID 0)
+-- Dependencies: 239
 -- Name: TABLE estatus_expediente; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4416,8 +4416,8 @@ GRANT ALL ON TABLE digiclin.estatus_expediente TO digiclin_app;
 
 
 --
--- TOC entry 4972 (class 0 OID 0)
--- Dependencies: 260
+-- TOC entry 4984 (class 0 OID 0)
+-- Dependencies: 272
 -- Name: TABLE expediente_clinico; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4425,8 +4425,8 @@ GRANT ALL ON TABLE digiclin.expediente_clinico TO digiclin_app;
 
 
 --
--- TOC entry 4973 (class 0 OID 0)
--- Dependencies: 254
+-- TOC entry 4985 (class 0 OID 0)
+-- Dependencies: 266
 -- Name: TABLE paciente; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4434,8 +4434,8 @@ GRANT ALL ON TABLE digiclin.paciente TO digiclin_app;
 
 
 --
--- TOC entry 4974 (class 0 OID 0)
--- Dependencies: 247
+-- TOC entry 4986 (class 0 OID 0)
+-- Dependencies: 259
 -- Name: TABLE usuario; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4443,8 +4443,8 @@ GRANT ALL ON TABLE digiclin.usuario TO digiclin_app;
 
 
 --
--- TOC entry 4975 (class 0 OID 0)
--- Dependencies: 325
+-- TOC entry 4987 (class 0 OID 0)
+-- Dependencies: 337
 -- Name: TABLE vw_expedientes; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4452,8 +4452,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_expedientes TO digiclin_a
 
 
 --
--- TOC entry 4976 (class 0 OID 0)
--- Dependencies: 334
+-- TOC entry 4988 (class 0 OID 0)
+-- Dependencies: 346
 -- Name: FUNCTION fn_expedientes_por_id_usuario(p_id_usuario integer); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4461,8 +4461,8 @@ GRANT ALL ON FUNCTION digiclin.fn_expedientes_por_id_usuario(p_id_usuario intege
 
 
 --
--- TOC entry 4977 (class 0 OID 0)
--- Dependencies: 335
+-- TOC entry 4989 (class 0 OID 0)
+-- Dependencies: 347
 -- Name: FUNCTION fn_expedientes_por_nombre_usuario(p_nombre_usuario character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4470,8 +4470,8 @@ GRANT ALL ON FUNCTION digiclin.fn_expedientes_por_nombre_usuario(p_nombre_usuari
 
 
 --
--- TOC entry 4978 (class 0 OID 0)
--- Dependencies: 235
+-- TOC entry 4990 (class 0 OID 0)
+-- Dependencies: 247
 -- Name: TABLE estado_civil; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4479,8 +4479,8 @@ GRANT ALL ON TABLE digiclin.estado_civil TO digiclin_app;
 
 
 --
--- TOC entry 4979 (class 0 OID 0)
--- Dependencies: 269
+-- TOC entry 4991 (class 0 OID 0)
+-- Dependencies: 281
 -- Name: TABLE estatus_paciente; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4488,8 +4488,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.estatus_paciente TO digiclin
 
 
 --
--- TOC entry 4980 (class 0 OID 0)
--- Dependencies: 231
+-- TOC entry 4992 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: TABLE sexo; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4497,8 +4497,8 @@ GRANT ALL ON TABLE digiclin.sexo TO digiclin_app;
 
 
 --
--- TOC entry 4981 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 4993 (class 0 OID 0)
+-- Dependencies: 245
 -- Name: TABLE tipo_sangre; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4506,8 +4506,8 @@ GRANT ALL ON TABLE digiclin.tipo_sangre TO digiclin_app;
 
 
 --
--- TOC entry 4982 (class 0 OID 0)
--- Dependencies: 270
+-- TOC entry 4994 (class 0 OID 0)
+-- Dependencies: 282
 -- Name: TABLE vw_paciente; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4515,8 +4515,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_paciente TO digiclin_app;
 
 
 --
--- TOC entry 4983 (class 0 OID 0)
--- Dependencies: 332
+-- TOC entry 4995 (class 0 OID 0)
+-- Dependencies: 344
 -- Name: FUNCTION fn_obtener_paciente_por_curp(p_curp character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4524,8 +4524,8 @@ GRANT ALL ON FUNCTION digiclin.fn_obtener_paciente_por_curp(p_curp character var
 
 
 --
--- TOC entry 4984 (class 0 OID 0)
--- Dependencies: 363
+-- TOC entry 4996 (class 0 OID 0)
+-- Dependencies: 375
 -- Name: PROCEDURE sp_actualizar_expediente(IN p_id_expediente integer, IN p_id_paciente integer, IN p_id_diagnostico integer, IN p_fecha_consulta timestamp without time zone, IN p_motivo character varying, IN p_antecedentes_personales character varying, IN p_antecedentes_familiares character varying, IN p_presion_arterial character varying, IN p_frecuencia_cardiaca numeric, IN p_frecuencia_respiratoria numeric, IN p_temperatura numeric, IN p_saturacion_oxigeno numeric, IN p_peso numeric, IN p_talla_cintura numeric, IN p_altura numeric, IN p_observaciones character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4533,8 +4533,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_actualizar_expediente(IN p_id_expediente inte
 
 
 --
--- TOC entry 4985 (class 0 OID 0)
--- Dependencies: 336
+-- TOC entry 4997 (class 0 OID 0)
+-- Dependencies: 348
 -- Name: PROCEDURE sp_actualizar_mi_perfil(IN p_nombre_usuario_actual character varying, IN p_nuevo_nombre_usuario character varying, IN p_correo character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4542,8 +4542,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_actualizar_mi_perfil(IN p_nombre_usuario_actu
 
 
 --
--- TOC entry 4986 (class 0 OID 0)
--- Dependencies: 358
+-- TOC entry 4998 (class 0 OID 0)
+-- Dependencies: 370
 -- Name: PROCEDURE sp_actualizar_paciente(IN p_curp character varying, IN p_nombre_p character varying, IN p_apellido_pat character varying, IN p_apellido_mat character varying, IN p_fecha_nacimiento date, IN p_nombre_sexo character varying, IN p_domicilio character varying, IN p_nombre_estado_civil character varying, IN p_correo character varying, IN p_ocupacion character varying, IN p_telefono character varying, IN p_contacto_emergencia character varying, IN p_nombre_tipo_sangre character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4551,8 +4551,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_actualizar_paciente(IN p_curp character varyi
 
 
 --
--- TOC entry 4987 (class 0 OID 0)
--- Dependencies: 339
+-- TOC entry 4999 (class 0 OID 0)
+-- Dependencies: 351
 -- Name: PROCEDURE sp_actualizar_usuario(IN p_nombre_usuario_actual character varying, IN p_nuevo_nombre_usuario character varying, IN p_correo character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4560,8 +4560,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_actualizar_usuario(IN p_nombre_usuario_actual
 
 
 --
--- TOC entry 4988 (class 0 OID 0)
--- Dependencies: 360
+-- TOC entry 5000 (class 0 OID 0)
+-- Dependencies: 372
 -- Name: PROCEDURE sp_archivar_expediente(IN p_id_expediente integer); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4569,8 +4569,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_archivar_expediente(IN p_id_expediente intege
 
 
 --
--- TOC entry 4989 (class 0 OID 0)
--- Dependencies: 333
+-- TOC entry 5001 (class 0 OID 0)
+-- Dependencies: 345
 -- Name: PROCEDURE sp_cambiar_password_usuario(IN p_nombre_usuario character varying, IN p_password_hash_nuevo character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4578,8 +4578,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_cambiar_password_usuario(IN p_nombre_usuario 
 
 
 --
--- TOC entry 4990 (class 0 OID 0)
--- Dependencies: 357
+-- TOC entry 5002 (class 0 OID 0)
+-- Dependencies: 369
 -- Name: PROCEDURE sp_corregir_curp_paciente(IN p_curp_actual character varying, IN p_nuevo_curp character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4587,8 +4587,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_corregir_curp_paciente(IN p_curp_actual chara
 
 
 --
--- TOC entry 4991 (class 0 OID 0)
--- Dependencies: 359
+-- TOC entry 5003 (class 0 OID 0)
+-- Dependencies: 371
 -- Name: PROCEDURE sp_crear_expediente(IN p_id_paciente integer, IN p_id_medico integer, IN p_id_diagnostico integer, IN p_fecha_consulta timestamp without time zone, IN p_motivo character varying, IN p_antecedentes_personales character varying, IN p_antecedentes_familiares character varying, IN p_presion_arterial character varying, IN p_frecuencia_cardiaca numeric, IN p_frecuencia_respiratoria numeric, IN p_temperatura numeric, IN p_saturacion_oxigeno numeric, IN p_peso numeric, IN p_talla_cintura numeric, IN p_altura numeric, IN p_observaciones character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4596,8 +4596,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_crear_expediente(IN p_id_paciente integer, IN
 
 
 --
--- TOC entry 4992 (class 0 OID 0)
--- Dependencies: 361
+-- TOC entry 5004 (class 0 OID 0)
+-- Dependencies: 373
 -- Name: PROCEDURE sp_crear_expediente_desde_usuario(IN p_id_usuario integer, IN p_id_paciente integer, IN p_id_diagnostico integer, IN p_fecha_consulta timestamp without time zone, IN p_motivo character varying, IN p_antecedentes_personales character varying, IN p_antecedentes_familiares character varying, IN p_presion_arterial character varying, IN p_frecuencia_cardiaca numeric, IN p_frecuencia_respiratoria numeric, IN p_temperatura numeric, IN p_saturacion_oxigeno numeric, IN p_peso numeric, IN p_talla_cintura numeric, IN p_altura numeric, IN p_observaciones character varying, INOUT p_id_expediente_generado integer); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4605,8 +4605,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_crear_expediente_desde_usuario(IN p_id_usuari
 
 
 --
--- TOC entry 4993 (class 0 OID 0)
--- Dependencies: 355
+-- TOC entry 5005 (class 0 OID 0)
+-- Dependencies: 367
 -- Name: PROCEDURE sp_crear_paciente(IN p_nombre_p character varying, IN p_apellido_pat character varying, IN p_apellido_mat character varying, IN p_fecha_nacimiento date, IN p_nombre_sexo character varying, IN p_curp character varying, IN p_domicilio character varying, IN p_nombre_estado_civil character varying, IN p_correo character varying, IN p_ocupacion character varying, IN p_telefono character varying, IN p_contacto_emergencia character varying, IN p_nombre_tipo_sangre character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4614,8 +4614,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_crear_paciente(IN p_nombre_p character varyin
 
 
 --
--- TOC entry 4994 (class 0 OID 0)
--- Dependencies: 362
+-- TOC entry 5006 (class 0 OID 0)
+-- Dependencies: 374
 -- Name: PROCEDURE sp_crear_usuario(IN p_nombre_usuario character varying, IN p_correo character varying, IN p_password_hash character varying, IN p_nombre_rol character varying, IN p_cedula character varying, IN p_nombre_especialidad character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4623,8 +4623,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_crear_usuario(IN p_nombre_usuario character v
 
 
 --
--- TOC entry 4995 (class 0 OID 0)
--- Dependencies: 354
+-- TOC entry 5007 (class 0 OID 0)
+-- Dependencies: 366
 -- Name: PROCEDURE sp_desarchivar_expediente(IN p_id_expediente integer); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4632,8 +4632,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_desarchivar_expediente(IN p_id_expediente int
 
 
 --
--- TOC entry 4996 (class 0 OID 0)
--- Dependencies: 353
+-- TOC entry 5008 (class 0 OID 0)
+-- Dependencies: 365
 -- Name: PROCEDURE sp_habilitar_paciente(IN p_curp character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4641,8 +4641,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_habilitar_paciente(IN p_curp character varyin
 
 
 --
--- TOC entry 4997 (class 0 OID 0)
--- Dependencies: 338
+-- TOC entry 5009 (class 0 OID 0)
+-- Dependencies: 350
 -- Name: PROCEDURE sp_habilitar_usuario(IN p_nombre_usuario character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4650,8 +4650,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_habilitar_usuario(IN p_nombre_usuario charact
 
 
 --
--- TOC entry 4998 (class 0 OID 0)
--- Dependencies: 341
+-- TOC entry 5010 (class 0 OID 0)
+-- Dependencies: 353
 -- Name: PROCEDURE sp_inhabilitar_paciente(IN p_curp character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4659,8 +4659,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_inhabilitar_paciente(IN p_curp character vary
 
 
 --
--- TOC entry 4999 (class 0 OID 0)
--- Dependencies: 337
+-- TOC entry 5011 (class 0 OID 0)
+-- Dependencies: 349
 -- Name: PROCEDURE sp_inhabilitar_usuario(IN p_nombre_usuario character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4668,8 +4668,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_inhabilitar_usuario(IN p_nombre_usuario chara
 
 
 --
--- TOC entry 5000 (class 0 OID 0)
--- Dependencies: 340
+-- TOC entry 5012 (class 0 OID 0)
+-- Dependencies: 352
 -- Name: PROCEDURE sp_resetear_password_usuario(IN p_nombre_usuario character varying, IN p_password_hash character varying); Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4677,8 +4677,8 @@ GRANT ALL ON PROCEDURE digiclin.sp_resetear_password_usuario(IN p_nombre_usuario
 
 
 --
--- TOC entry 5001 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 5013 (class 0 OID 0)
+-- Dependencies: 249
 -- Name: TABLE alergia; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4686,8 +4686,8 @@ GRANT ALL ON TABLE digiclin.alergia TO digiclin_app;
 
 
 --
--- TOC entry 5002 (class 0 OID 0)
--- Dependencies: 284
+-- TOC entry 5014 (class 0 OID 0)
+-- Dependencies: 296
 -- Name: TABLE alergia_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4695,8 +4695,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.alergia_bitacora TO digiclin
 
 
 --
--- TOC entry 5003 (class 0 OID 0)
--- Dependencies: 283
+-- TOC entry 5015 (class 0 OID 0)
+-- Dependencies: 295
 -- Name: SEQUENCE alergia_bitacora_id_alergia_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4704,8 +4704,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.alergia_bitacora_id_alergia_bitacora_seq
 
 
 --
--- TOC entry 5004 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 5016 (class 0 OID 0)
+-- Dependencies: 248
 -- Name: SEQUENCE alergia_id_alergia_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4713,8 +4713,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.alergia_id_alergia_seq TO digiclin_app;
 
 
 --
--- TOC entry 5005 (class 0 OID 0)
--- Dependencies: 241
+-- TOC entry 5017 (class 0 OID 0)
+-- Dependencies: 253
 -- Name: TABLE certificacion; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4722,8 +4722,8 @@ GRANT ALL ON TABLE digiclin.certificacion TO digiclin_app;
 
 
 --
--- TOC entry 5006 (class 0 OID 0)
--- Dependencies: 302
+-- TOC entry 5018 (class 0 OID 0)
+-- Dependencies: 314
 -- Name: TABLE certificacion_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4731,8 +4731,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.certificacion_bitacora TO di
 
 
 --
--- TOC entry 5007 (class 0 OID 0)
--- Dependencies: 301
+-- TOC entry 5019 (class 0 OID 0)
+-- Dependencies: 313
 -- Name: SEQUENCE certificacion_bitacora_id_certificacion_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4740,8 +4740,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.certificacion_bitacora_id_certificacion_
 
 
 --
--- TOC entry 5008 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 5020 (class 0 OID 0)
+-- Dependencies: 252
 -- Name: SEQUENCE certificacion_id_certificacion_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4749,8 +4749,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.certificacion_id_certificacion_seq TO di
 
 
 --
--- TOC entry 5009 (class 0 OID 0)
--- Dependencies: 322
+-- TOC entry 5021 (class 0 OID 0)
+-- Dependencies: 334
 -- Name: TABLE diagnostico_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4758,8 +4758,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.diagnostico_bitacora TO digi
 
 
 --
--- TOC entry 5010 (class 0 OID 0)
--- Dependencies: 321
+-- TOC entry 5022 (class 0 OID 0)
+-- Dependencies: 333
 -- Name: SEQUENCE diagnostico_bitacora_id_diagnostico_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4767,8 +4767,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.diagnostico_bitacora_id_diagnostico_bita
 
 
 --
--- TOC entry 5011 (class 0 OID 0)
--- Dependencies: 257
+-- TOC entry 5023 (class 0 OID 0)
+-- Dependencies: 269
 -- Name: SEQUENCE diagnostico_id_diagnostico_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4776,8 +4776,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.diagnostico_id_diagnostico_seq TO digicl
 
 
 --
--- TOC entry 5012 (class 0 OID 0)
--- Dependencies: 252
+-- TOC entry 5024 (class 0 OID 0)
+-- Dependencies: 264
 -- Name: TABLE director; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4785,8 +4785,8 @@ GRANT ALL ON TABLE digiclin.director TO digiclin_app;
 
 
 --
--- TOC entry 5013 (class 0 OID 0)
--- Dependencies: 304
+-- TOC entry 5025 (class 0 OID 0)
+-- Dependencies: 316
 -- Name: TABLE director_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4794,8 +4794,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.director_bitacora TO digicli
 
 
 --
--- TOC entry 5014 (class 0 OID 0)
--- Dependencies: 303
+-- TOC entry 5026 (class 0 OID 0)
+-- Dependencies: 315
 -- Name: SEQUENCE director_bitacora_id_director_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4803,8 +4803,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.director_bitacora_id_director_bitacora_s
 
 
 --
--- TOC entry 5015 (class 0 OID 0)
--- Dependencies: 239
+-- TOC entry 5027 (class 0 OID 0)
+-- Dependencies: 251
 -- Name: TABLE enfermedad_cronica; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4812,8 +4812,8 @@ GRANT ALL ON TABLE digiclin.enfermedad_cronica TO digiclin_app;
 
 
 --
--- TOC entry 5016 (class 0 OID 0)
--- Dependencies: 310
+-- TOC entry 5028 (class 0 OID 0)
+-- Dependencies: 322
 -- Name: TABLE enfermedad_cronica_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4821,8 +4821,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.enfermedad_cronica_bitacora 
 
 
 --
--- TOC entry 5017 (class 0 OID 0)
--- Dependencies: 309
+-- TOC entry 5029 (class 0 OID 0)
+-- Dependencies: 321
 -- Name: SEQUENCE enfermedad_cronica_bitacora_id_enfermedad_cronica_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4830,8 +4830,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.enfermedad_cronica_bitacora_id_enfermeda
 
 
 --
--- TOC entry 5018 (class 0 OID 0)
--- Dependencies: 238
+-- TOC entry 5030 (class 0 OID 0)
+-- Dependencies: 250
 -- Name: SEQUENCE enfermedad_cronica_id_enfermedad_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4839,8 +4839,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.enfermedad_cronica_id_enfermedad_seq TO 
 
 
 --
--- TOC entry 5019 (class 0 OID 0)
--- Dependencies: 250
+-- TOC entry 5031 (class 0 OID 0)
+-- Dependencies: 262
 -- Name: TABLE enfermero; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4848,8 +4848,8 @@ GRANT ALL ON TABLE digiclin.enfermero TO digiclin_app;
 
 
 --
--- TOC entry 5020 (class 0 OID 0)
--- Dependencies: 298
+-- TOC entry 5032 (class 0 OID 0)
+-- Dependencies: 310
 -- Name: TABLE enfermero_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4857,8 +4857,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.enfermero_bitacora TO digicl
 
 
 --
--- TOC entry 5021 (class 0 OID 0)
--- Dependencies: 297
+-- TOC entry 5033 (class 0 OID 0)
+-- Dependencies: 309
 -- Name: SEQUENCE enfermero_bitacora_id_enfermero_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4866,8 +4866,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.enfermero_bitacora_id_enfermero_bitacora
 
 
 --
--- TOC entry 5022 (class 0 OID 0)
--- Dependencies: 251
+-- TOC entry 5034 (class 0 OID 0)
+-- Dependencies: 263
 -- Name: TABLE enfermero_certificacion; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4875,8 +4875,8 @@ GRANT ALL ON TABLE digiclin.enfermero_certificacion TO digiclin_app;
 
 
 --
--- TOC entry 5023 (class 0 OID 0)
--- Dependencies: 300
+-- TOC entry 5035 (class 0 OID 0)
+-- Dependencies: 312
 -- Name: TABLE enfermero_certificacion_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4884,8 +4884,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.enfermero_certificacion_bita
 
 
 --
--- TOC entry 5024 (class 0 OID 0)
--- Dependencies: 299
+-- TOC entry 5036 (class 0 OID 0)
+-- Dependencies: 311
 -- Name: SEQUENCE enfermero_certificacion_bitac_id_enfermero_certificacion_bi_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4893,8 +4893,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.enfermero_certificacion_bitac_id_enferme
 
 
 --
--- TOC entry 5025 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 5037 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: TABLE especialidad; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4902,8 +4902,8 @@ GRANT ALL ON TABLE digiclin.especialidad TO digiclin_app;
 
 
 --
--- TOC entry 5026 (class 0 OID 0)
--- Dependencies: 296
+-- TOC entry 5038 (class 0 OID 0)
+-- Dependencies: 308
 -- Name: TABLE especialidad_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4911,8 +4911,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.especialidad_bitacora TO dig
 
 
 --
--- TOC entry 5027 (class 0 OID 0)
--- Dependencies: 295
+-- TOC entry 5039 (class 0 OID 0)
+-- Dependencies: 307
 -- Name: SEQUENCE especialidad_bitacora_id_especialidad_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4920,8 +4920,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.especialidad_bitacora_id_especialidad_bi
 
 
 --
--- TOC entry 5028 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 5040 (class 0 OID 0)
+-- Dependencies: 240
 -- Name: SEQUENCE especialidad_id_especialidad_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4929,8 +4929,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.especialidad_id_especialidad_seq TO digi
 
 
 --
--- TOC entry 5029 (class 0 OID 0)
--- Dependencies: 280
+-- TOC entry 5041 (class 0 OID 0)
+-- Dependencies: 292
 -- Name: TABLE estado_civil_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4938,8 +4938,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.estado_civil_bitacora TO dig
 
 
 --
--- TOC entry 5030 (class 0 OID 0)
--- Dependencies: 279
+-- TOC entry 5042 (class 0 OID 0)
+-- Dependencies: 291
 -- Name: SEQUENCE estado_civil_bitacora_id_estado_civil_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4947,8 +4947,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estado_civil_bitacora_id_estado_civil_bi
 
 
 --
--- TOC entry 5031 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 5043 (class 0 OID 0)
+-- Dependencies: 246
 -- Name: SEQUENCE estado_civil_id_estado_civil_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4956,8 +4956,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estado_civil_id_estado_civil_seq TO digi
 
 
 --
--- TOC entry 5032 (class 0 OID 0)
--- Dependencies: 286
+-- TOC entry 5044 (class 0 OID 0)
+-- Dependencies: 298
 -- Name: TABLE estatus_expediente_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4965,8 +4965,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.estatus_expediente_bitacora 
 
 
 --
--- TOC entry 5033 (class 0 OID 0)
--- Dependencies: 285
+-- TOC entry 5045 (class 0 OID 0)
+-- Dependencies: 297
 -- Name: SEQUENCE estatus_expediente_bitacora_id_estatus_expediente_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4974,8 +4974,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estatus_expediente_bitacora_id_estatus_e
 
 
 --
--- TOC entry 5034 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 5046 (class 0 OID 0)
+-- Dependencies: 238
 -- Name: SEQUENCE estatus_expediente_id_estatus_expediente_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4983,8 +4983,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estatus_expediente_id_estatus_expediente
 
 
 --
--- TOC entry 5035 (class 0 OID 0)
--- Dependencies: 324
+-- TOC entry 5047 (class 0 OID 0)
+-- Dependencies: 336
 -- Name: TABLE estatus_paciente_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -4992,8 +4992,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.estatus_paciente_bitacora TO
 
 
 --
--- TOC entry 5036 (class 0 OID 0)
--- Dependencies: 323
+-- TOC entry 5048 (class 0 OID 0)
+-- Dependencies: 335
 -- Name: SEQUENCE estatus_paciente_bitacora_id_estatus_paciente_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5001,8 +5001,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estatus_paciente_bitacora_id_estatus_pac
 
 
 --
--- TOC entry 5037 (class 0 OID 0)
--- Dependencies: 268
+-- TOC entry 5049 (class 0 OID 0)
+-- Dependencies: 280
 -- Name: SEQUENCE estatus_paciente_id_estatus_paciente_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5010,8 +5010,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estatus_paciente_id_estatus_paciente_seq
 
 
 --
--- TOC entry 5038 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 5050 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: TABLE estatus_usuario; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5019,8 +5019,8 @@ GRANT ALL ON TABLE digiclin.estatus_usuario TO digiclin_app;
 
 
 --
--- TOC entry 5039 (class 0 OID 0)
--- Dependencies: 290
+-- TOC entry 5051 (class 0 OID 0)
+-- Dependencies: 302
 -- Name: TABLE estatus_usuario_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5028,8 +5028,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.estatus_usuario_bitacora TO 
 
 
 --
--- TOC entry 5040 (class 0 OID 0)
--- Dependencies: 289
+-- TOC entry 5052 (class 0 OID 0)
+-- Dependencies: 301
 -- Name: SEQUENCE estatus_usuario_bitacora_id_estatus_usuario_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5037,8 +5037,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estatus_usuario_bitacora_id_estatus_usua
 
 
 --
--- TOC entry 5041 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 5053 (class 0 OID 0)
+-- Dependencies: 236
 -- Name: SEQUENCE estatus_usuario_id_estatus_usuario_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5046,8 +5046,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.estatus_usuario_id_estatus_usuario_seq T
 
 
 --
--- TOC entry 5042 (class 0 OID 0)
--- Dependencies: 320
+-- TOC entry 5054 (class 0 OID 0)
+-- Dependencies: 332
 -- Name: TABLE expediente_clinico_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5055,8 +5055,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.expediente_clinico_bitacora 
 
 
 --
--- TOC entry 5043 (class 0 OID 0)
--- Dependencies: 319
+-- TOC entry 5055 (class 0 OID 0)
+-- Dependencies: 331
 -- Name: SEQUENCE expediente_clinico_bitacora_id_expediente_clinico_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5064,8 +5064,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.expediente_clinico_bitacora_id_expedient
 
 
 --
--- TOC entry 5044 (class 0 OID 0)
--- Dependencies: 259
+-- TOC entry 5056 (class 0 OID 0)
+-- Dependencies: 271
 -- Name: SEQUENCE expediente_clinico_id_expediente_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5073,8 +5073,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.expediente_clinico_id_expediente_seq TO 
 
 
 --
--- TOC entry 5045 (class 0 OID 0)
--- Dependencies: 243
+-- TOC entry 5057 (class 0 OID 0)
+-- Dependencies: 255
 -- Name: TABLE medicamento; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5082,8 +5082,8 @@ GRANT ALL ON TABLE digiclin.medicamento TO digiclin_app;
 
 
 --
--- TOC entry 5046 (class 0 OID 0)
--- Dependencies: 288
+-- TOC entry 5058 (class 0 OID 0)
+-- Dependencies: 300
 -- Name: TABLE medicamento_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5091,8 +5091,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.medicamento_bitacora TO digi
 
 
 --
--- TOC entry 5047 (class 0 OID 0)
--- Dependencies: 287
+-- TOC entry 5059 (class 0 OID 0)
+-- Dependencies: 299
 -- Name: SEQUENCE medicamento_bitacora_id_medicamento_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5100,8 +5100,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.medicamento_bitacora_id_medicamento_bita
 
 
 --
--- TOC entry 5048 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 5060 (class 0 OID 0)
+-- Dependencies: 254
 -- Name: SEQUENCE medicamento_id_medicamento_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5109,8 +5109,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.medicamento_id_medicamento_seq TO digicl
 
 
 --
--- TOC entry 5049 (class 0 OID 0)
--- Dependencies: 249
+-- TOC entry 5061 (class 0 OID 0)
+-- Dependencies: 261
 -- Name: TABLE medico; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5118,8 +5118,8 @@ GRANT ALL ON TABLE digiclin.medico TO digiclin_app;
 
 
 --
--- TOC entry 5050 (class 0 OID 0)
--- Dependencies: 294
+-- TOC entry 5062 (class 0 OID 0)
+-- Dependencies: 306
 -- Name: TABLE medico_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5127,8 +5127,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.medico_bitacora TO digiclin_
 
 
 --
--- TOC entry 5051 (class 0 OID 0)
--- Dependencies: 293
+-- TOC entry 5063 (class 0 OID 0)
+-- Dependencies: 305
 -- Name: SEQUENCE medico_bitacora_id_medico_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5136,8 +5136,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.medico_bitacora_id_medico_bitacora_seq T
 
 
 --
--- TOC entry 5052 (class 0 OID 0)
--- Dependencies: 255
+-- TOC entry 5064 (class 0 OID 0)
+-- Dependencies: 267
 -- Name: TABLE paciente_alergia; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5145,8 +5145,8 @@ GRANT ALL ON TABLE digiclin.paciente_alergia TO digiclin_app;
 
 
 --
--- TOC entry 5053 (class 0 OID 0)
--- Dependencies: 312
+-- TOC entry 5065 (class 0 OID 0)
+-- Dependencies: 324
 -- Name: TABLE paciente_alergia_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5154,8 +5154,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.paciente_alergia_bitacora TO
 
 
 --
--- TOC entry 5054 (class 0 OID 0)
--- Dependencies: 311
+-- TOC entry 5066 (class 0 OID 0)
+-- Dependencies: 323
 -- Name: SEQUENCE paciente_alergia_bitacora_id_paciente_alergia_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5163,8 +5163,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.paciente_alergia_bitacora_id_paciente_al
 
 
 --
--- TOC entry 5055 (class 0 OID 0)
--- Dependencies: 306
+-- TOC entry 5067 (class 0 OID 0)
+-- Dependencies: 318
 -- Name: TABLE paciente_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5172,8 +5172,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.paciente_bitacora TO digicli
 
 
 --
--- TOC entry 5056 (class 0 OID 0)
--- Dependencies: 305
+-- TOC entry 5068 (class 0 OID 0)
+-- Dependencies: 317
 -- Name: SEQUENCE paciente_bitacora_id_paciente_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5181,8 +5181,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.paciente_bitacora_id_paciente_bitacora_s
 
 
 --
--- TOC entry 5057 (class 0 OID 0)
--- Dependencies: 256
+-- TOC entry 5069 (class 0 OID 0)
+-- Dependencies: 268
 -- Name: TABLE paciente_enfermedad; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5190,8 +5190,8 @@ GRANT ALL ON TABLE digiclin.paciente_enfermedad TO digiclin_app;
 
 
 --
--- TOC entry 5058 (class 0 OID 0)
--- Dependencies: 308
+-- TOC entry 5070 (class 0 OID 0)
+-- Dependencies: 320
 -- Name: TABLE paciente_enfermedad_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5199,8 +5199,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.paciente_enfermedad_bitacora
 
 
 --
--- TOC entry 5059 (class 0 OID 0)
--- Dependencies: 307
+-- TOC entry 5071 (class 0 OID 0)
+-- Dependencies: 319
 -- Name: SEQUENCE paciente_enfermedad_bitacora_id_paciente_enfermedad_bitacor_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5208,8 +5208,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.paciente_enfermedad_bitacora_id_paciente
 
 
 --
--- TOC entry 5060 (class 0 OID 0)
--- Dependencies: 253
+-- TOC entry 5072 (class 0 OID 0)
+-- Dependencies: 265
 -- Name: SEQUENCE paciente_id_paciente_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5217,8 +5217,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.paciente_id_paciente_seq TO digiclin_app
 
 
 --
--- TOC entry 5061 (class 0 OID 0)
--- Dependencies: 248
+-- TOC entry 5073 (class 0 OID 0)
+-- Dependencies: 260
 -- Name: TABLE personal_medico; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5226,8 +5226,8 @@ GRANT ALL ON TABLE digiclin.personal_medico TO digiclin_app;
 
 
 --
--- TOC entry 5062 (class 0 OID 0)
--- Dependencies: 292
+-- TOC entry 5074 (class 0 OID 0)
+-- Dependencies: 304
 -- Name: TABLE personal_medico_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5235,8 +5235,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.personal_medico_bitacora TO 
 
 
 --
--- TOC entry 5063 (class 0 OID 0)
--- Dependencies: 291
+-- TOC entry 5075 (class 0 OID 0)
+-- Dependencies: 303
 -- Name: SEQUENCE personal_medico_bitacora_id_personal_medico_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5244,8 +5244,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.personal_medico_bitacora_id_personal_med
 
 
 --
--- TOC entry 5064 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 5076 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: TABLE rol; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5253,8 +5253,8 @@ GRANT ALL ON TABLE digiclin.rol TO digiclin_app;
 
 
 --
--- TOC entry 5065 (class 0 OID 0)
--- Dependencies: 276
+-- TOC entry 5077 (class 0 OID 0)
+-- Dependencies: 288
 -- Name: TABLE rol_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5262,8 +5262,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.rol_bitacora TO digiclin_app
 
 
 --
--- TOC entry 5066 (class 0 OID 0)
--- Dependencies: 275
+-- TOC entry 5078 (class 0 OID 0)
+-- Dependencies: 287
 -- Name: SEQUENCE rol_bitacora_id_rol_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5271,8 +5271,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.rol_bitacora_id_rol_bitacora_seq TO digi
 
 
 --
--- TOC entry 5067 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 5079 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: SEQUENCE rol_id_rol_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5280,8 +5280,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.rol_id_rol_seq TO digiclin_app;
 
 
 --
--- TOC entry 5068 (class 0 OID 0)
--- Dependencies: 278
+-- TOC entry 5080 (class 0 OID 0)
+-- Dependencies: 290
 -- Name: TABLE sexo_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5289,8 +5289,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.sexo_bitacora TO digiclin_ap
 
 
 --
--- TOC entry 5069 (class 0 OID 0)
--- Dependencies: 277
+-- TOC entry 5081 (class 0 OID 0)
+-- Dependencies: 289
 -- Name: SEQUENCE sexo_bitacora_id_sexo_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5298,8 +5298,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.sexo_bitacora_id_sexo_bitacora_seq TO di
 
 
 --
--- TOC entry 5070 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 5082 (class 0 OID 0)
+-- Dependencies: 242
 -- Name: SEQUENCE sexo_id_sexo_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5307,8 +5307,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.sexo_id_sexo_seq TO digiclin_app;
 
 
 --
--- TOC entry 5071 (class 0 OID 0)
--- Dependencies: 282
+-- TOC entry 5083 (class 0 OID 0)
+-- Dependencies: 294
 -- Name: TABLE tipo_sangre_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5316,8 +5316,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.tipo_sangre_bitacora TO digi
 
 
 --
--- TOC entry 5072 (class 0 OID 0)
--- Dependencies: 281
+-- TOC entry 5084 (class 0 OID 0)
+-- Dependencies: 293
 -- Name: SEQUENCE tipo_sangre_bitacora_id_tipo_sangre_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5325,8 +5325,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.tipo_sangre_bitacora_id_tipo_sangre_bita
 
 
 --
--- TOC entry 5073 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 5085 (class 0 OID 0)
+-- Dependencies: 244
 -- Name: SEQUENCE tipo_sangre_id_tipo_sangre_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5334,8 +5334,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.tipo_sangre_id_tipo_sangre_seq TO digicl
 
 
 --
--- TOC entry 5074 (class 0 OID 0)
--- Dependencies: 245
+-- TOC entry 5086 (class 0 OID 0)
+-- Dependencies: 257
 -- Name: TABLE tipo_tratamiento; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5343,8 +5343,8 @@ GRANT ALL ON TABLE digiclin.tipo_tratamiento TO digiclin_app;
 
 
 --
--- TOC entry 5075 (class 0 OID 0)
--- Dependencies: 316
+-- TOC entry 5087 (class 0 OID 0)
+-- Dependencies: 328
 -- Name: TABLE tipo_tratamiento_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5352,8 +5352,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.tipo_tratamiento_bitacora TO
 
 
 --
--- TOC entry 5076 (class 0 OID 0)
--- Dependencies: 315
+-- TOC entry 5088 (class 0 OID 0)
+-- Dependencies: 327
 -- Name: SEQUENCE tipo_tratamiento_bitacora_id_tipo_tratamiento_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5361,8 +5361,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.tipo_tratamiento_bitacora_id_tipo_tratam
 
 
 --
--- TOC entry 5077 (class 0 OID 0)
--- Dependencies: 244
+-- TOC entry 5089 (class 0 OID 0)
+-- Dependencies: 256
 -- Name: SEQUENCE tipo_tratamiento_id_tipo_tratamiento_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5370,8 +5370,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.tipo_tratamiento_id_tipo_tratamiento_seq
 
 
 --
--- TOC entry 5078 (class 0 OID 0)
--- Dependencies: 262
+-- TOC entry 5090 (class 0 OID 0)
+-- Dependencies: 274
 -- Name: TABLE tratamiento; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5379,8 +5379,8 @@ GRANT ALL ON TABLE digiclin.tratamiento TO digiclin_app;
 
 
 --
--- TOC entry 5079 (class 0 OID 0)
--- Dependencies: 314
+-- TOC entry 5091 (class 0 OID 0)
+-- Dependencies: 326
 -- Name: TABLE tratamiento_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5388,8 +5388,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.tratamiento_bitacora TO digi
 
 
 --
--- TOC entry 5080 (class 0 OID 0)
--- Dependencies: 313
+-- TOC entry 5092 (class 0 OID 0)
+-- Dependencies: 325
 -- Name: SEQUENCE tratamiento_bitacora_id_tratamiento_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5397,8 +5397,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.tratamiento_bitacora_id_tratamiento_bita
 
 
 --
--- TOC entry 5081 (class 0 OID 0)
--- Dependencies: 261
+-- TOC entry 5093 (class 0 OID 0)
+-- Dependencies: 273
 -- Name: SEQUENCE tratamiento_id_tratamiento_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5406,8 +5406,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.tratamiento_id_tratamiento_seq TO digicl
 
 
 --
--- TOC entry 5082 (class 0 OID 0)
--- Dependencies: 318
+-- TOC entry 5094 (class 0 OID 0)
+-- Dependencies: 330
 -- Name: TABLE usuario_bitacora; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5415,8 +5415,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.usuario_bitacora TO digiclin
 
 
 --
--- TOC entry 5083 (class 0 OID 0)
--- Dependencies: 317
+-- TOC entry 5095 (class 0 OID 0)
+-- Dependencies: 329
 -- Name: SEQUENCE usuario_bitacora_id_usuario_bitacora_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5424,8 +5424,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.usuario_bitacora_id_usuario_bitacora_seq
 
 
 --
--- TOC entry 5084 (class 0 OID 0)
--- Dependencies: 246
+-- TOC entry 5096 (class 0 OID 0)
+-- Dependencies: 258
 -- Name: SEQUENCE usuario_id_usuario_seq; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5433,8 +5433,8 @@ GRANT SELECT,USAGE ON SEQUENCE digiclin.usuario_id_usuario_seq TO digiclin_app;
 
 
 --
--- TOC entry 5085 (class 0 OID 0)
--- Dependencies: 328
+-- TOC entry 5097 (class 0 OID 0)
+-- Dependencies: 340
 -- Name: TABLE vw_expediente; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5442,8 +5442,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_expediente TO digiclin_ap
 
 
 --
--- TOC entry 5086 (class 0 OID 0)
--- Dependencies: 326
+-- TOC entry 5098 (class 0 OID 0)
+-- Dependencies: 338
 -- Name: TABLE vw_expedientes_abiertos; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5451,8 +5451,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_expedientes_abiertos TO d
 
 
 --
--- TOC entry 5087 (class 0 OID 0)
--- Dependencies: 327
+-- TOC entry 5099 (class 0 OID 0)
+-- Dependencies: 339
 -- Name: TABLE vw_expedientes_archivados; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5460,8 +5460,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_expedientes_archivados TO
 
 
 --
--- TOC entry 5088 (class 0 OID 0)
--- Dependencies: 267
+-- TOC entry 5100 (class 0 OID 0)
+-- Dependencies: 279
 -- Name: TABLE vw_expedientes_detalle; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5469,8 +5469,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_expedientes_detalle TO di
 
 
 --
--- TOC entry 5089 (class 0 OID 0)
--- Dependencies: 274
+-- TOC entry 5101 (class 0 OID 0)
+-- Dependencies: 286
 -- Name: TABLE vw_paciente_administrativo; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5478,8 +5478,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_paciente_administrativo T
 
 
 --
--- TOC entry 5090 (class 0 OID 0)
--- Dependencies: 272
+-- TOC entry 5102 (class 0 OID 0)
+-- Dependencies: 284
 -- Name: TABLE vw_paciente_completo; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5487,8 +5487,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_paciente_completo TO digi
 
 
 --
--- TOC entry 5091 (class 0 OID 0)
--- Dependencies: 273
+-- TOC entry 5103 (class 0 OID 0)
+-- Dependencies: 285
 -- Name: TABLE vw_paciente_enfermero; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5496,8 +5496,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_paciente_enfermero TO dig
 
 
 --
--- TOC entry 5092 (class 0 OID 0)
--- Dependencies: 329
+-- TOC entry 5104 (class 0 OID 0)
+-- Dependencies: 341
 -- Name: TABLE vw_paciente_identificador; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5505,8 +5505,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_paciente_identificador TO
 
 
 --
--- TOC entry 5093 (class 0 OID 0)
--- Dependencies: 266
+-- TOC entry 5105 (class 0 OID 0)
+-- Dependencies: 278
 -- Name: TABLE vw_pacientes_detalle; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5514,8 +5514,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_pacientes_detalle TO digi
 
 
 --
--- TOC entry 5094 (class 0 OID 0)
--- Dependencies: 264
+-- TOC entry 5106 (class 0 OID 0)
+-- Dependencies: 276
 -- Name: TABLE vw_usuario; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5523,8 +5523,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_usuario TO digiclin_app;
 
 
 --
--- TOC entry 5095 (class 0 OID 0)
--- Dependencies: 330
+-- TOC entry 5107 (class 0 OID 0)
+-- Dependencies: 342
 -- Name: TABLE vw_usuario_login; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5532,8 +5532,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_usuario_login TO digiclin
 
 
 --
--- TOC entry 5096 (class 0 OID 0)
--- Dependencies: 263
+-- TOC entry 5108 (class 0 OID 0)
+-- Dependencies: 275
 -- Name: TABLE vw_usuarios_activos; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5541,8 +5541,8 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_usuarios_activos TO digic
 
 
 --
--- TOC entry 5097 (class 0 OID 0)
--- Dependencies: 271
+-- TOC entry 5109 (class 0 OID 0)
+-- Dependencies: 283
 -- Name: TABLE vw_usuarios_inactivos; Type: ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5550,7 +5550,7 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE digiclin.vw_usuarios_inactivos TO dig
 
 
 --
--- TOC entry 2375 (class 826 OID 16809)
+-- TOC entry 2387 (class 826 OID 16809)
 -- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5558,7 +5558,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA digiclin GRANT SELECT,USAGE
 
 
 --
--- TOC entry 2376 (class 826 OID 16810)
+-- TOC entry 2388 (class 826 OID 16810)
 -- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5566,7 +5566,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA digiclin GRANT ALL ON FUNCT
 
 
 --
--- TOC entry 2374 (class 826 OID 16808)
+-- TOC entry 2386 (class 826 OID 16808)
 -- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: digiclin; Owner: postgres
 --
 
@@ -5574,18 +5574,18 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA digiclin GRANT SELECT,INSER
 
 
 --
--- TOC entry 2373 (class 826 OID 16482)
+-- TOC entry 2385 (class 826 OID 16482)
 -- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
 --
 
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO digiclin_app;
 
 
--- Completed on 2026-05-18 19:25:20
+-- Completed on 2026-05-18 21:46:06
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict fRenarw42A6rmWQWkRDSBTa8yJOdJHAczuzajNgLQEPTqtdh1K0rQ3qwde5IrJg
+
 

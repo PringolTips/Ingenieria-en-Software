@@ -1,5 +1,6 @@
 -- ============================================================
--- DIAGNÓSTICO COMPLETO DE BASE DE DATOS - PGADMIN
+-- DIAGNÓSTICO COMPLETO DE BASE DE DATOS - PostgreSQL / pgAdmin
+-- Proyecto: DIGICLIN
 -- Muestra:
 -- Tablas, columnas, PK, FK, CHECK, UNIQUE, DEFAULT, NOT NULL,
 -- Views, Procedures, Functions, Triggers, Índices y registros.
@@ -178,24 +179,44 @@ WHERE schemaname = current_setting('app.schema_consulta');
 
 
 -- ============================================================
--- 2. TABLAS
+-- 2. DETALLE DE TABLAS CON CANTIDAD REAL DE REGISTROS
 -- ============================================================
 
-INSERT INTO tmp_reporte_bd
-SELECT
-    200,
-    'DETALLE - TABLAS',
-    'TABLA',
-    t.table_name,
-    'Tabla base del schema ' || t.table_schema,
-    NULL::BIGINT
-FROM information_schema.tables t
-WHERE t.table_schema = current_setting('app.schema_consulta')
-  AND t.table_type = 'BASE TABLE';
+DO $$
+DECLARE
+    r RECORD;
+    v_schema TEXT := current_setting('app.schema_consulta');
+    v_total BIGINT;
+BEGIN
+    FOR r IN
+        SELECT table_schema, table_name
+        FROM information_schema.tables
+        WHERE table_schema = v_schema
+          AND table_type = 'BASE TABLE'
+        ORDER BY table_name
+    LOOP
+        EXECUTE format(
+            'SELECT COUNT(*) FROM %I.%I',
+            r.table_schema,
+            r.table_name
+        )
+        INTO v_total;
+
+        INSERT INTO tmp_reporte_bd
+        VALUES (
+            200,
+            'DETALLE - TABLAS',
+            'TABLA',
+            r.table_name,
+            'Tabla base del schema ' || r.table_schema || ' con ' || v_total || ' registros',
+            v_total
+        );
+    END LOOP;
+END $$;
 
 
 -- ============================================================
--- 3. COLUMNAS
+-- 3. DETALLE DE COLUMNAS
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -221,13 +242,13 @@ SELECT
         ELSE 'NO'
     END ||
     ' | DEFAULT: ' || COALESCE(c.column_default, 'SIN DEFAULT'),
-    NULL::BIGINT
+    1::BIGINT
 FROM information_schema.columns c
 WHERE c.table_schema = current_setting('app.schema_consulta');
 
 
 -- ============================================================
--- 4. NOT NULL
+-- 4. DETALLE DE COLUMNAS NOT NULL
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -237,14 +258,14 @@ SELECT
     'NOT NULL',
     c.table_name || '.' || c.column_name,
     'La columna no permite valores NULL',
-    NULL::BIGINT
+    1::BIGINT
 FROM information_schema.columns c
 WHERE c.table_schema = current_setting('app.schema_consulta')
   AND c.is_nullable = 'NO';
 
 
 -- ============================================================
--- 5. DEFAULT
+-- 5. DETALLE DE COLUMNAS CON DEFAULT
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -254,14 +275,14 @@ SELECT
     'DEFAULT',
     c.table_name || '.' || c.column_name,
     c.column_default,
-    NULL::BIGINT
+    1::BIGINT
 FROM information_schema.columns c
 WHERE c.table_schema = current_setting('app.schema_consulta')
   AND c.column_default IS NOT NULL;
 
 
 -- ============================================================
--- 6. PK, FK, CHECK, UNIQUE
+-- 6. DETALLE DE CONSTRAINTS: PK, FK, CHECK, UNIQUE
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -277,7 +298,7 @@ SELECT
     END,
     cls.relname || '.' || con.conname,
     pg_get_constraintdef(con.oid),
-    NULL::BIGINT
+    1::BIGINT
 FROM pg_constraint con
 JOIN pg_class cls ON con.conrelid = cls.oid
 JOIN pg_namespace nsp ON cls.relnamespace = nsp.oid
@@ -286,7 +307,7 @@ WHERE nsp.nspname = current_setting('app.schema_consulta')
 
 
 -- ============================================================
--- 7. VIEWS
+-- 7. DETALLE DE VIEWS
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -296,7 +317,7 @@ SELECT
     'VIEW',
     c.relname,
     pg_get_viewdef(c.oid, true),
-    NULL::BIGINT
+    1::BIGINT
 FROM pg_class c
 JOIN pg_namespace n ON c.relnamespace = n.oid
 WHERE n.nspname = current_setting('app.schema_consulta')
@@ -304,7 +325,7 @@ WHERE n.nspname = current_setting('app.schema_consulta')
 
 
 -- ============================================================
--- 8. PROCEDURES Y FUNCTIONS
+-- 8. DETALLE DE PROCEDURES Y FUNCTIONS
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -318,7 +339,7 @@ SELECT
     END,
     p.proname || '(' || pg_get_function_identity_arguments(p.oid) || ')',
     pg_get_functiondef(p.oid),
-    NULL::BIGINT
+    1::BIGINT
 FROM pg_proc p
 JOIN pg_namespace n ON p.pronamespace = n.oid
 WHERE n.nspname = current_setting('app.schema_consulta')
@@ -326,7 +347,7 @@ WHERE n.nspname = current_setting('app.schema_consulta')
 
 
 -- ============================================================
--- 9. TRIGGERS
+-- 9. DETALLE DE TRIGGERS
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -336,7 +357,7 @@ SELECT
     'TRIGGER',
     c.relname || '.' || t.tgname,
     pg_get_triggerdef(t.oid),
-    NULL::BIGINT
+    1::BIGINT
 FROM pg_trigger t
 JOIN pg_class c ON t.tgrelid = c.oid
 JOIN pg_namespace n ON c.relnamespace = n.oid
@@ -345,7 +366,7 @@ WHERE n.nspname = current_setting('app.schema_consulta')
 
 
 -- ============================================================
--- 10. ÍNDICES
+-- 10. DETALLE DE ÍNDICES
 -- ============================================================
 
 INSERT INTO tmp_reporte_bd
@@ -355,13 +376,14 @@ SELECT
     'INDEX',
     i.tablename || '.' || i.indexname,
     i.indexdef,
-    NULL::BIGINT
+    1::BIGINT
 FROM pg_indexes i
 WHERE i.schemaname = current_setting('app.schema_consulta');
 
 
 -- ============================================================
--- 11. CANTIDAD DE REGISTROS POR TABLA
+-- 11. CONTEO DE REGISTROS POR TABLA
+-- Esta sección repite el conteo, pero agrupado claramente.
 -- ============================================================
 
 DO $$
@@ -406,4 +428,13 @@ SELECT
     detalle,
     cantidad
 FROM tmp_reporte_bd
-ORDER BY orden, tipo_objeto, objeto;
+ORDER BY 
+    CASE 
+        WHEN seccion = 'RESUMEN GENERAL' THEN 1
+        WHEN seccion = 'DETALLE - TABLAS' THEN 2
+        WHEN seccion = 'CONTEO - REGISTROS POR TABLA' THEN 3
+        ELSE 4
+    END,
+    orden,
+    tipo_objeto,
+    objeto;

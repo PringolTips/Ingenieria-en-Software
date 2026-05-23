@@ -62,6 +62,54 @@ const obtenerPorIdUsuarioCreador = async (req, res, next) => {
   }
 };
 
+const obtenerPorIdPaciente = async (req, res, next) => {
+  try {
+    const { id_paciente } = req.params;
+
+    const data = await expedienteService.obtenerPorIdPaciente(id_paciente);
+
+    res.json({
+      ok: true,
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const obtenerPorFechaConsulta = async (req, res, next) => {
+  try {
+    const { fecha_consulta } = req.query;
+
+    const data = await expedienteService.obtenerPorFechaConsulta(fecha_consulta);
+
+    res.json({
+      ok: true,
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const obtenerPorRangoFechas = async (req, res, next) => {
+  try {
+    const { fecha_inicio, fecha_fin } = req.query;
+
+    const data = await expedienteService.obtenerPorRangoFechas({
+      fecha_inicio,
+      fecha_fin
+    });
+
+    res.json({
+      ok: true,
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const obtenerPorNombreUsuarioCreador = async (req, res, next) => {
   try {
     const { nombre_usuario } = req.params;
@@ -155,6 +203,9 @@ module.exports = {
   obtenerPorPaciente,
   obtenerPorIdUsuarioCreador,
   obtenerPorNombreUsuarioCreador,
+  obtenerPorFechaConsulta,
+  obtenerPorRangoFechas,
+  obtenerPorIdPaciente,
   crearExpediente,
   actualizarExpediente,
   archivarExpediente,

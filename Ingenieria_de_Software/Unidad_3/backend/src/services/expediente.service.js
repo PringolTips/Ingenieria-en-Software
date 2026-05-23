@@ -151,6 +151,71 @@ const obtenerPorId = async (id_expediente) => {
   return res.rows[0];
 };
 
+
+const obtenerPorIdPaciente = async (id_paciente) => {
+  const id = validarId(id_paciente, 'id_paciente');
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.fn_expedientes_por_id_paciente($1::integer)',
+    [id]
+  );
+
+  return res.rows;
+};
+
+const obtenerPorFechaConsulta = async (fecha_consulta) => {
+  if (!fecha_consulta) {
+    const error = new Error('fecha_consulta es obligatoria');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const fecha = new Date(`${fecha_consulta}T00:00:00`);
+
+  if (Number.isNaN(fecha.getTime())) {
+    const error = new Error('fecha_consulta debe tener formato válido YYYY-MM-DD');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.fn_expedientes_por_fecha_consulta($1::date)',
+    [fecha_consulta]
+  );
+
+  return res.rows;
+};
+
+const obtenerPorRangoFechas = async ({ fecha_inicio, fecha_fin }) => {
+  if (!fecha_inicio || !fecha_fin) {
+    const error = new Error('fecha_inicio y fecha_fin son obligatorias');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const inicio = new Date(`${fecha_inicio}T00:00:00`);
+  const fin = new Date(`${fecha_fin}T00:00:00`);
+
+  if (Number.isNaN(inicio.getTime()) || Number.isNaN(fin.getTime())) {
+    const error = new Error('Las fechas deben tener formato válido YYYY-MM-DD');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (inicio > fin) {
+    const error = new Error('fecha_inicio no puede ser mayor que fecha_fin');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const res = await db.query(
+    'SELECT * FROM digiclin.fn_expedientes_por_rango_fechas($1::date, $2::date)',
+    [fecha_inicio, fecha_fin]
+  );
+
+  return res.rows;
+};
+
 const obtenerPorPaciente = async (curp) => {
   if (!curp) {
     const error = new Error('La CURP es obligatoria');
@@ -194,13 +259,22 @@ const obtenerPorNombreUsuarioCreador = async (nombre_usuario) => {
   return res.rows;
 };
 
+const valorONull = (valor) => {
+  if (valor === undefined || valor === null || valor === '') return null;
+  return valor;
+};
+
+const numeroONull = (valor) => {
+  if (valor === undefined || valor === null || valor === '') return null;
+  return Number(valor);
+};
+
 const crearExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
   const camposFaltantes = [];
 
   if (!usuarioAutenticado.id_usuario) camposFaltantes.push('id_usuario_token');
   if (!expedienteObj.id_paciente) camposFaltantes.push('id_paciente');
   if (!expedienteObj.id_diagnostico) camposFaltantes.push('id_diagnostico');
-  if (!expedienteObj.fecha_consulta) camposFaltantes.push('fecha_consulta');
   if (!expedienteObj.motivo) camposFaltantes.push('motivo');
 
   if (camposFaltantes.length > 0) {
@@ -210,46 +284,52 @@ const crearExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
     throw error;
   }
 
-  let idExpedienteGenerado = null;
+  if (Object.prototype.hasOwnProperty.call(expedienteObj, 'fecha_consulta')) {
+    const error = new Error('No debes enviar fecha_consulta; se genera automáticamente');
+    error.statusCode = 400;
+    throw error;
+  }
+
   validarValoresExpediente(expedienteObj);
+
+  let idExpedienteGenerado = null;
+
   try {
     const res = await db.query(
       `CALL digiclin.sp_crear_expediente_desde_usuario(
         $1::integer,
         $2::integer,
         $3::integer,
-        $4::timestamp,
+        $4::varchar,
         $5::varchar,
         $6::varchar,
         $7::varchar,
-        $8::varchar,
+        $8::numeric,
         $9::numeric,
         $10::numeric,
         $11::numeric,
         $12::numeric,
         $13::numeric,
         $14::numeric,
-        $15::numeric,
-        $16::varchar,
-        $17::integer
+        $15::varchar,
+        $16::integer
       )`,
       [
         Number(usuarioAutenticado.id_usuario),
         Number(expedienteObj.id_paciente),
         Number(expedienteObj.id_diagnostico),
-        expedienteObj.fecha_consulta,
         expedienteObj.motivo,
-        expedienteObj.antecedentes_personales || null,
-        expedienteObj.antecedentes_familiares || null,
-        expedienteObj.presion_arterial || null,
-        expedienteObj.frecuencia_cardiaca || null,
-        expedienteObj.frecuencia_respiratoria || null,
-        expedienteObj.temperatura || null,
-        expedienteObj.saturacion_oxigeno || null,
-        expedienteObj.peso || null,
-        expedienteObj.talla_cintura || null,
-        expedienteObj.altura || null,
-        expedienteObj.observaciones || null,
+        valorONull(expedienteObj.antecedentes_personales),
+        valorONull(expedienteObj.antecedentes_familiares),
+        valorONull(expedienteObj.presion_arterial),
+        numeroONull(expedienteObj.frecuencia_cardiaca),
+        numeroONull(expedienteObj.frecuencia_respiratoria),
+        numeroONull(expedienteObj.temperatura),
+        numeroONull(expedienteObj.saturacion_oxigeno),
+        numeroONull(expedienteObj.peso),
+        numeroONull(expedienteObj.talla_cintura),
+        numeroONull(expedienteObj.altura),
+        valorONull(expedienteObj.observaciones),
         null
       ]
     );
@@ -273,10 +353,15 @@ const crearExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
 const actualizarExpediente = async (expedienteObj = {}) => {
   const id = validarId(expedienteObj.id_expediente, 'id_expediente');
 
+  if (Object.prototype.hasOwnProperty.call(expedienteObj, 'fecha_consulta')) {
+    const error = new Error('No se permite modificar fecha_consulta');
+    error.statusCode = 400;
+    throw error;
+  }
+
   const camposActualizables = [
     'id_paciente',
     'id_diagnostico',
-    'fecha_consulta',
     'motivo',
     'antecedentes_personales',
     'antecedentes_familiares',
@@ -292,9 +377,10 @@ const actualizarExpediente = async (expedienteObj = {}) => {
   ];
 
   const tieneAlgunCampo = camposActualizables.some(
-    (campo) => expedienteObj[campo] !== undefined &&
-               expedienteObj[campo] !== null &&
-               expedienteObj[campo] !== ''
+    (campo) =>
+      expedienteObj[campo] !== undefined &&
+      expedienteObj[campo] !== null &&
+      expedienteObj[campo] !== ''
   );
 
   if (!tieneAlgunCampo) {
@@ -311,37 +397,35 @@ const actualizarExpediente = async (expedienteObj = {}) => {
         $1::integer,
         $2::integer,
         $3::integer,
-        $4::timestamp,
+        $4::varchar,
         $5::varchar,
         $6::varchar,
         $7::varchar,
-        $8::varchar,
+        $8::numeric,
         $9::numeric,
         $10::numeric,
         $11::numeric,
         $12::numeric,
         $13::numeric,
         $14::numeric,
-        $15::numeric,
-        $16::varchar
+        $15::varchar
       )`,
       [
         id,
         expedienteObj.id_paciente ? Number(expedienteObj.id_paciente) : null,
         expedienteObj.id_diagnostico ? Number(expedienteObj.id_diagnostico) : null,
-        expedienteObj.fecha_consulta || null,
-        expedienteObj.motivo || null,
-        expedienteObj.antecedentes_personales || null,
-        expedienteObj.antecedentes_familiares || null,
-        expedienteObj.presion_arterial || null,
-        expedienteObj.frecuencia_cardiaca || null,
-        expedienteObj.frecuencia_respiratoria || null,
-        expedienteObj.temperatura || null,
-        expedienteObj.saturacion_oxigeno || null,
-        expedienteObj.peso || null,
-        expedienteObj.talla_cintura || null,
-        expedienteObj.altura || null,
-        expedienteObj.observaciones || null
+        valorONull(expedienteObj.motivo),
+        valorONull(expedienteObj.antecedentes_personales),
+        valorONull(expedienteObj.antecedentes_familiares),
+        valorONull(expedienteObj.presion_arterial),
+        numeroONull(expedienteObj.frecuencia_cardiaca),
+        numeroONull(expedienteObj.frecuencia_respiratoria),
+        numeroONull(expedienteObj.temperatura),
+        numeroONull(expedienteObj.saturacion_oxigeno),
+        numeroONull(expedienteObj.peso),
+        numeroONull(expedienteObj.talla_cintura),
+        numeroONull(expedienteObj.altura),
+        valorONull(expedienteObj.observaciones)
       ]
     );
   } catch (err) {
@@ -393,6 +477,9 @@ module.exports = {
   listarArchivados,
   obtenerPorId,
   obtenerPorPaciente,
+  obtenerPorFechaConsulta,
+  obtenerPorRangoFechas,
+  obtenerPorIdPaciente,
   obtenerPorIdUsuarioCreador,
   obtenerPorNombreUsuarioCreador,
   crearExpediente,

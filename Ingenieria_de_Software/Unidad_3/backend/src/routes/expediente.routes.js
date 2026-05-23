@@ -76,6 +76,27 @@ router.put(
 );
 
 router.get(
+  '/buscar/paciente/:id_paciente',
+  verificarToken,
+  verificarRol('Director', 'Medico', 'Enfermero'),
+  expedienteController.obtenerPorIdPaciente
+);
+
+router.get(
+  '/buscar/fecha',
+  verificarToken,
+  verificarRol('Director', 'Medico', 'Enfermero'),
+  expedienteController.obtenerPorFechaConsulta
+);
+
+router.get(
+  '/buscar/fechas',
+  verificarToken,
+  verificarRol('Director', 'Medico', 'Enfermero'),
+  expedienteController.obtenerPorRangoFechas
+);
+
+router.get(
   '/:id_expediente',
   verificarToken,
   verificarRol('Director', 'Medico', 'Enfermero'),

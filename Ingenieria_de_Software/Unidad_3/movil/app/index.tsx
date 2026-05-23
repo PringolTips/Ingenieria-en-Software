@@ -1,3 +1,4 @@
+//(app/index.tsx)
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -157,7 +158,7 @@ export default function LoginWebStyle() {
             )}
           </TouchableOpacity>
 
-          <Text style={styles.versionText}>v 1.0.4 · DIGICLIN ITQ</Text>
+          <Text style={styles.versionText}>v 1.0.5 · DIGICLIN ITQ</Text>
         </View>
 
       </ScrollView>

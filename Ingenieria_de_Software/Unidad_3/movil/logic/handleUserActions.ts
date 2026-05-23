@@ -1,3 +1,4 @@
+// logic/handleUserActions.ts
 import { Alert } from 'react-native';
 import api from '../services/api';
 import { userService } from '../services/userService';
@@ -11,22 +12,23 @@ export interface User {
 
 export const fetchUsersFromDB = async (): Promise<User[]> => {
   try {
-    const response = await api.get('/api/usuarios');
+    // Sincronización a v1 global
+    const response = await api.get('/api/v1/usuarios');
     if (response.data && response.data.ok) return response.data.data;
     return [];
-  } catch (error) { return []; }
+  } catch (error) { 
+    return []; 
+  }
 };
 
 export const updateUserInDB = async (oldUsername: string, newData: any) => {
   try {
+    // ⚡ MAPEO CONTRACTUAL CON TU JSON: 'nuevo_nombre_usuario' y 'correo'
     const dataToSend: any = {
-      nombre_usuario: newData.nombre_usuario,
-      correo: newData.correo,
-      nombre_estatus: newData.nombre_estatus
+      nuevo_nombre_usuario: newData.nombre_usuario,
+      correo: newData.correo
     };
 
-    // Sinergia con diagrama ER: usar 'contrasena' 
-    // Solo se envía si el campo no está vacío para evitar el error 401
     if (newData.password && newData.password.trim() !== "") {
       dataToSend.contrasena = newData.password; 
     }
@@ -36,7 +38,6 @@ export const updateUserInDB = async (oldUsername: string, newData: any) => {
     if (resUpdate.ok) {
       const target = newData.nombre_usuario || oldUsername;
       
-      // Sincronización forzada de estatus (RF-10)
       if (newData.nombre_estatus === 'Inactivo') {
         await userService.inhabilitarUsuario(target);
       } else if (newData.nombre_estatus === 'Activo') {
@@ -46,17 +47,19 @@ export const updateUserInDB = async (oldUsername: string, newData: any) => {
     }
     return false;
   } catch (error: any) {
-    Alert.alert("Error", error.response?.data?.mensaje || "Error al actualizar.");
+    Alert.alert("Error de Modificación", error.response?.data?.mensaje || "No se pudo actualizar la cuenta.");
     return false;
   }
 };
 
-export const deleteUserFromDB = async (username: string) => {
+// Lógica para restablecer contraseña por defecto en caso de olvido
+export const resetUserPasswordInDB = async (username: string) => {
   try {
-    const res = await userService.inhabilitarUsuario(username);
-    return res.ok;
-  } catch (error) {
-    Alert.alert("Error RF-10", "No se pudo inhabilitar.");
+    // Consume el endpoint del backend para setear la clave base e inicializar bandera
+    const response = await api.put(`/api/v1/usuarios/${username}/restablecer`, {});
+    return response.data?.ok || response.status === 200;
+  } catch (error: any) {
+    Alert.alert("Error de Infraestructura", error.response?.data?.mensaje || "No se pudo restablecer el acceso.");
     return false;
   }
 };

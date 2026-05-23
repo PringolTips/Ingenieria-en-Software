@@ -1,3 +1,4 @@
+// app/(admin)/menu.tsx
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -5,10 +6,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function AdminMenu() {
   const router = useRouter();
 
+  // ⚡ SEPARACIÓN DE RESPONSABILIDADES: El Admin ya no maneja pacientes
   const options = [
     { title: 'Alta de Personal', icon: 'person-add', route: '/(admin)/create-user' },
-    { title: 'Consulta de Pacientes', icon: 'people', route: '/patients/search' },
-    // Eliminamos "Usuarios Inactivos" de aquí porque ya están en el Dashboard
   ];
 
   return (

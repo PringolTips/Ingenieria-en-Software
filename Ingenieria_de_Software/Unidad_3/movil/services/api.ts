@@ -13,11 +13,22 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  const token = await SecureStore.getItemAsync('userToken');
-  // RNF-05: Solo inyectamos token si no es la ruta de login
-  if (token && !config.url?.includes('/api/auth/login')) {
-    config.headers.Authorization = `Bearer ${token}`;
+  // ⚡ COMPATIBILIDAD DEFINITIVA: Si la ruta contiene la palabra 'login',
+  // omitimos la inyección de tokens de inmediato para no corromper la petición.
+  if (config.url?.includes('login')) {
+    return config;
   }
+
+  try {
+    const token = await SecureStore.getItemAsync('userToken');
+    // RNF-05: Solo inyectamos token si existe en sesiones protegidas
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (error) {
+    console.log('[DevOps Sync] Error al recuperar credenciales locales:', error);
+  }
+
   return config;
 });
 

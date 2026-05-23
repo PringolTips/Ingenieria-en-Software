@@ -1,4 +1,5 @@
 SET search_path TO digiclin;
+
 -- Insert tablas catalogo
 
 INSERT INTO rol (nombre_rol, descripcion) 
@@ -111,28 +112,28 @@ INSERT INTO usuario (
 VALUES
 (
     (SELECT id_rol FROM rol WHERE nombre_rol = 'Admin'),
-    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Inactivo'),
     'Luis',
     'admin1@digiclin.com',
-    '$2b$10$e5ELFFIlYC4XpzbypVJdr.K/5p0YZzD8ALQiEwDZv0Nho3QKfLnWq',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
     false,
     '2026-04-19 00:50:17.54241'
 ),
 (
     (SELECT id_rol FROM rol WHERE nombre_rol = 'Enfermero'),
-    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Inactivo'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
     'Karla',
-    'Karlonga22@digiclin.com',
-    '$2b$10$9de5ixEzYjGOVQQwAj7FnOB6u2IYuJ/0wOu4I/LkqOwzx1gCZIOd.',
+    'karla@digiclin.com',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
     true,
     '2026-04-19 02:19:40.681686'
 ),
 (
     (SELECT id_rol FROM rol WHERE nombre_rol = 'Enfermero'),
-    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Inactivo'),
     'Sol',
     'Sol@digiclin.com',
-    '$2b$10$2qtWr.Vg54CMCVFJzIDMN.bcj.7Y5aNnl925BEFo5Q.R1yPHxIYCG',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
     false,
     '2026-04-19 07:42:09.159406'
 ),
@@ -141,7 +142,7 @@ VALUES
     (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
     'Jose',
     'Jose@digiclin.com',
-    '$2b$10$tQoF5tuTLdbxcfy6mQMsQOY05b20/cwQWyZKncJa9g7SAfsat9DRK',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
     true,
     '2026-04-19 21:28:13.408489'
 ),
@@ -149,11 +150,48 @@ VALUES
     (SELECT id_rol FROM rol WHERE nombre_rol = 'Medico'),
     (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
     'Pringol',
-    'Pringol@digiclin.com',
-    '$2b$10$4O3DzZsB8TElKT8Z3DbaDergrhjffipdPKoTiEq3fmCQAcGEpmdrK',
+    'pringol@digiclin.com',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
     true,
     '2026-04-25 00:31:37.388213'
+),
+(
+    (SELECT id_rol FROM rol WHERE nombre_rol = 'Admin'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
+    'admin',
+    'admin@digiclin.com',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
+    false,
+    '2026-05-04 02:05:57.222973'
+),
+(
+    (SELECT id_rol FROM rol WHERE nombre_rol = 'Enfermero'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
+    'rositafersita',
+    'rositafersita@digiclin.com',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
+    false,
+    '2026-05-04 10:12:34.356766'
+),
+(
+    (SELECT id_rol FROM rol WHERE nombre_rol = 'Enfermero'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
+    'Tony',
+    'tony@digiclin.com',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
+    false,
+    '2026-05-11 11:39:46.539258'
+),
+(
+    (SELECT id_rol FROM rol WHERE nombre_rol = 'Director'),
+    (SELECT id_estatus_usuario FROM estatus_usuario WHERE nombre_estatus = 'Activo'),
+    'Director',
+    'director@digiclin.com',
+    '$2b$10$T4PPBvlQwz45SX8GSjP8CeCWD6TJW3n1ElTjhXk5GHOOaDHfLwRFS',
+    false,
+    '2026-05-11 11:39:46.539258'
 )
+
 ON CONFLICT (correo) DO NOTHING;
 
 
@@ -191,7 +229,7 @@ VALUES
     (SELECT id_especialidad FROM especialidad WHERE nombre = 'Cardiología')
 )
 ON CONFLICT (id_medico) DO NOTHING;
-
+--enfermero
 INSERT INTO enfermero (id_enfermero)
 VALUES
 (
@@ -214,8 +252,17 @@ VALUES
     (SELECT id_certificacion FROM certificacion WHERE nombre = 'Soporte Vital Básico')
 )
 ON CONFLICT (id_enfermero, id_certificacion) DO NOTHING;
+--director
 
-
+INSERT INTO director (
+    id_director,
+    plaza
+)
+VALUES (
+    (SELECT id_usuario FROM usuario WHERE correo = 'director@digiclin.com'),
+    'Dirección General'
+)
+ON CONFLICT (id_director) DO NOTHING;
 
 -- PACIENTES
 

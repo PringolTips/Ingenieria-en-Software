@@ -1,3 +1,4 @@
+// app/patients/register.tsx
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Stack, useRouter } from 'expo-router';
@@ -25,17 +26,30 @@ export default function RegisterPatient() {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleRegister = async () => {
-    if (!form.nombre || !form.curp) {
-      Alert.alert("Error", "El nombre y la CURP son obligatorios.");
+    // 1. Validaciones básicas de presencia
+    if (!form.nombre || !form.curp || !form.telefono || !form.contactoEmergencia) {
+      Alert.alert("Atención", "El nombre, CURP, Teléfono y Contacto de Emergencia son obligatorios.");
       return;
     }
+
+    // ⚡ 2. VALIDACIÓN DE TELÉFONOS DIFERENTES
+    if (form.telefono.trim() === form.contactoEmergencia.trim()) {
+      Alert.alert(
+        "Validación de Seguridad", 
+        "El teléfono del paciente y el contacto de emergencia no pueden ser el mismo número."
+      );
+      return;
+    }
+
     setLoading(true);
     const res = await registerPatientLogic(form);
     setLoading(false);
-    if (res.ok) {
-      Alert.alert("Éxito", "Paciente registrado", [{ text: "OK", onPress: () => router.back() }]);
+
+    if (res && res.ok) {
+      Alert.alert("Éxito", "Paciente registrado correctamente", [{ text: "OK", onPress: () => router.back() }]);
     } else {
-      Alert.alert("Error", res.mensaje);
+      // Muestra el error real extraído desde el catch avanzado
+      Alert.alert("Error de Registro", res?.mensaje || "No se pudo completar la operación.");
     }
   };
 
@@ -96,14 +110,13 @@ export default function RegisterPatient() {
           
           <Text style={styles.sectionTitle}>— DOMICILIO Y EMERGENCIA</Text>
           <InputBlock label="DOMICILIO" placeholder="Calle, número, colonia" onChange={(v:string) => setForm({...form, domicilio:v})} />
-          <InputBlock label="CONTACTO EMERGENCIA" placeholder="Nombre y teléfono" onChange={(v:string) => setForm({...form, contactoEmergencia:v})} />
+          <InputBlock label="CONTACTO EMERGENCIA" placeholder="Teléfono de contacto familiar" maxLength={10} keyboardType="numeric" onChange={(v:string) => setForm({...form, contactoEmergencia:v})} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
-// Auxiliares
 const InputBlock = ({ label, placeholder, flex=1, maxLength, keyboardType, onChange }: any) => (
   <View style={[styles.inputGroup, { flex }]}>
     <Text style={styles.label}>{label}</Text>

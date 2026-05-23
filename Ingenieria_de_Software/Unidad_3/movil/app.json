@@ -2,7 +2,7 @@
   "expo": {
     "name": "DIGICLIN",
     "slug": "digiclin",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/Digiclin_icono.png",
     "scheme": "digiclin",

@@ -1,0 +1,16 @@
+{
+  "name": "digiclin-backend-tests",
+  "version": "1.0.0",
+  "description": "Pruebas automatizadas backend para DIGICLIN",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:verbose": "jest --runInBand --verbose",
+    "test:report": "jest --runInBand --json --outputFile=../evidencias/backend/reporte-backend.json"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

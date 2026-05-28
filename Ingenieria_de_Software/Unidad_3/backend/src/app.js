@@ -7,6 +7,7 @@ const errorHandler = require('./middlewares/error.middleware');
 const healthRoutes = require('./routes/health.routes');
 const pacienteRoutes = require('./routes/paciente.routes');
 const expedienteRoutes = require('./routes/expediente.routes');
+const bitacoraRoutes = require('./routes/bitacora.routes');
 
 
 const app = express();
@@ -20,11 +21,14 @@ app.get('/', (req, res) => {
 
 
 
+
 app.use('/api/v1/expedientes', expedienteRoutes);
 app.use('/api/v1/pacientes', pacienteRoutes);
 app.use('/api/v1/usuarios', usuarioRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/health', healthRoutes);
+app.use('/api/v1/bitacora', bitacoraRoutes);
+
 
 app.use(errorHandler);
 

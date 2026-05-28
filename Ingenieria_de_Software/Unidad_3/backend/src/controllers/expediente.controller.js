@@ -3,7 +3,11 @@ const expedienteService = require('../services/expediente.service');
 const obtenerExpedientes = async (req, res, next) => {
   try {
     const data = await expedienteService.listarTodos();
-    res.json({ ok: true, data });
+
+    res.json({
+      ok: true,
+      data
+    });
   } catch (error) {
     next(error);
   }
@@ -12,7 +16,11 @@ const obtenerExpedientes = async (req, res, next) => {
 const obtenerAbiertos = async (req, res, next) => {
   try {
     const data = await expedienteService.listarAbiertos();
-    res.json({ ok: true, data });
+
+    res.json({
+      ok: true,
+      data
+    });
   } catch (error) {
     next(error);
   }
@@ -21,7 +29,11 @@ const obtenerAbiertos = async (req, res, next) => {
 const obtenerArchivados = async (req, res, next) => {
   try {
     const data = await expedienteService.listarArchivados();
-    res.json({ ok: true, data });
+
+    res.json({
+      ok: true,
+      data
+    });
   } catch (error) {
     next(error);
   }
@@ -30,8 +42,13 @@ const obtenerArchivados = async (req, res, next) => {
 const obtenerPorId = async (req, res, next) => {
   try {
     const { id_expediente } = req.params;
+
     const data = await expedienteService.obtenerPorId(id_expediente);
-    res.json({ ok: true, data });
+
+    res.json({
+      ok: true,
+      data
+    });
   } catch (error) {
     next(error);
   }
@@ -40,8 +57,13 @@ const obtenerPorId = async (req, res, next) => {
 const obtenerPorPaciente = async (req, res, next) => {
   try {
     const { curp } = req.params;
+
     const data = await expedienteService.obtenerPorPaciente(curp);
-    res.json({ ok: true, data });
+
+    res.json({
+      ok: true,
+      data
+    });
   } catch (error) {
     next(error);
   }
@@ -52,6 +74,21 @@ const obtenerPorIdUsuarioCreador = async (req, res, next) => {
     const { id_usuario } = req.params;
 
     const data = await expedienteService.obtenerPorIdUsuarioCreador(id_usuario);
+
+    res.json({
+      ok: true,
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const obtenerPorNombreUsuarioCreador = async (req, res, next) => {
+  try {
+    const { nombre_usuario } = req.params;
+
+    const data = await expedienteService.obtenerPorNombreUsuarioCreador(nombre_usuario);
 
     res.json({
       ok: true,
@@ -110,21 +147,6 @@ const obtenerPorRangoFechas = async (req, res, next) => {
   }
 };
 
-const obtenerPorNombreUsuarioCreador = async (req, res, next) => {
-  try {
-    const { nombre_usuario } = req.params;
-
-    const data = await expedienteService.obtenerPorNombreUsuarioCreador(nombre_usuario);
-
-    res.json({
-      ok: true,
-      data
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const crearExpediente = async (req, res, next) => {
   try {
     const data = await expedienteService.crearExpediente(
@@ -146,10 +168,13 @@ const actualizarExpediente = async (req, res, next) => {
   try {
     const { id_expediente } = req.params;
 
-    const data = await expedienteService.actualizarExpediente({
-      id_expediente,
-      ...req.body
-    });
+    const data = await expedienteService.actualizarExpediente(
+      {
+        id_expediente,
+        ...req.body
+      },
+      req.usuario
+    );
 
     res.json({
       ok: true,
@@ -165,7 +190,10 @@ const archivarExpediente = async (req, res, next) => {
   try {
     const { id_expediente } = req.params;
 
-    const data = await expedienteService.archivarExpediente(id_expediente);
+    const data = await expedienteService.archivarExpediente(
+      id_expediente,
+      req.usuario
+    );
 
     res.json({
       ok: true,
@@ -181,7 +209,10 @@ const desarchivarExpediente = async (req, res, next) => {
   try {
     const { id_expediente } = req.params;
 
-    const data = await expedienteService.desarchivarExpediente(id_expediente);
+    const data = await expedienteService.desarchivarExpediente(
+      id_expediente,
+      req.usuario
+    );
 
     res.json({
       ok: true,
@@ -192,8 +223,6 @@ const desarchivarExpediente = async (req, res, next) => {
     next(error);
   }
 };
-
-
 
 module.exports = {
   obtenerExpedientes,

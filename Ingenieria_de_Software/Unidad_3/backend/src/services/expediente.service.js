@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const { ejecutarConUsuarioBitacora } = require('../utils/bitacoraSesion');
 
 const validarId = (valor, nombreCampo) => {
   const numero = Number(valor);
@@ -295,46 +296,48 @@ const crearExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
   let idExpedienteGenerado = null;
 
   try {
-    const res = await db.query(
-      `CALL digiclin.sp_crear_expediente_desde_usuario(
-        $1::integer,
-        $2::integer,
-        $3::integer,
-        $4::varchar,
-        $5::varchar,
-        $6::varchar,
-        $7::varchar,
-        $8::numeric,
-        $9::numeric,
-        $10::numeric,
-        $11::numeric,
-        $12::numeric,
-        $13::numeric,
-        $14::numeric,
-        $15::varchar,
-        $16::integer
-      )`,
-      [
-        Number(usuarioAutenticado.id_usuario),
-        Number(expedienteObj.id_paciente),
-        Number(expedienteObj.id_diagnostico),
-        expedienteObj.motivo,
-        valorONull(expedienteObj.antecedentes_personales),
-        valorONull(expedienteObj.antecedentes_familiares),
-        valorONull(expedienteObj.presion_arterial),
-        numeroONull(expedienteObj.frecuencia_cardiaca),
-        numeroONull(expedienteObj.frecuencia_respiratoria),
-        numeroONull(expedienteObj.temperatura),
-        numeroONull(expedienteObj.saturacion_oxigeno),
-        numeroONull(expedienteObj.peso),
-        numeroONull(expedienteObj.talla_cintura),
-        numeroONull(expedienteObj.altura),
-        valorONull(expedienteObj.observaciones),
-        null
-      ]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      const res = await client.query(
+        `CALL digiclin.sp_crear_expediente_desde_usuario(
+          $1::integer,
+          $2::integer,
+          $3::integer,
+          $4::varchar,
+          $5::varchar,
+          $6::varchar,
+          $7::varchar,
+          $8::numeric,
+          $9::numeric,
+          $10::numeric,
+          $11::numeric,
+          $12::numeric,
+          $13::numeric,
+          $14::numeric,
+          $15::varchar,
+          $16::integer
+        )`,
+        [
+          Number(usuarioAutenticado.id_usuario),
+          Number(expedienteObj.id_paciente),
+          Number(expedienteObj.id_diagnostico),
+          expedienteObj.motivo,
+          valorONull(expedienteObj.antecedentes_personales),
+          valorONull(expedienteObj.antecedentes_familiares),
+          valorONull(expedienteObj.presion_arterial),
+          numeroONull(expedienteObj.frecuencia_cardiaca),
+          numeroONull(expedienteObj.frecuencia_respiratoria),
+          numeroONull(expedienteObj.temperatura),
+          numeroONull(expedienteObj.saturacion_oxigeno),
+          numeroONull(expedienteObj.peso),
+          numeroONull(expedienteObj.talla_cintura),
+          numeroONull(expedienteObj.altura),
+          valorONull(expedienteObj.observaciones),
+          null
+        ]
+      );
 
-    idExpedienteGenerado = res.rows[0]?.p_id_expediente_generado;
+      idExpedienteGenerado = res.rows[0]?.p_id_expediente_generado;
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al crear expediente');
     error.statusCode = 400;
@@ -350,7 +353,7 @@ const crearExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
   return await obtenerPorId(idExpedienteGenerado);
 };
 
-const actualizarExpediente = async (expedienteObj = {}) => {
+const actualizarExpediente = async (expedienteObj = {}, usuarioAutenticado = {}) => {
   const id = validarId(expedienteObj.id_expediente, 'id_expediente');
 
   if (Object.prototype.hasOwnProperty.call(expedienteObj, 'fecha_consulta')) {
@@ -392,42 +395,44 @@ const actualizarExpediente = async (expedienteObj = {}) => {
   validarValoresExpediente(expedienteObj);
 
   try {
-    await db.query(
-      `CALL digiclin.sp_actualizar_expediente(
-        $1::integer,
-        $2::integer,
-        $3::integer,
-        $4::varchar,
-        $5::varchar,
-        $6::varchar,
-        $7::varchar,
-        $8::numeric,
-        $9::numeric,
-        $10::numeric,
-        $11::numeric,
-        $12::numeric,
-        $13::numeric,
-        $14::numeric,
-        $15::varchar
-      )`,
-      [
-        id,
-        expedienteObj.id_paciente ? Number(expedienteObj.id_paciente) : null,
-        expedienteObj.id_diagnostico ? Number(expedienteObj.id_diagnostico) : null,
-        valorONull(expedienteObj.motivo),
-        valorONull(expedienteObj.antecedentes_personales),
-        valorONull(expedienteObj.antecedentes_familiares),
-        valorONull(expedienteObj.presion_arterial),
-        numeroONull(expedienteObj.frecuencia_cardiaca),
-        numeroONull(expedienteObj.frecuencia_respiratoria),
-        numeroONull(expedienteObj.temperatura),
-        numeroONull(expedienteObj.saturacion_oxigeno),
-        numeroONull(expedienteObj.peso),
-        numeroONull(expedienteObj.talla_cintura),
-        numeroONull(expedienteObj.altura),
-        valorONull(expedienteObj.observaciones)
-      ]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        `CALL digiclin.sp_actualizar_expediente(
+          $1::integer,
+          $2::integer,
+          $3::integer,
+          $4::varchar,
+          $5::varchar,
+          $6::varchar,
+          $7::varchar,
+          $8::numeric,
+          $9::numeric,
+          $10::numeric,
+          $11::numeric,
+          $12::numeric,
+          $13::numeric,
+          $14::numeric,
+          $15::varchar
+        )`,
+        [
+          id,
+          expedienteObj.id_paciente ? Number(expedienteObj.id_paciente) : null,
+          expedienteObj.id_diagnostico ? Number(expedienteObj.id_diagnostico) : null,
+          valorONull(expedienteObj.motivo),
+          valorONull(expedienteObj.antecedentes_personales),
+          valorONull(expedienteObj.antecedentes_familiares),
+          valorONull(expedienteObj.presion_arterial),
+          numeroONull(expedienteObj.frecuencia_cardiaca),
+          numeroONull(expedienteObj.frecuencia_respiratoria),
+          numeroONull(expedienteObj.temperatura),
+          numeroONull(expedienteObj.saturacion_oxigeno),
+          numeroONull(expedienteObj.peso),
+          numeroONull(expedienteObj.talla_cintura),
+          numeroONull(expedienteObj.altura),
+          valorONull(expedienteObj.observaciones)
+        ]
+      );
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al actualizar expediente');
     error.statusCode = 400;
@@ -437,14 +442,16 @@ const actualizarExpediente = async (expedienteObj = {}) => {
   return await obtenerPorId(id);
 };
 
-const archivarExpediente = async (id_expediente) => {
+const archivarExpediente = async (id_expediente, usuarioAutenticado = {}) => {
   const id = validarId(id_expediente, 'id_expediente');
 
   try {
-    await db.query(
-      'CALL digiclin.sp_archivar_expediente($1::integer)',
-      [id]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        'CALL digiclin.sp_archivar_expediente($1::integer)',
+        [id]
+      );
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al archivar expediente');
     error.statusCode = 400;
@@ -454,14 +461,16 @@ const archivarExpediente = async (id_expediente) => {
   return await obtenerPorId(id);
 };
 
-const desarchivarExpediente = async (id_expediente) => {
+const desarchivarExpediente = async (id_expediente, usuarioAutenticado = {}) => {
   const id = validarId(id_expediente, 'id_expediente');
 
   try {
-    await db.query(
-      'CALL digiclin.sp_desarchivar_expediente($1::integer)',
-      [id]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        'CALL digiclin.sp_desarchivar_expediente($1::integer)',
+        [id]
+      );
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al desarchivar expediente');
     error.statusCode = 400;

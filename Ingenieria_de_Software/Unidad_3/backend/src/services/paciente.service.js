@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const { ejecutarConUsuarioBitacora } = require('../utils/bitacoraSesion');
 
 const normalizarCurp = (curp) => {
   return curp.trim().toUpperCase();
@@ -343,7 +344,7 @@ const buscarPorNombre = async (nombre, rol) => {
   return res.rows;
 };
 
-const crearPaciente = async (pacienteObj = {}) => {
+const crearPaciente = async (pacienteObj = {}, usuarioAutenticado = {}) => {
   const pacienteValidado = validarDatosPaciente(pacienteObj, true);
 
   if (!validarFormatoCurp(pacienteValidado.curp)) {
@@ -353,38 +354,40 @@ const crearPaciente = async (pacienteObj = {}) => {
   }
 
   try {
-    await db.query(
-      `CALL digiclin.sp_crear_paciente(
-        $1::varchar,
-        $2::varchar,
-        $3::varchar,
-        $4::date,
-        $5::varchar,
-        $6::varchar,
-        $7::varchar,
-        $8::varchar,
-        $9::varchar,
-        $10::varchar,
-        $11::varchar,
-        $12::varchar,
-        $13::varchar
-      )`,
-      [
-        pacienteValidado.nombre_p,
-        pacienteValidado.apellido_pat,
-        pacienteValidado.apellido_mat,
-        pacienteValidado.fecha_nacimiento,
-        pacienteValidado.nombre_sexo,
-        normalizarCurp(pacienteValidado.curp),
-        pacienteValidado.domicilio,
-        pacienteValidado.nombre_estado_civil || null,
-        pacienteValidado.correo || null,
-        pacienteValidado.ocupacion || null,
-        pacienteValidado.telefono,
-        pacienteValidado.contacto_emergencia,
-        pacienteValidado.nombre_tipo_sangre || null
-      ]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        `CALL digiclin.sp_crear_paciente(
+          $1::varchar,
+          $2::varchar,
+          $3::varchar,
+          $4::date,
+          $5::varchar,
+          $6::varchar,
+          $7::varchar,
+          $8::varchar,
+          $9::varchar,
+          $10::varchar,
+          $11::varchar,
+          $12::varchar,
+          $13::varchar
+        )`,
+        [
+          pacienteValidado.nombre_p,
+          pacienteValidado.apellido_pat,
+          pacienteValidado.apellido_mat,
+          pacienteValidado.fecha_nacimiento,
+          pacienteValidado.nombre_sexo,
+          normalizarCurp(pacienteValidado.curp),
+          pacienteValidado.domicilio,
+          pacienteValidado.nombre_estado_civil || null,
+          pacienteValidado.correo || null,
+          pacienteValidado.ocupacion || null,
+          pacienteValidado.telefono,
+          pacienteValidado.contacto_emergencia,
+          pacienteValidado.nombre_tipo_sangre || null
+        ]
+      );
+    });
   } catch (err) {
     if (err.code === '23505') {
       const error = new Error('La CURP ya está registrada');
@@ -407,7 +410,7 @@ const crearPaciente = async (pacienteObj = {}) => {
   return res.rows[0];
 };
 
-const actualizarPaciente = async (pacienteObj = {}) => {
+const actualizarPaciente = async (pacienteObj = {}, usuarioAutenticado = {}) => {
   if (!pacienteObj.curp) {
     const error = new Error('La CURP es obligatoria');
     error.statusCode = 400;
@@ -451,38 +454,40 @@ const actualizarPaciente = async (pacienteObj = {}) => {
   const pacienteValidado = validarDatosPaciente(pacienteObj, false);
 
   try {
-    await db.query(
-      `CALL digiclin.sp_actualizar_paciente(
-        $1::varchar,
-        $2::varchar,
-        $3::varchar,
-        $4::varchar,
-        $5::date,
-        $6::varchar,
-        $7::varchar,
-        $8::varchar,
-        $9::varchar,
-        $10::varchar,
-        $11::varchar,
-        $12::varchar,
-        $13::varchar
-      )`,
-      [
-        normalizarCurp(pacienteValidado.curp),
-        pacienteValidado.nombre_p || null,
-        pacienteValidado.apellido_pat || null,
-        pacienteValidado.apellido_mat || null,
-        pacienteValidado.fecha_nacimiento || null,
-        pacienteValidado.nombre_sexo || null,
-        pacienteValidado.domicilio || null,
-        pacienteValidado.nombre_estado_civil || null,
-        pacienteValidado.correo || null,
-        pacienteValidado.ocupacion || null,
-        pacienteValidado.telefono || null,
-        pacienteValidado.contacto_emergencia || null,
-        pacienteValidado.nombre_tipo_sangre || null
-      ]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        `CALL digiclin.sp_actualizar_paciente(
+          $1::varchar,
+          $2::varchar,
+          $3::varchar,
+          $4::varchar,
+          $5::date,
+          $6::varchar,
+          $7::varchar,
+          $8::varchar,
+          $9::varchar,
+          $10::varchar,
+          $11::varchar,
+          $12::varchar,
+          $13::varchar
+        )`,
+        [
+          normalizarCurp(pacienteValidado.curp),
+          pacienteValidado.nombre_p || null,
+          pacienteValidado.apellido_pat || null,
+          pacienteValidado.apellido_mat || null,
+          pacienteValidado.fecha_nacimiento || null,
+          pacienteValidado.nombre_sexo || null,
+          pacienteValidado.domicilio || null,
+          pacienteValidado.nombre_estado_civil || null,
+          pacienteValidado.correo || null,
+          pacienteValidado.ocupacion || null,
+          pacienteValidado.telefono || null,
+          pacienteValidado.contacto_emergencia || null,
+          pacienteValidado.nombre_tipo_sangre || null
+        ]
+      );
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al actualizar paciente');
     error.statusCode = 400;
@@ -505,7 +510,7 @@ const actualizarPaciente = async (pacienteObj = {}) => {
   return res.rows[0];
 };
 
-const corregirCurpPaciente = async ({ curp_actual, nuevo_curp }) => {
+const corregirCurpPaciente = async ({ curp_actual, nuevo_curp }, usuarioAutenticado = {}) => {
   if (!curp_actual) {
     const error = new Error('La CURP actual es obligatoria');
     error.statusCode = 400;
@@ -531,10 +536,12 @@ const corregirCurpPaciente = async ({ curp_actual, nuevo_curp }) => {
   }
 
   try {
-    await db.query(
-      'CALL digiclin.sp_corregir_curp_paciente($1::varchar, $2::varchar)',
-      [normalizarCurp(curp_actual), normalizarCurp(nuevo_curp)]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        'CALL digiclin.sp_corregir_curp_paciente($1::varchar, $2::varchar)',
+        [normalizarCurp(curp_actual), normalizarCurp(nuevo_curp)]
+      );
+    });
   } catch (err) {
     if (err.code === '23505') {
       const error = new Error('La nueva CURP ya está registrada');
@@ -550,14 +557,14 @@ const corregirCurpPaciente = async ({ curp_actual, nuevo_curp }) => {
   const res = await db.query(
     `SELECT *
      FROM digiclin.vw_paciente_identificador
-     WHERE UPPER(TRIM(curp)) = UPPER(TRIM($1::varchar))`,
+     WHERE curp = $1::varchar`,
     [normalizarCurp(nuevo_curp)]
   );
 
   return res.rows[0];
 };
 
-const inhabilitarPaciente = async (curp) => {
+const inhabilitarPaciente = async (curp, usuarioAutenticado = {}) => {
   if (!curp) {
     const error = new Error('La CURP es obligatoria');
     error.statusCode = 400;
@@ -571,10 +578,12 @@ const inhabilitarPaciente = async (curp) => {
   }
 
   try {
-    await db.query(
-      'CALL digiclin.sp_inhabilitar_paciente($1::varchar)',
-      [normalizarCurp(curp)]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        'CALL digiclin.sp_inhabilitar_paciente($1::varchar)',
+        [normalizarCurp(curp)]
+      );
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al inhabilitar paciente');
     error.statusCode = 400;
@@ -591,7 +600,7 @@ const inhabilitarPaciente = async (curp) => {
   return res.rows[0];
 };
 
-const habilitarPaciente = async (curp) => {
+const habilitarPaciente = async (curp, usuarioAutenticado = {}) => {
   if (!curp) {
     const error = new Error('La CURP es obligatoria');
     error.statusCode = 400;
@@ -605,10 +614,12 @@ const habilitarPaciente = async (curp) => {
   }
 
   try {
-    await db.query(
-      'CALL digiclin.sp_habilitar_paciente($1::varchar)',
-      [normalizarCurp(curp)]
-    );
+    await ejecutarConUsuarioBitacora(usuarioAutenticado, async (client) => {
+      await client.query(
+        'CALL digiclin.sp_habilitar_paciente($1::varchar)',
+        [normalizarCurp(curp)]
+      );
+    });
   } catch (err) {
     const error = new Error(err.message || 'Error al habilitar paciente');
     error.statusCode = 400;

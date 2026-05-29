@@ -32,9 +32,24 @@ export const recordService = {
     return res.data;
   },
 
-  // ⚡ CORREGIDO: Ajustado al estándar de nomenclatura inversa de base de datos (/desarchivar)
   async desarchivarExpediente(idExpediente: number) {
     const res = await api.put(`/api/v1/expedientes/${idExpediente}/desarchivar`);
+    return res.data;
+  },
+
+  // ⚡ NUEVOS ENDPOINTS DE BÚSQUEDA AVANZADA DESDE POSTMAN
+  async buscarPorIdPaciente(idPaciente: number) {
+    const res = await api.get(`/api/v1/expedientes/buscar/paciente/${idPaciente}`);
+    return res.data;
+  },
+
+  async buscarPorFechaConsulta(fecha: string) {
+    const res = await api.get(`/api/v1/expedientes/buscar/fecha?fecha_consulta=${fecha}`);
+    return res.data;
+  },
+
+  async buscarPorRangoFechas(fechaInicio: string, fechaFin: string) {
+    const res = await api.get(`/api/v1/expedientes/buscar/fechas?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`);
     return res.data;
   }
 };

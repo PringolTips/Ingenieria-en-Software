@@ -1,4 +1,4 @@
-//(app/index.tsx)
+// (app/index.tsx)
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -52,7 +52,6 @@ export default function LoginWebStyle() {
         if (userData.debe_cambiar_password) {
           router.replace('/change-password' as any);
         } else {
-          // Ajuste de ruteo: 'Medico' sin acento para coincidir con la carpeta
           switch (userData.nombre_rol) {
             case 'Admin':
               router.replace('/(admin)/dashboard' as any);
@@ -109,6 +108,7 @@ export default function LoginWebStyle() {
             <View style={styles.inputWrapper}>
               <Ionicons name="mail-outline" size={20} color={COLORS.muted} style={styles.inputIcon} />
               <TextInput
+                testID="input_login_usuario" // <--- AGREGADO PARA AUTOMATIZACIÓN
                 placeholder="usuario@ejemplo.com"
                 placeholderTextColor={COLORS.muted}
                 style={styles.input}
@@ -124,6 +124,7 @@ export default function LoginWebStyle() {
             <View style={styles.inputWrapper}>
               <Ionicons name="lock-closed-outline" size={20} color={COLORS.muted} style={styles.inputIcon} />
               <TextInput
+                testID="input_login_contrasena" // <--- AGREGADO PARA AUTOMATIZACIÓN
                 placeholder="••••••••"
                 placeholderTextColor={COLORS.muted}
                 secureTextEntry={!showPass}
@@ -146,6 +147,7 @@ export default function LoginWebStyle() {
           </View>
 
           <TouchableOpacity
+            testID="btn_login_entrar" // <--- AGREGADO PARA AUTOMATIZACIÓN
             style={styles.submitBtn}
             onPress={onLoginPress}
             activeOpacity={0.8}

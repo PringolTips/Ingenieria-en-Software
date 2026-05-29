@@ -37,6 +37,8 @@ export default function AdminLayout() {
       <Tabs.Screen name="menu" options={{ title: 'Menú', tabBarIcon: ({ color }) => <Ionicons name="menu" size={24} color={color} /> }} />
       <Tabs.Screen name="create-user" options={{ href: null }} />
       <Tabs.Screen name="inactive-users" options={{ href: null }} />
+      {/* ⚡ REGISTRO DE LA RUTA EXCLUSIVA DE LA BITÁCORA */}
+      <Tabs.Screen name="bitacora" options={{ title: 'Bitácora del Sistema', href: null }} />
     </Tabs>
   );
 }

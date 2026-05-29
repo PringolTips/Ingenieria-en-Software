@@ -10,7 +10,7 @@ import { patientService } from '../../services/patientService';
 
 export default function SearchPatient() {
   const router = useRouter();
-  const params = useLocalSearchParams(); // ⚡ DETECTA SI VENIMOS EN MODO CREACIÓN DESDE EL HISTORIAL
+  const params = useLocalSearchParams(); 
   
   const [patients, setPatients] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
@@ -99,10 +99,8 @@ export default function SearchPatient() {
     ]);
   };
 
-  // Interceptor inteligente de navegación
   const handlePatientPress = (item: any) => {
     if (isCreateMode) {
-      // ⚡ INTERCEPTOR DE FLUJO: Si venimos de crear, saltamos directo al formulario ahorrando clics
       router.push({
         pathname: '/records/create' as any,
         params: { id_paciente: item.id_paciente, curp: item.curp, nombre: item.nombre_completo || item.nombre_p }
@@ -118,7 +116,6 @@ export default function SearchPatient() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <Ionicons name="arrow-back" size={24} color="#1D70D1" />
         </TouchableOpacity>
-        {/* ⚡ CAMBIO DE INTERFAZ EN TIEMPO REAL COHERENTE CON LA ACCIÓN */}
         <Text style={styles.headerTitle}>
           {isCreateMode ? "Seleccionar Paciente para Consulta" : "Gestión de Pacientes"}
         </Text>

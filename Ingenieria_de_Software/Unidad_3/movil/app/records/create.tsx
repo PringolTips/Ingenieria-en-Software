@@ -14,8 +14,8 @@ export default function CreateRecord() {
 
   const [form, setForm] = useState({
     id_paciente: Number(params.id_paciente),
-    id_medico: 9, 
-    id_diagnostico: 7, 
+    id_medico: 0, 
+    id_diagnostico: 1, // ⚡ CORRECCIÓN: Ajustado a 1 tras la limpieza de la base de datos
     motivo: '',
     antecedentes_personales: '',
     antecedentes_familiares: '',
@@ -51,13 +51,18 @@ export default function CreateRecord() {
       return;
     }
 
+    if (form.id_medico === 0) {
+      Alert.alert("Error de Identidad", "No se detectó el ID del médico firmado. Cierra e inicia sesión.");
+      return;
+    }
+
     setLoading(true);
     try {
       const payload = {
         id_paciente: form.id_paciente,
         id_medico: form.id_medico,
         id_diagnostico: form.id_diagnostico,
-        fecha_consulta: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        //fecha_consulta: new Date().toISOString().slice(0, 19).replace('T', ' '),
         motivo: form.motivo.trim(),
         antecedentes_personales: form.antecedentes_personales.trim() || null,
         antecedentes_familiares: form.antecedentes_familiares.trim() || null,
@@ -83,9 +88,9 @@ export default function CreateRecord() {
     } catch (error: any) {
       console.error("[DevOps Create Record Error]:", error?.response?.data || error);
       if (error.code === "ERR_NETWORK") {
-        Alert.alert("Error de Conexión", "No se pudo establecer comunicación con el Backend.");
+        Alert.alert("Error de Conexión", "No se pudo establecer comunicación con el Backend. Revisa tu túnel.");
       } else if (error.response && error.response.data) {
-        const errorDetail = error.response.data.mensaje || error.response.data.error || "Error de validación.";
+        const errorDetail = error.response.data.mensaje || error.response.data.error || "Campos incorrectos.";
         Alert.alert("Error del Servidor", `${errorDetail}`);
       } else {
         Alert.alert("Error Técnico", "Ocurrió una excepción inesperada al guardar la consulta.");
@@ -112,7 +117,7 @@ export default function CreateRecord() {
 
         <Text style={styles.inputGroupTitle}>SIGNOS VITALES / SOMATOMETRÍA</Text>
         
-        {/* ⚡ PARCHE VISUAL: Se optimizó el fontSize y la altura de las celdas en el grid para evitar cortes */}
+        {/* ⚡ REDISEÑO: Celdas ampliadas a un gridInput específico de 56px de alto para evitar cortes visuales */}
         <View style={styles.row}>
           <TextInput style={[styles.input, styles.gridInput]} placeholder="P. Arterial (120/80)" placeholderTextColor="#94A3B8" value={form.presion_arterial} onChangeText={(t)=>setForm({...form, presion_arterial:t})}/>
           <TextInput style={[styles.input, styles.gridInput]} placeholder="Frec. Cardíaca (bpm)" placeholderTextColor="#94A3B8" keyboardType="decimal-pad" value={form.frecuencia_cardiaca} onChangeText={(t)=>setForm({...form, frecuencia_cardiaca:t})}/>
@@ -150,7 +155,7 @@ const styles = StyleSheet.create({
   patientLabel: { fontSize: 15, fontWeight: 'bold', color: '#1D70D1', marginBottom: 20 },
   inputGroupTitle: { fontSize: 11, fontWeight: 'bold', color: '#64748B', letterSpacing: 1, marginTop: 15, marginBottom: 10 },
   input: { backgroundColor: '#FFF', paddingHorizontal: 15, height: 52, borderRadius: 12, borderWidth: 1, borderColor: '#E2E8F0', marginBottom: 12, fontSize: 14, color: '#1E293B' },
-  gridInput: { height: 55, fontSize: 11.5, paddingHorizontal: 10 }, // ⚡ Ajuste ergonómico para columnas angostas
+  gridInput: { height: 56, fontSize: 12, paddingHorizontal: 10, flex: 1 }, 
   textArea: { height: 95, paddingTop: 14, textAlignVertical: 'top' },
   row: { flexDirection: 'row', gap: 10 },
   submitBtn: { backgroundColor: '#1D70D1', padding: 16, borderRadius: 12, alignItems: 'center', marginTop: 25, marginBottom: 30 },

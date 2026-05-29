@@ -26,13 +26,11 @@ export default function RegisterPatient() {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleRegister = async () => {
-    // 1. Validaciones básicas de presencia
     if (!form.nombre || !form.curp || !form.telefono || !form.contactoEmergencia) {
       Alert.alert("Atención", "El nombre, CURP, Teléfono y Contacto de Emergencia son obligatorios.");
       return;
     }
 
-    // ⚡ 2. VALIDACIÓN DE TELÉFONOS DIFERENTES
     if (form.telefono.trim() === form.contactoEmergencia.trim()) {
       Alert.alert(
         "Validación de Seguridad", 
@@ -48,7 +46,6 @@ export default function RegisterPatient() {
     if (res && res.ok) {
       Alert.alert("Éxito", "Paciente registrado correctamente", [{ text: "OK", onPress: () => router.back() }]);
     } else {
-      // Muestra el error real extraído desde el catch avanzado
       Alert.alert("Error de Registro", res?.mensaje || "No se pudo completar la operación.");
     }
   };
@@ -57,12 +54,14 @@ export default function RegisterPatient() {
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}><Ionicons name="arrow-back" size={24} color="#1D70D1" /></TouchableOpacity>
+        <TouchableOpacity testID="btn_regresar" onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="#1D70D1" />
+        </TouchableOpacity>
         <View style={{ flex: 1, marginLeft: 15 }}>
           <Text style={styles.headerTitle}>Registrar paciente</Text>
           <Text style={styles.headerSubtitle}>Completa los datos del nuevo paciente</Text>
         </View>
-        <TouchableOpacity style={styles.registerBtn} onPress={handleRegister} disabled={loading}>
+        <TouchableOpacity testID="btn_registrar_paciente" style={styles.registerBtn} onPress={handleRegister} disabled={loading}>
           {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.registerBtnText}>Registrar</Text>}
         </TouchableOpacity>
       </View>
@@ -70,16 +69,16 @@ export default function RegisterPatient() {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.formScroll} keyboardShouldPersistTaps="handled">
           <Text style={styles.sectionTitle}>— DATOS PERSONALES</Text>
-          <InputBlock label="NOMBRE" placeholder="Nombre" onChange={(v:string) => setForm({...form, nombre:v})} />
+          <InputBlock testID="input_nombre" label="NOMBRE" placeholder="Nombre" onChange={(v:string) => setForm({...form, nombre:v})} />
           <View style={styles.row}>
-            <InputBlock label="APELLIDO PATERNO" placeholder="Paterno" flex={1} onChange={(v:string) => setForm({...form, apPaterno:v})} />
+            <InputBlock testID="input_apPaterno" label="APELLIDO PATERNO" placeholder="Paterno" flex={1} onChange={(v:string) => setForm({...form, apPaterno:v})} />
             <View style={{width:10}}/>
-            <InputBlock label="APELLIDO MATERNO" placeholder="Materno" flex={1} onChange={(v:string) => setForm({...form, apMaterno:v})} />
+            <InputBlock testID="input_apMaterno" label="APELLIDO MATERNO" placeholder="Materno" flex={1} onChange={(v:string) => setForm({...form, apMaterno:v})} />
           </View>
 
           <Text style={styles.sectionTitle}>— INFORMACIÓN MÉDICA</Text>
           <View style={styles.row}>
-            <TouchableOpacity style={[styles.inputGroup, {flex:1}]} onPress={() => setShowDatePicker(true)}>
+            <TouchableOpacity testID="btn_fecha_nacimiento" style={[styles.inputGroup, {flex:1}]} onPress={() => setShowDatePicker(true)}>
               <Text style={styles.label}>FECHA DE NACIMIENTO</Text>
               <View style={styles.inputWrapper}>
                 <Ionicons name="calendar-outline" size={14} color="#64748B" />
@@ -87,49 +86,61 @@ export default function RegisterPatient() {
               </View>
             </TouchableOpacity>
             <View style={{width:10}}/>
-            <SelectBlock label="SEXO" data={SEX_DATA} flex={1} onSelect={(v:string) => setForm({...form, sexo:v})} value={form.sexo} />
+            <SelectBlock testID="select_sexo" label="SEXO" data={SEX_DATA} flex={1} onSelect={(v:string) => setForm({...form, sexo:v})} value={form.sexo} />
           </View>
           {showDatePicker && (
             <DateTimePicker value={form.fechaNacimiento} mode="date" display="default" onChange={(e, d) => { setShowDatePicker(false); if(d) setForm({...form, fechaNacimiento:d}); }} />
           )}
 
           <View style={styles.row}>
-            <SelectBlock label="TIPO DE SANGRE" data={BLOOD_DATA} flex={1} onSelect={(v:string) => setForm({...form, tipoSangre:v})} value={form.tipoSangre} />
+            <SelectBlock testID="select_tipoSangre" label="TIPO DE SANGRE" data={BLOOD_DATA} flex={1} onSelect={(v:string) => setForm({...form, tipoSangre:v})} value={form.tipoSangre} />
             <View style={{width:10}}/>
-            <InputBlock label="CURP" placeholder="18 caracteres" flex={1} maxLength={18} onChange={(v:string) => setForm({...form, curp:v})} />
+            <InputBlock testID="input_curp" label="CURP" placeholder="18 caracteres" flex={1} maxLength={18} onChange={(v:string) => setForm({...form, curp:v})} />
           </View>
 
           <Text style={styles.sectionTitle}>— CONTACTO Y PERSONAL</Text>
-          <InputBlock label="CORREO" placeholder="correo@ejemplo.com" onChange={(v:string) => setForm({...form, correo:v})} />
+          <InputBlock testID="input_correo" label="CORREO" placeholder="correo@ejemplo.com" onChange={(v:string) => setForm({...form, correo:v})} />
           <View style={styles.row}>
-            <InputBlock label="TELÉFONO" placeholder="10 dígitos" flex={1} maxLength={10} keyboardType="numeric" onChange={(v:string) => setForm({...form, telefono:v})} />
+            <InputBlock testID="input_telefono" label="TELÉFONO" placeholder="10 dígitos" flex={1} maxLength={10} keyboardType="numeric" onChange={(v:string) => setForm({...form, telefono:v})} />
             <View style={{width:10}}/>
-            <InputBlock label="OCUPACIÓN" placeholder="Ocupación" flex={1} onChange={(v:string) => setForm({...form, ocupacion:v})} />
+            <InputBlock testID="input_ocupacion" label="OCUPACIÓN" placeholder="Ocupación" flex={1} onChange={(v:string) => setForm({...form, ocupacion:v})} />
           </View>
-          <SelectBlock label="ESTADO CIVIL" data={CIVIL_DATA} onSelect={(v:string) => setForm({...form, estadoCivil:v})} value={form.estadoCivil} />
+          <SelectBlock testID="select_estadoCivil" label="ESTADO CIVIL" data={CIVIL_DATA} onSelect={(v:string) => setForm({...form, estadoCivil:v})} value={form.estadoCivil} />
           
           <Text style={styles.sectionTitle}>— DOMICILIO Y EMERGENCIA</Text>
-          <InputBlock label="DOMICILIO" placeholder="Calle, número, colonia" onChange={(v:string) => setForm({...form, domicilio:v})} />
-          <InputBlock label="CONTACTO EMERGENCIA" placeholder="Teléfono de contacto familiar" maxLength={10} keyboardType="numeric" onChange={(v:string) => setForm({...form, contactoEmergencia:v})} />
+          <InputBlock testID="input_domicilio" label="DOMICILIO" placeholder="Calle, número, colonia" onChange={(v:string) => setForm({...form, domicilio:v})} />
+          <InputBlock testID="input_contactoEmergencia" label="CONTACTO EMERGENCIA" placeholder="Teléfono de contacto familiar" maxLength={10} keyboardType="numeric" onChange={(v:string) => setForm({...form, contactoEmergencia:v})} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
-const InputBlock = ({ label, placeholder, flex=1, maxLength, keyboardType, onChange }: any) => (
+// Modificado para recibir y heredar el testID al TextInput real
+const InputBlock = ({ label, placeholder, flex=1, maxLength, keyboardType, onChange, testID }: any) => (
   <View style={[styles.inputGroup, { flex }]}>
     <Text style={styles.label}>{label}</Text>
-    <View style={styles.inputWrapper}><TextInput placeholder={placeholder} style={styles.input} placeholderTextColor="#CBD5E1" maxLength={maxLength} keyboardType={keyboardType} onChangeText={onChange} /></View>
+    <View style={styles.inputWrapper}>
+      <TextInput 
+        testID={testID} 
+        placeholder={placeholder} 
+        style={styles.input} 
+        placeholderTextColor="#CBD5E1" 
+        maxLength={maxLength} 
+        keyboardType={keyboardType} 
+        onChangeText={onChange} 
+      />
+    </View>
   </View>
 );
 
-const SelectBlock = ({ label, data, flex=1, onSelect, value }: any) => {
+// Modificado para recibir y heredar el testID al botón disparador del Modal
+const SelectBlock = ({ label, data, flex=1, onSelect, value, testID }: any) => {
   const [visible, setVisible] = useState(false);
   return (
     <View style={[styles.inputGroup, { flex }]}>
       <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity style={styles.inputWrapper} onPress={() => setVisible(true)}>
+      <TouchableOpacity testID={testID} style={styles.inputWrapper} onPress={() => setVisible(true)}>
         <Text style={[styles.inputText, !value && { color: '#CBD5E1' }]}>{value || "Selecciona"}</Text>
         <Ionicons name="chevron-down" size={12} color="#64748B" />
       </TouchableOpacity>

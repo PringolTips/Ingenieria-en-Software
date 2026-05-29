@@ -6,9 +6,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function AdminMenu() {
   const router = useRouter();
 
-  // ⚡ SEPARACIÓN DE RESPONSABILIDADES: El Admin ya no maneja pacientes
   const options = [
     { title: 'Alta de Personal', icon: 'person-add', route: '/(admin)/create-user' },
+    { title: 'Bitácora de Auditoría', icon: 'shield-checkmark', route: '/(admin)/bitacora' },
   ];
 
   return (
